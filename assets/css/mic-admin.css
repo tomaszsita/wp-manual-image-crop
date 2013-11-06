@@ -1,0 +1,55 @@
+#TB_window {
+	z-index: 260001 !important;
+}
+#TB_overlay {
+    z-index: 260000 !important;
+}
+
+.mic-editor-wrapper {
+	width: 940px;
+}
+
+.mic-left-col {
+	float: left;
+	width: 500px;
+	margin-right: 20px;
+}
+.mic-right-col {
+	float: left;
+	width: 400px;
+}
+
+.mic-48-col {
+	width: 48%;
+	float: right;
+	margin: 20px 0px;
+}
+
+.mic-52-col {
+	width: 48%;
+	float: left;
+	margin: 20px 0px;
+}
+
+.mic-centred {
+	text-align: center;
+}
+
+#micCropImage {
+	margin: auto !important;
+    display: block !important;
+	border-radius: 0;
+}
+
+#micLoading {
+	display: none;
+}
+
+.mic-editor-wrapper h2 .nav-tab {
+	font-size: 16px;
+	padding: 4px;
+}
+
+#micSuccessMessage, #micFailureMessage {
+	display: none;
+}
