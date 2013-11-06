@@ -2,16 +2,15 @@
 Contributors: tomasz.sita
 Tags: crop, cropping, thumbnail, featured image, gallery, images, picture, image, image area
 Requires at least: 3.0.1
-Tested up to: 3.7
+Tested up to: 3.7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 1.03
+Stable tag: 1.04
 
 Plugin allows you to manually crop all the image sizes registered in your WordPress theme (in particular featured image).
 
 
 == Description ==
-
 Plugin allows you to manually crop all the image sizes registered in your WordPress theme (in particular featured image).
 Simply click on the "Crop" link next to any image in your media library. 
 The "lightbox" style interface will be brought up and you are ready to go.
@@ -34,6 +33,10 @@ Automatically:
 
 
 == Changelog ==
+
+= 1.04 
+* Added remembering of the previously selected area after cropping the specific image size
+* Fixed the "wp_enqueue_script was called incorrectly" warning in the WP debug mode
 
 = 1.03 =
 * Fixed the issue with overwriting the original image when cropping image size registered after the attachment had been uploaded
