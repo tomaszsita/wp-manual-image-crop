@@ -3,13 +3,13 @@
 Plugin Name: Manual Image Crop
 Plugin URI: http://www.rocketmill.co.uk/wordpress-plugin-manual-image-crop
 Description: Plugin allows you to manually crop all the image sizes registered in your WordPress theme (in particular featured image). Simply click on the "Crop" link next to any image in your media library and select the area of the image you want to crop.
-Version: 1.03
+Version: 1.04
 Author: Tomasz Sita
 Author URI: http://www.rocketmill.co.uk/author/tomasz
 License: GPL2
 */
 
-define('mic_VERSION', '1.02');
+define('mic_VERSION', '1.04');
 
 include_once(dirname(__FILE__) . '/lib/ManualImageCrop.php');
 include_once(dirname(__FILE__) . '/lib/ManualImageCropEditorWindow.php');
