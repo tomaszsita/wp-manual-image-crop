@@ -31,6 +31,24 @@ Automatically:
 2. Search for 'Manual Imag Crop', and click install 
 3. When the plugin has been installed, Click 'Activate' 
 
+== Frequently Asked Questions ==
+= How to display additional image sizes with custom labels? =
+A theme can add custom image sizes in their functions.php file, the typical code looks like:
+
+`add_theme_support( 'post-thumbnails' );`
+`add_image_size( 'sample-thumb-mid', 400, 400, 1 );`
+`add_image_size( 'sample-thumb-big', 800, 400, 1 );`
+
+If you want these images to show up with custom friendly labels you need to use also **image_size_names_choose** filter, eg:
+
+`function add_my_image_size_labels ($sizes) {`
+`    $custom_sizes = array(`
+`        'sample-thumb-mid' => __('Custom label for middle size','your_theme_textdomain'),`
+`        'sample-thumb-big' => __('Custom label for big size','your_theme_textdomain')`
+`    );`
+`    return array_merge( $sizes, $custom_sizes );`
+`}`
+`add_filter('image_size_names_choose', 'add_my_image_size_labels');`
 
 == Changelog ==
 

@@ -26,14 +26,23 @@ class ManualImageCropEditorWindow {
 	public function renderWindow() {
 		?>
 		<div class="mic-editor-wrapper">
+            <h4><?php _e('Pick the image size:','microp'); ?></h4>
 			<h2 class="nav-tab-wrapper">
-			Pick the image size: <?php
+			<?php
 			global $_wp_additional_image_sizes;
 
 			$imageSizes = get_intermediate_image_sizes();
 
 			$editedSize = isset( $_GET['size'] ) ? $_GET['size'] : $imageSizes[0];
 			
+            $sizeLabels = apply_filters( 'image_size_names_choose', array(
+                'thumbnail' => __('Thumbnail'),
+                'medium'    => __('Medium'),
+                'large'     => __('Large'),
+                'full'      => __('Full Size'),
+            ) );
+            $sizeLabels = apply_filters( 'image_size_names_choose', array() );
+
 			foreach ($imageSizes as $s) {
 				if (isset($_wp_additional_image_sizes[$s])) {
 					$cropMethod = $_wp_additional_image_sizes[$s]['crop'];
@@ -43,7 +52,10 @@ class ManualImageCropEditorWindow {
 				if ($cropMethod == 0) {
 					continue;
 				}
-				echo '<a href="' . admin_url( 'admin-ajax.php' ) . '?action=mic_editor_window&size=' . $s . '&postId=' . $_GET['postId'] . '&width=940" class="rm-crop-size-tab nav-tab ' . ( ($s == $editedSize) ? 'nav-tab-active' : '' ) .  '">' . $s . '</a>';
+
+                // Get user defined label for the size or just cleanup a bit
+                $label = isset($sizeLabels[$s]) ? $sizeLabels[$s] : ucfirst( str_replace( '-', ' ', $s ) );
+				echo '<a href="' . admin_url( 'admin-ajax.php' ) . '?action=mic_editor_window&size=' . $s . '&postId=' . $_GET['postId'] . '&width=940" class="rm-crop-size-tab nav-tab ' . ( ($s == $editedSize) ? 'nav-tab-active' : '' ) .  '">' . $label . '</a>';
 			}
 			?>
 			</h2>
