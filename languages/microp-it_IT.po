@@ -1,0 +1,103 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Manual Image Crop v1.04\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2013-11-07 15:37:44+0000\n"
+"Last-Translator: admin <hantarex@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: CSL v1.x\n"
+"X-Poedit-Language: Italian\n"
+"X-Poedit-Country: ITALY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: \n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: lib/ManualImageCropEditorWindow.php:29
+#@ microp
+msgid "Pick the image size:"
+msgstr "Scegli la dimensione dell'immagine:"
+
+#: lib/ManualImageCropEditorWindow.php:39
+#@ default
+msgid "Thumbnail"
+msgstr ""
+
+#: lib/ManualImageCropEditorWindow.php:40
+#@ default
+msgid "Medium"
+msgstr ""
+
+#: lib/ManualImageCropEditorWindow.php:41
+#@ default
+msgid "Large"
+msgstr ""
+
+#: lib/ManualImageCropEditorWindow.php:42
+#@ default
+msgid "Full Size"
+msgstr ""
+
+#: lib/ManualImageCrop.php:67
+#@ microp
+msgid "Crop featured image"
+msgstr "Ritaglia immagine in evidenza"
+
+#: lib/ManualImageCrop.php:94
+#: lib/ManualImageCrop.php:121
+#@ microp
+msgid "Crop Image"
+msgstr "Ritaglia immagine"
+
+#: lib/ManualImageCropEditorWindow.php:151
+#@ microp
+msgid "Crop it!"
+msgstr "Ritagliala!"
+
+#: lib/ManualImageCropEditorWindow.php:153
+#@ microp
+msgid "The image has been cropped successfully"
+msgstr "L'immagine è stata ritagliata con successo"
+
+#: lib/ManualImageCropEditorWindow.php:154
+#@ microp
+msgid "An Error has occured. Please try again or contact plugin's author."
+msgstr "Si è verificato un errore. Prova di nuovo o contatta l'autore del plugin."
+
+#: lib/ManualImageCropEditorWindow.php:131
+#@ microp
+msgid "Original picture dimensions:"
+msgstr "Dimensione originale:"
+
+#: lib/ManualImageCropEditorWindow.php:132
+#@ microp
+msgid "Target picture dimensions:"
+msgstr "Dimensione obiettivo:"
+
+#: lib/ManualImageCropEditorWindow.php:132
+#@ microp
+msgid "Soft proportional crop mode"
+msgstr "Taglio proporzionale"
+
+#: lib/ManualImageCropEditorWindow.php:132
+#@ microp
+msgid "Hard crop mode"
+msgstr "Taglio non proporzionale"
+
+#: lib/ManualImageCropEditorWindow.php:136
+#@ microp
+msgid "New image:"
+msgstr "Nuova immagine:"
+
+#: lib/ManualImageCropEditorWindow.php:143
+#@ microp
+msgid "Previous image:"
+msgstr "Immagine precedente:"
+
