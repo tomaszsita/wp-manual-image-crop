@@ -55,7 +55,7 @@ class ManualImageCrop {
 	 */
 	public function addMediaEditorLinks($links, $post) {
 		if (preg_match('/image/', $post->post_mime_type)) {
-			$links['crop'] = '<a class="thickbox mic-link" rel="crop" title="Manual Image Crop" href="' . admin_url( 'admin-ajax.php' ) . '?action=mic_editor_window&postId=' . $post->ID . '">Crop</a>';
+			$links['crop'] = '<a class="thickbox mic-link" rel="crop" title="Manual Image Crop" href="' . admin_url( 'admin-ajax.php' ) . '?action=mic_editor_window&postId=' . $post->ID . '">' . __('Crop','microp') . '</a>';
 		}
 		return $links;
 	}

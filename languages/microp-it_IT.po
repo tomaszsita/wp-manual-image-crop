@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Manual Image Crop v1.04\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-11-07 15:37:44+0000\n"
+"PO-Revision-Date: 2013-11-07 15:56:07+0000\n"
 "Last-Translator: admin <hantarex@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -100,4 +100,9 @@ msgstr "Nuova immagine:"
 #@ microp
 msgid "Previous image:"
 msgstr "Immagine precedente:"
+
+#: lib/ManualImageCrop.php:58
+#@ microp
+msgid "Crop"
+msgstr "Ritaglia"
 
