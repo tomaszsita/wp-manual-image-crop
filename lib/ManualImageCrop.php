@@ -64,7 +64,7 @@ class ManualImageCrop {
 	 * Adds link below "Remoce feature image" in post editing form
 	 */
 	public function addCropFeatureImageEditorLink($content, $post) {
-		$content .= '<a id="micCropFeatureImage" class="thickbox mic-link" rel="crop" title="Manual Image Crop" href="' . admin_url( 'admin-ajax.php' ) . '?action=mic_editor_window&postId=' . get_post_thumbnail_id($post) . '">Crop featured image</a>
+		$content .= '<a id="micCropFeatureImage" class="thickbox mic-link" rel="crop" title="Manual Image Crop" href="' . admin_url( 'admin-ajax.php' ) . '?action=mic_editor_window&postId=' . get_post_thumbnail_id($post) . '">' . __('Crop featured image','microp') . '</a>
 <script>
 setInterval(function() {
 	if (jQuery(\'#remove-post-thumbnail\').is(\':visible\')) {
@@ -91,7 +91,7 @@ setInterval(function() {
 						var mRegexp = /\?post=([0-9]+)/; 
 						var match = mRegexp.exec(jQuery('.details .edit-attachment').attr('href'));
 						jQuery('.edit-attachment.crop-image').remove();
-						jQuery('.details .edit-attachment').after( '<a class="thickbox mic-link edit-attachment crop-image" rel="crop" title="Manual Image Crop" href="' + ajaxurl + '?action=mic_editor_window&postId=' + match[1] + '">Crop Image</a>' );
+						jQuery('.details .edit-attachment').after( '<a class="thickbox mic-link edit-attachment crop-image" rel="crop" title="Manual Image Crop" href="' + ajaxurl + '?action=mic_editor_window&postId=' + match[1] + '"><?php _e('Crop Image','microp') ?></a>' );
 					} catch (e) {
 						console.log(e);
 					}
@@ -118,7 +118,7 @@ setInterval(function() {
 							var mRegexp = /\?post=([0-9]+)/; 
 							var match = mRegexp.exec(jQuery(this).attr('href'));
 							if (!jQuery(this).parent().find('.edit-attachment.crop-image').length && jQuery(this).parent().find('.pinkynail').attr('src').match(/upload/g)) {
-								jQuery(this).after( '<a class="thickbox mic-link edit-attachment crop-image" rel="crop" title="Manual Image Crop" href="' + ajaxurl + '?action=mic_editor_window&postId=' + match[1] + '">Crop Image</a>' );
+								jQuery(this).after( '<a class="thickbox mic-link edit-attachment crop-image" rel="crop" title="Manual Image Crop" href="' + ajaxurl + '?action=mic_editor_window&postId=' + match[1] + '"><?php _e('Crop Image','microp') ?></a>' );
 							}
 						} catch (e) {
 							console.log(e);

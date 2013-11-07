@@ -11,11 +11,11 @@ License: GPL2
 
 define('mic_VERSION', '1.04');
 
+
 include_once(dirname(__FILE__) . '/lib/ManualImageCrop.php');
 include_once(dirname(__FILE__) . '/lib/ManualImageCropEditorWindow.php');
 
 //mic - stands for Manual Image Crop
-
 
 add_action('plugins_loaded', 'mic_init_plugin');
 
@@ -27,6 +27,8 @@ function mic_init_plugin() {
 		//we are gonna use our plugin in the admin area only, so ends here if it's a frontend
 		return;
 	}
+
+    load_plugin_textdomain('microp', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 
 	$ManualImageCrop = ManualImageCrop::getInstance();
 	add_action( 'admin_enqueue_scripts', array($ManualImageCrop, 'enqueueAssets') );
