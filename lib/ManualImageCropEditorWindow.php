@@ -55,7 +55,7 @@ class ManualImageCropEditorWindow {
 
                 // Get user defined label for the size or just cleanup a bit
                 $label = isset($sizeLabels[$s]) ? $sizeLabels[$s] : ucfirst( str_replace( '-', ' ', $s ) );
-				echo '<a href="' . admin_url( 'admin-ajax.php' ) . '?action=mic_editor_window&size=' . $s . '&postId=' . $_GET['postId'] . '&width=940" class="rm-crop-size-tab nav-tab ' . ( ($s == $editedSize) ? 'nav-tab-active' : '' ) .  '">' . $label . '</a>';
+				echo '<a href="' . admin_url( 'admin-ajax.php' ) . '?action=mic_editor_window&size=' . $s . '&postId=' . $_GET['postId'] . '&width=940" class="mic-icon-' . $s . ' rm-crop-size-tab nav-tab ' . ( ($s == $editedSize) ? 'nav-tab-active' : '' ) .  '">' . $label . '</a>';
 			}
 			?>
 			</h2>

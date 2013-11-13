@@ -50,6 +50,17 @@ If you want these images to show up with custom friendly labels you need to use 
 `}`
 `add_filter('image_size_names_choose', 'add_my_image_size_labels');`
 
+= How to add a custom icon to additional image size tabs? =
+First you need to load a custom admin stylesheet in your functions.php
+
+`function load_custom_wp_admin_style() {`
+`    wp_enqueue_style( 'custom_wp_admin_css', get_stylesheet_directory_uri() . '/css/admin-style.css', array(), '0.1', 'all' );`
+`}`
+`add_action( 'admin_enqueue_scripts', 'load_custom_wp_admin_style' );`
+
+in admin-style.css add something like
+`.mic-icon-YOUR_CUSTOM_SIZE_ID { ... }`
+
 == Changelog ==
 
 = 1.04 
