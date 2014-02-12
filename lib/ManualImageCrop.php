@@ -138,6 +138,13 @@ setInterval(function() {
 		global $_wp_additional_image_sizes;
 
 		$uploadsDir = wp_upload_dir();
+		
+		// checks for ssl. wp_upload_dir does not handle ssl (ssl admin trips on this and subsequent ajax success to browser)
+		if (is_ssl()) {
+			
+                $uploadsDir['baseurl'] = preg_replace('#^http://#i', 'https://', $uploadsDir['baseurl']);
+                              
+                }
 
 		$src_file_url = wp_get_attachment_image_src($_POST['attachmentId'], 'full');
 
@@ -165,7 +172,7 @@ setInterval(function() {
 			//saves new path to the image size in the database
 			wp_update_attachment_metadata( $_POST['attachmentId'],  $attachmentData );
 			
-			//retirives the new url to file (needet to refresh the preview)
+			//retrieves the new url to file (needet to refresh the preview)
 			$dst_file_url = wp_get_attachment_image_src($_POST['attachmentId'], $_POST['editedSize']);
 		}
 
