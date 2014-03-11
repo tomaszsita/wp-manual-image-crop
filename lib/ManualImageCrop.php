@@ -55,16 +55,16 @@ class ManualImageCrop {
 	 */
 	public function addMediaEditorLinks($links, $post) {
 		if (preg_match('/image/', $post->post_mime_type)) {
-			$links['crop'] = '<a class="thickbox mic-link" rel="crop" title="Manual Image Crop" href="' . admin_url( 'admin-ajax.php' ) . '?action=mic_editor_window&postId=' . $post->ID . '">Crop</a>';
+			$links['crop'] = '<a class="thickbox mic-link" rel="crop" title="Manual Image Crop" href="' . admin_url( 'admin-ajax.php' ) . '?action=mic_editor_window&postId=' . $post->ID . '">' . __('Crop','microp') . '</a>';
 		}
 		return $links;
 	}
 
 	/**
-	 * Adds link below "Remoce feature image" in post editing form
+	 * Adds link below "Remove featured image" in post editing form
 	 */
 	public function addCropFeatureImageEditorLink($content, $post) {
-		$content .= '<a id="micCropFeatureImage" class="thickbox mic-link" rel="crop" title="Manual Image Crop" href="' . admin_url( 'admin-ajax.php' ) . '?action=mic_editor_window&postId=' . get_post_thumbnail_id($post) . '">Crop featured image</a>
+		$content .= '<a id="micCropFeatureImage" class="thickbox mic-link" rel="crop" title="Manual Image Crop" href="' . admin_url( 'admin-ajax.php' ) . '?action=mic_editor_window&postId=' . get_post_thumbnail_id($post) . '">' . __('Crop featured image','microp') . '</a>
 <script>
 setInterval(function() {
 	if (jQuery(\'#remove-post-thumbnail\').is(\':visible\')) {
@@ -91,7 +91,7 @@ setInterval(function() {
 						var mRegexp = /\?post=([0-9]+)/; 
 						var match = mRegexp.exec(jQuery('.details .edit-attachment').attr('href'));
 						jQuery('.edit-attachment.crop-image').remove();
-						jQuery('.details .edit-attachment').after( '<a class="thickbox mic-link edit-attachment crop-image" rel="crop" title="Manual Image Crop" href="' + ajaxurl + '?action=mic_editor_window&postId=' + match[1] + '">Crop Image</a>' );
+						jQuery('.details .edit-attachment').after( '<a class="thickbox mic-link edit-attachment crop-image" rel="crop" title="Manual Image Crop" href="' + ajaxurl + '?action=mic_editor_window&postId=' + match[1] + '"><?php _e('Crop Image','microp') ?></a>' );
 					} catch (e) {
 						console.log(e);
 					}
@@ -118,7 +118,7 @@ setInterval(function() {
 							var mRegexp = /\?post=([0-9]+)/; 
 							var match = mRegexp.exec(jQuery(this).attr('href'));
 							if (!jQuery(this).parent().find('.edit-attachment.crop-image').length && jQuery(this).parent().find('.pinkynail').attr('src').match(/upload/g)) {
-								jQuery(this).after( '<a class="thickbox mic-link edit-attachment crop-image" rel="crop" title="Manual Image Crop" href="' + ajaxurl + '?action=mic_editor_window&postId=' + match[1] + '">Crop Image</a>' );
+								jQuery(this).after( '<a class="thickbox mic-link edit-attachment crop-image" rel="crop" title="Manual Image Crop" href="' + ajaxurl + '?action=mic_editor_window&postId=' + match[1] + '"><?php _e('Crop Image','microp') ?></a>' );
 							}
 						} catch (e) {
 							console.log(e);
@@ -149,7 +149,7 @@ setInterval(function() {
 		$src_file_url = wp_get_attachment_image_src($_POST['attachmentId'], 'full');
 
 		if (!$src_file_url) {
-			echo json_encode (array('status' => 'error', 'message' => 'wrong attachement' ) );
+			echo json_encode (array('status' => 'error', 'message' => 'wrong attachment' ) );
 			exit;
 		}
 
@@ -208,25 +208,34 @@ setInterval(function() {
 																);
 		wp_update_attachment_metadata($_POST['attachmentId'], $imageMetadata);
 
-		//determines what's the image format
-		$ext = pathinfo($src_file, PATHINFO_EXTENSION);
-		if ($ext == "gif"){
-			$src_img = imagecreatefromgif($src_file);
-		} else if($ext =="png"){
-			$src_img = imagecreatefrompng($src_file);
-		} else {
-			$src_img = imagecreatefromjpeg($src_file);
-		}
-		$dst_img = imagecreatetruecolor($dst_w, $dst_h);
-		imagecopyresampled($dst_img, $src_img, $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h);
+        if ( function_exists('wp_get_image_editor') ) {
+            $img = wp_get_image_editor( $src_file );
+            if ( ! is_wp_error( $img ) ) {
+                $img->crop( $src_x, $src_y, $src_w, $src_h, $dst_w, $dst_h, false );
+                $img->set_quality( 80 );
+                $img->save($dst_file);
+            }
+        } else {
+            //determines what's the image format
+            $ext = pathinfo($src_file, PATHINFO_EXTENSION);
+            if ($ext == "gif"){
+                $src_img = imagecreatefromgif($src_file);
+            } else if($ext =="png"){
+                $src_img = imagecreatefrompng($src_file);
+            } else {
+                $src_img = imagecreatefromjpeg($src_file);
+            }
+            $dst_img = imagecreatetruecolor($dst_w, $dst_h);
+            imagecopyresampled($dst_img, $src_img, $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h);
 
-		if ($ext == "gif"){
-			imagegif($dst_img, $dst_file);
-		} else if($ext =="png"){
-			imagepng($dst_img, $dst_file);
-		} else {
-			imagejpeg($dst_img, $dst_file, 80);
-		}
+            if ($ext == "gif"){
+                imagegif($dst_img, $dst_file);
+            } else if($ext =="png"){
+                imagepng($dst_img, $dst_file);
+            } else {
+                imagejpeg($dst_img, $dst_file, 80);
+            }
+        }
 
 		//returns the url to the generated image (to allow refreshing the preview)
 		echo json_encode (array('status' => 'ok', 'file' => $dst_file_url[0] . '?' . time() ) );
