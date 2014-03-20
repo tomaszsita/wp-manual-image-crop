@@ -236,6 +236,37 @@ setInterval(function() {
                 imagejpeg($dst_img, $dst_file, 80);
             }
         }
+        
+		// Generate Retina Image
+		if(true) { // should build in some preference for enabling/disabling retina generation
+			$dst_w2x = $dst_w * 2;
+			$dst_h2x = $dst_h * 2;
+		
+			$dot = strrpos($dst_file,".");
+			$dst_file2x = substr($dst_file,0,$dot).'@2x'.substr($dst_file,$dot);
+		
+			// Check image size and create the retina file if possible
+			if ( $src_w2x > $dst_w2x && $src_h2x > $dst_h2x) {
+				if ( function_exists('wp_get_image_editor') ) {
+					$img = wp_get_image_editor( $src_file );
+					if ( ! is_wp_error( $img ) ) {
+						$img->crop( $src_x, $src_y, $src_w, $src_h, $dst_w2x, $dst_h2x, false );
+						$img->set_quality( 80 );
+						$img->save($dst_file2x);
+					}
+				} else {			
+					$dst_img2x = imagecreatetruecolor($dst_w2x, $dst_h2x);
+					imagecopyresampled($dst_img2x, $src_img, $dst_x, $dst_y, $src_x, $src_y, $dst_w2x, $dst_h2x, $src_w, $src_h);
+					if ($ext == "gif"){
+						imagegif($dst_img2x, $dst_file2x);
+					} else if($ext =="png"){
+						imagepng($dst_img2x, $dst_file2x);
+					} else {
+						imagejpeg($dst_img2x, $dst_file2x, 80);
+					}
+				}
+			}
+		}
 
 		//returns the url to the generated image (to allow refreshing the preview)
 		echo json_encode (array('status' => 'ok', 'file' => $dst_file_url[0] . '?' . time() ) );
