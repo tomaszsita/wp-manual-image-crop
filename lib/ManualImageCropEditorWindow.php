@@ -192,11 +192,11 @@ class ManualImageCropEditorWindow {
 					marginTop: '-' + Math.round(ry * coords.y) + 'px'
 				});
 				
-				var mic_2xok = Math.round(coords.w*mic_preview_scale) > (<?php echo $smallPreviewWidth; ?> * 2);
+				var mic_2xok = Math.round(coords.w*mic_preview_scale) > (<?php echo $width; ?> * 2);
 				if(mic_2xok === true) {
-				  $('#mic-2x-status').toggleClass('mic-ok', mic_2xok).html('Compatible');
+				  $('#mic-2x-status').toggleClass('mic-ok', mic_2xok).html("<?php _e('Compatible', 'microp') ?>");
 				} else {
-				  $('#mic-2x-status').toggleClass('mic-ok', mic_2xok).html('Source too small');
+				  $('#mic-2x-status').toggleClass('mic-ok', mic_2xok).html("<?php _e('Source too small', 'microp') ?>");
 				}
 				$('#mic-2x-status').show();
 			}
