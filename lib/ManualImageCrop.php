@@ -246,7 +246,7 @@ setInterval(function() {
 			$dst_file2x = substr($dst_file,0,$dot).'@2x'.substr($dst_file,$dot);
 		
 			// Check image size and create the retina file if possible
-			if ( $src_w2x > $dst_w2x && $src_h2x > $dst_h2x) {
+			if ( $src_w > $dst_w2x && $src_h > $dst_h2x) {
 				if ( function_exists('wp_get_image_editor') ) {
 					$img = wp_get_image_editor( $src_file );
 					if ( ! is_wp_error( $img ) ) {
