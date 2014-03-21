@@ -13,7 +13,7 @@ jQuery(document).ready(function($) {
 	$( document ).on('click', '#micCropImage', function() {
 		$('#micCropImage').hide();
 		$('#micLoading').show();
-		$.post(ajaxurl + '?action=mic_crop_image', { select: jcrop_api.tellSelect(), scaled: jcrop_api.tellScaled(), attachmentId: mic_attachment_id, editedSize: mic_edited_size,  previewScale: mic_preview_scale } ,  function(response) {
+		$.post(ajaxurl + '?action=mic_crop_image', { select: jcrop_api.tellSelect(), scaled: jcrop_api.tellScaled(), attachmentId: mic_attachment_id, editedSize: mic_edited_size,  previewScale: mic_preview_scale, make2x: $('#mic-make-2x').prop('checked') } ,  function(response) {
 			if (response.status == 'ok') {
 				var newImage = new Image();
 				newImage.src = response.file;

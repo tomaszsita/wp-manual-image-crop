@@ -238,7 +238,7 @@ setInterval(function() {
         }
         
 		// Generate Retina Image
-		if(true) { // should build in some preference for enabling/disabling retina generation
+		if($_POST['make2x'] === 'true') {
 			$dst_w2x = $dst_w * 2;
 			$dst_h2x = $dst_h * 2;
 		
