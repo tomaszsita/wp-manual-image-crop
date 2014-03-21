@@ -61,7 +61,7 @@
 #mic-2x-status:before {
 	display: inline-block;
 	-webkit-font-smoothing: antialiased;
-	font: normal 20px/1 'dashicons';
+	font: normal 18px/1 'dashicons';
 	vertical-align: top;
 	content: "\f158";
 	color: #dd3d36;
@@ -70,7 +70,7 @@
 #mic-2x-status.mic-ok:before {
 	display: inline-block;
 	-webkit-font-smoothing: antialiased;
-	font: normal 20px/1 'dashicons';
+	font: normal 18px/1 'dashicons';
 	vertical-align: top;
 	content: "\f147";
 	color: #7ad03a;
