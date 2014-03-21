@@ -56,7 +56,6 @@
 
 #mic-2x-status {
 	font-weight: bold;
-	display: none;
 }
 
 #mic-2x-status:before {

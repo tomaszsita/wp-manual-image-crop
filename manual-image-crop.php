@@ -19,6 +19,8 @@ include_once(dirname(__FILE__) . '/lib/ManualImageCropEditorWindow.php');
 
 add_action('plugins_loaded', 'mic_init_plugin');
 
+add_option('mic_make2x', 'true'); //Add option so we can persist make2x choice across sessions
+
 /**
  * inits the plugin
  */

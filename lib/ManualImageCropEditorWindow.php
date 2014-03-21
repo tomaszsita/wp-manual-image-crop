@@ -130,7 +130,7 @@ class ManualImageCropEditorWindow {
 				<div>
 					<?php _e('Original picture dimensions:','microp') ?> <strong><?php echo $sizes[0]; ?> x <?php echo $sizes[1]; ?> px</strong><br />
                     <?php _e('Target picture dimensions:','microp') ?> <strong><?php echo $width; ?>px x <?php echo $height; ?>px</strong> (<?php if ($cropMethod == 0) { _e('Soft proportional crop mode','microp'); }else { _e('Hard crop mode','microp'); } ?>)<br/>
-					<input type="checkbox" id="mic-make-2x" checked="checked" /> <?php _e('Generate Retina/HiDPI (@2x):','microp') ?> <span id="mic-2x-status">No</span>
+					<input type="checkbox" id="mic-make-2x" <?php if(get_option('mic_make2x') === 'true' ) echo 'checked="checked "' ?>/> <?php _e('Generate Retina/HiDPI (@2x):','microp') ?> <span id="mic-2x-status" <?php if(get_option('mic_make2x') !== 'true' ) echo 'style="display: none;"'?>></span>
 				</div>
 				
 				<div class="mic-52-col">
@@ -198,7 +198,6 @@ class ManualImageCropEditorWindow {
 				} else {
 				  $('#mic-2x-status').toggleClass('mic-ok', mic_2xok).html("<?php _e('Source too small', 'microp') ?>");
 				}
-				$('#mic-2x-status').show();
 			}
 		});
 		</script>

@@ -267,6 +267,8 @@ setInterval(function() {
 				}
 			}
 		}
+		// update 'mic_make2x' option status to persist choice  
+		if($_POST['make2x'] !== get_option('mic_make2x')) update_option('mic_make2x', $_POST['make2x']);
 
 		//returns the url to the generated image (to allow refreshing the preview)
 		echo json_encode (array('status' => 'ok', 'file' => $dst_file_url[0] . '?' . time() ) );
