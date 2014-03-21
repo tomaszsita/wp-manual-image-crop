@@ -129,7 +129,8 @@ class ManualImageCropEditorWindow {
 			<div class="mic-right-col">
 				<div>
 					<?php _e('Original picture dimensions:','microp') ?> <strong><?php echo $sizes[0]; ?> x <?php echo $sizes[1]; ?> px</strong><br />
-                    <?php _e('Target picture dimensions:','microp') ?> <strong><?php echo $width; ?>px x <?php echo $height; ?>px</strong> (<?php if ($cropMethod == 0) { _e('Soft proportional crop mode','microp'); }else { _e('Hard crop mode','microp'); } ?>)
+                    <?php _e('Target picture dimensions:','microp') ?> <strong><?php echo $width; ?>px x <?php echo $height; ?>px</strong> (<?php if ($cropMethod == 0) { _e('Soft proportional crop mode','microp'); }else { _e('Hard crop mode','microp'); } ?>)<br/>
+					Retina compatible: <span class="mic-2x-ok">No</span>
 				</div>
 				
 				<div class="mic-52-col">
@@ -188,6 +189,12 @@ class ManualImageCropEditorWindow {
 					marginLeft: '-' + Math.round(rx * coords.x) + 'px',
 					marginTop: '-' + Math.round(ry * coords.y) + 'px'
 				});
+				
+				if(Math.round(coords.w*mic_preview_scale) > (<?php echo $smallPreviewWidth; ?> * 2)) {
+				  $('.mic-2x-ok').html('True'+Math.round(coords.w*mic_preview_scale));
+				} else {
+				  $('.mic-2x-ok').html('False'+Math.round(coords.w*mic_preview_scale));
+				}
 			}
 		});
 		</script>
