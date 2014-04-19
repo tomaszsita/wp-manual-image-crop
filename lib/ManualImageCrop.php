@@ -153,14 +153,17 @@ setInterval(function() {
 			exit;
 		}
 
-		$src_file = str_replace($uploadsDir['baseurl'], $uploadsDir['basedir'], $src_file_url[0]);
+                // User uploadsDir path to avoid http vs. https conflicts in URL matching.
+                // This assumes the wp_upload_dir() path is correct, which seems reasonable
+                $src_file = trailingslashit($uploadsDir['path']) . basename($src_file_url[0]);
 
-		$dst_file_url = wp_get_attachment_image_src($_POST['attachmentId'], $_POST['editedSize']);
-		if (!$dst_file_url) {
-			echo json_encode (array('status' => 'error', 'message' => 'wrong size' ) );
-			exit;
-		}
-		$dst_file = str_replace($uploadsDir['baseurl'], $uploadsDir['basedir'], $dst_file_url[0]);
+                $dst_file_url = wp_get_attachment_image_src($_POST['attachmentId'], $_POST['editedSize']);
+                if (!$dst_file_url) {
+                        echo json_encode (array('status' => 'error', 'message' => 'wrong size' ) );
+                        exit;
+                }
+
+                $dst_file = trailingslashit($uploadsDir['path']) . basename($dst_file_url[0]);
 
 		//checks if the destination image file is present (if it's not, we want to create a new file, as the WordPress returns the original image instead of specific one)
 		if ($dst_file == $src_file) {
