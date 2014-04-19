@@ -53,3 +53,23 @@
 #micSuccessMessage, #micFailureMessage {
 	display: none;
 }
+
+#mic-2x-status {
+	font-weight: bold;
+	display: none;
+}
+
+#mic-2x-status:before {
+	display: inline-block;
+	-webkit-font-smoothing: antialiased;
+	font: normal 20px/1 'dashicons';
+	vertical-align: top;
+	content: "\f158";
+	color: #dd3d36;
+	line-height: 0.8em;
+}
+
+#mic-2x-status.mic-ok:before {
+	content: "\f147";
+	color: #7ad03a;
+}
