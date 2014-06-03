@@ -31,7 +31,7 @@ class ManualImageCropEditorWindow {
 			<?php
 			global $_wp_additional_image_sizes;
 
-			$imageSizes = get_intermediate_image_sizes();
+			$imageSizes = apply_filters('mic_image_sizes', get_intermediate_image_sizes());
 
 			$editedSize = isset( $_GET['size'] ) ? $_GET['size'] : $imageSizes[0];
 			
