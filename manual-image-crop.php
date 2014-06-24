@@ -14,6 +14,7 @@ define('mic_VERSION', '1.04');
 
 include_once(dirname(__FILE__) . '/lib/ManualImageCrop.php');
 include_once(dirname(__FILE__) . '/lib/ManualImageCropEditorWindow.php');
+include_once(dirname(__FILE__) . '/lib/ManualImageCropSettingsPage.php');
 
 //mic - stands for Manual Image Crop
 

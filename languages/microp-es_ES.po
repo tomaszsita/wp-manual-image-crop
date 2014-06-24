@@ -2,13 +2,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mic\n"
 "POT-Creation-Date: 2014-05-13 22:40-0000\n"
-"PO-Revision-Date: 2014-05-13 22:41-0000\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2014-05-19 12:27+0100\n"
+"Last-Translator: jelena kovacevic <jecajeca260@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Generator: Poedit 1.5.5\n"
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: C:\\wamp\\www\\wordpress\\wp-content\\plugins\\manual-"
@@ -16,148 +16,150 @@ msgstr ""
 
 #: manual-image-crop/lib/ManualImageCrop.php:58
 msgid "Crop"
-msgstr "Ritaglia"
+msgstr "Recortar"
 
 #: manual-image-crop/lib/ManualImageCrop.php:67
 msgid "Crop featured image"
-msgstr "Ritaglia immagine in evidenza"
+msgstr "Recortar Imagen destacada"
 
 #: manual-image-crop/lib/ManualImageCrop.php:94
 #: manual-image-crop/lib/ManualImageCrop.php:121
 msgid "Crop Image"
-msgstr "Ritaglia immagine"
+msgstr "Recortar Imagen"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:31
 msgid "Pick the image size:"
-msgstr "Scegli la dimensione dell'immagine:"
+msgstr "Elija el tamaño correcto:"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:41
 #: manual-image-crop/lib/ManualImageCropSettingsPage.php:115
 msgid "Thumbnail"
-msgstr ""
+msgstr "Miniatura "
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:42
 #: manual-image-crop/lib/ManualImageCropSettingsPage.php:116
 msgid "Medium"
-msgstr ""
+msgstr "Mediano"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:43
 #: manual-image-crop/lib/ManualImageCropSettingsPage.php:117
 msgid "Large"
-msgstr ""
+msgstr "Grande"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:44
 #: manual-image-crop/lib/ManualImageCropSettingsPage.php:118
 msgid "Full Size"
-msgstr ""
+msgstr "Tamaño Completo "
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:142
 msgid "Original picture dimensions:"
-msgstr "Dimensione originale:"
+msgstr "Dimensiones originales de la imagen"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:143
 msgid "Target picture dimensions:"
-msgstr "Dimensione obiettivo:"
+msgstr "Dimensiones de imagen objetivo"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:143
 msgid "Soft proportional crop mode"
-msgstr "Taglio proporzionale"
+msgstr "Modo de recorte suave proporcional"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:143
 msgid "Hard crop mode"
-msgstr "Taglio non proporzionale"
+msgstr "Modo de recorte duro "
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:147
 msgid "New image:"
-msgstr "Nuova immagine:"
+msgstr "Nueva Imagen:"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:154
 msgid "Previous image:"
-msgstr "Immagine precedente:"
+msgstr "Imagen Anterior:"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:162
 msgid "Crop it!"
-msgstr "Ritagliala!"
+msgstr "¡Recórtala!"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:169
 msgid "Target JPEG Quality"
-msgstr ""
+msgstr "Calidad de JPEG Objetivo"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:170
 #: manual-image-crop/lib/ManualImageCropSettingsPage.php:154
 msgid "100 (best quality, biggest file)"
-msgstr ""
+msgstr "100 (mejor calidad, archivo más grande)"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:171
 #: manual-image-crop/lib/ManualImageCropSettingsPage.php:155
 msgid "80 (very high quality)"
-msgstr ""
+msgstr "80 (muy alta calidad)"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:172
 #: manual-image-crop/lib/ManualImageCropSettingsPage.php:156
 msgid "70 (high quality)"
-msgstr ""
+msgstr "70 (alta calidad)"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:173
 #: manual-image-crop/lib/ManualImageCropSettingsPage.php:157
 msgid "60 (good)"
-msgstr ""
+msgstr "60 (buena)"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:174
 #: manual-image-crop/lib/ManualImageCropSettingsPage.php:158
-msgid "50 (avarage)"
-msgstr ""
+msgid "50 (average)"
+msgstr "50 (promedio)"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:175
 #: manual-image-crop/lib/ManualImageCropSettingsPage.php:159
 msgid "30 (low)"
-msgstr ""
+msgstr "30 (baja)"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:176
 #: manual-image-crop/lib/ManualImageCropSettingsPage.php:160
 msgid "10 (very low, smallest file)"
-msgstr ""
+msgstr "10 (muy baja, archivo más pequeño)"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:183
 msgid "Generate Retina/HiDPI (@2x):"
-msgstr ""
+msgstr "Generar Retina/HiDPI (@2x):"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:188
 msgid "The image has been cropped successfully"
-msgstr "L'immagine � stata ritagliata con successo"
+msgstr "La imagen ha sido recortada con éxito"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:189
 msgid "An Error has occured. Please try again or contact plugin's author."
-msgstr "Si � verificato un errore. Prova di nuovo o contatta l'autore del plugin."
+msgstr ""
+"Ha ocurrido un Error. Por favor inténtelo de nuevp o contacte al autor del "
+"plugin."
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:232
 msgid "Compatible"
-msgstr ""
+msgstr "Compatible"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:234
 msgid "Source too small"
-msgstr ""
+msgstr "Fuente demasiado pequeña"
 
 #: manual-image-crop/lib/ManualImageCropSettingsPage.php:125
 msgid "Size"
-msgstr ""
+msgstr "Tamaño"
 
 #: manual-image-crop/lib/ManualImageCropSettingsPage.php:126
 msgid "Visible"
-msgstr ""
+msgstr "Visible"
 
 #: manual-image-crop/lib/ManualImageCropSettingsPage.php:127
 msgid "Default JPEG Quality"
-msgstr ""
+msgstr "Calidad JPEG Predeterminada"
 
 #: manual-image-crop/lib/ManualImageCropSettingsPage.php:128
 msgid "Custom Label"
-msgstr ""
+msgstr "Etiqueta Personalizada"
 
 #: manual-image-crop/lib/ManualImageCropSettingsPage.php:150
 msgid "Yes"
-msgstr ""
+msgstr "Sí"
 
 #: manual-image-crop/lib/ManualImageCropSettingsPage.php:151
 msgid "No"
-msgstr ""
+msgstr "No"

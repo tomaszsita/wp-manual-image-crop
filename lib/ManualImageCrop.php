@@ -47,7 +47,7 @@ class ManualImageCrop {
 		add_action( 'media_row_actions', array($this, 'addMediaEditorLinks'), 10, 2 );
 		add_action( 'admin_post_thumbnail_html', array($this, 'addCropFeatureImageEditorLink'), 10, 2 );
 		add_action( 'print_media_templates', array($this, 'addAttachementEditLink') );
-		add_action( 'pre-upload-ui', array($this, 'addAfterUploadAttachementEditLink') );
+		add_action( 'admin_print_footer_scripts', array($this, 'addAfterUploadAttachementEditLink') );
 	}
 
 	/**
@@ -90,8 +90,8 @@ setInterval(function() {
 					try {
 						var mRegexp = /\?post=([0-9]+)/; 
 						var match = mRegexp.exec(jQuery('.details .edit-attachment').attr('href'));
-						jQuery('.edit-attachment.crop-image').remove();
-						jQuery('.details .edit-attachment').after( '<a class="thickbox mic-link edit-attachment crop-image" rel="crop" title="Manual Image Crop" href="' + ajaxurl + '?action=mic_editor_window&postId=' + match[1] + '"><?php _e('Crop Image','microp') ?></a>' );
+						jQuery('.crop-image-ml.crop-image').remove();
+						jQuery('.details .edit-attachment').after( '<a class="thickbox mic-link crop-image-ml crop-image" rel="crop" title="Manual Image Crop" href="' + ajaxurl + '?action=mic_editor_window&postId=' + match[1] + '"><?php _e('Crop Image','microp') ?></a>' );
 					} catch (e) {
 						console.log(e);
 					}
@@ -140,11 +140,9 @@ setInterval(function() {
 		$uploadsDir = wp_upload_dir();
 		
 		// checks for ssl. wp_upload_dir does not handle ssl (ssl admin trips on this and subsequent ajax success to browser)
-		if (is_ssl()) {
-			
-                $uploadsDir['baseurl'] = preg_replace('#^http://#i', 'https://', $uploadsDir['baseurl']);
-                              
-                }
+		if (is_ssl()) {			
+			$uploadsDir['baseurl'] = preg_replace('#^http://#i', 'https://', $uploadsDir['baseurl']);
+		}
 
 		$src_file_url = wp_get_attachment_image_src($_POST['attachmentId'], 'full');
 
@@ -152,15 +150,16 @@ setInterval(function() {
 			echo json_encode (array('status' => 'error', 'message' => 'wrong attachment' ) );
 			exit;
 		}
-
+		
+		
 		$src_file = str_replace($uploadsDir['baseurl'], $uploadsDir['basedir'], $src_file_url[0]);
-
 		$dst_file_url = wp_get_attachment_image_src($_POST['attachmentId'], $_POST['editedSize']);
+		
 		if (!$dst_file_url) {
-			echo json_encode (array('status' => 'error', 'message' => 'wrong size' ) );
 			exit;
 		}
 		$dst_file = str_replace($uploadsDir['baseurl'], $uploadsDir['basedir'], $dst_file_url[0]);
+		
 
 		//checks if the destination image file is present (if it's not, we want to create a new file, as the WordPress returns the original image instead of specific one)
 		if ($dst_file == $src_file) {
@@ -207,12 +206,14 @@ setInterval(function() {
 																	'h' => $_POST['select']['h'],
 																);
 		wp_update_attachment_metadata($_POST['attachmentId'], $imageMetadata);
+		
+		$quality = intval($_POST['mic_quality']);
 
         if ( function_exists('wp_get_image_editor') ) {
             $img = wp_get_image_editor( $src_file );
             if ( ! is_wp_error( $img ) ) {
                 $img->crop( $src_x, $src_y, $src_w, $src_h, $dst_w, $dst_h, false );
-                $img->set_quality( 80 );
+                $img->set_quality( $quality );
                 $img->save($dst_file);
             }
         } else {
@@ -233,7 +234,7 @@ setInterval(function() {
             } else if($ext =="png"){
                 imagepng($dst_img, $dst_file);
             } else {
-                imagejpeg($dst_img, $dst_file, 80);
+                imagejpeg($dst_img, $dst_file, $quality);
             }
         }
         
@@ -251,7 +252,7 @@ setInterval(function() {
 					$img = wp_get_image_editor( $src_file );
 					if ( ! is_wp_error( $img ) ) {
 						$img->crop( $src_x, $src_y, $src_w, $src_h, $dst_w2x, $dst_h2x, false );
-						$img->set_quality( 80 );
+						$img->set_quality( $quality );
 						$img->save($dst_file2x);
 					}
 				} else {			
@@ -262,7 +263,7 @@ setInterval(function() {
 					} else if($ext =="png"){
 						imagepng($dst_img2x, $dst_file2x);
 					} else {
-						imagejpeg($dst_img2x, $dst_file2x, 80);
+						imagejpeg($dst_img2x, $dst_file2x, $quality);
 					}
 				}
 			}

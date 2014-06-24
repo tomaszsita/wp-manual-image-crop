@@ -73,3 +73,27 @@
 	content: "\f147";
 	color: #7ad03a;
 }
+
+.crop-image {
+	margin-right: 10px;
+}
+
+.mic-settings-page .form-table th[scope="row"] {
+	display: none;
+}
+
+.mic-editor-wrapper h4 {
+	float: left;
+	width: 120px;
+	margin-top: 23px;
+	line-height: 11px; 
+}
+
+.mic-editor-wrapper .nav-tab-wrapper {
+	float: left;
+	width: 820px;
+}
+
+.mic-option {
+	margin-top: 10px;
+}

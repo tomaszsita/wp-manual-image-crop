@@ -24,6 +24,8 @@ class ManualImageCropEditorWindow {
 	}
 
 	public function renderWindow() {
+		$sizes_settings = get_option( 'mic_options' );
+		$sizesSettings = unserialize( $sizes_settings['sizes_settings'] );
 		?>
 		<div class="mic-editor-wrapper">
             <h4><?php _e('Pick the image size:','microp'); ?></h4>
@@ -44,6 +46,14 @@ class ManualImageCropEditorWindow {
             $sizeLabels = apply_filters( 'image_size_names_choose', array() );
 
 			foreach ($imageSizes as $s) {
+				if (!  $sizesSettings[$s] ) {
+					$sizesSettings[$s] = array('label' => '', 'quality' => 80, 'visibility' => 'visible');
+				}
+				
+				if ( $sizesSettings[$s]['visibility'] == 'hidden') {
+					continue;
+				}
+				
 				if (isset($_wp_additional_image_sizes[$s])) {
 					$cropMethod = $_wp_additional_image_sizes[$s]['crop'];
 				} else {
@@ -55,6 +65,7 @@ class ManualImageCropEditorWindow {
 
                 // Get user defined label for the size or just cleanup a bit
                 $label = isset($sizeLabels[$s]) ? $sizeLabels[$s] : ucfirst( str_replace( '-', ' ', $s ) );
+                $label = $sizesSettings[$s]['label'] ? $sizesSettings[$s]['label'] : $label;
 				echo '<a href="' . admin_url( 'admin-ajax.php' ) . '?action=mic_editor_window&size=' . $s . '&postId=' . $_GET['postId'] . '&width=940" class="mic-icon-' . $s . ' rm-crop-size-tab nav-tab ' . ( ($s == $editedSize) ? 'nav-tab-active' : '' ) .  '">' . $label . '</a>';
 			}
 			?>
@@ -129,8 +140,7 @@ class ManualImageCropEditorWindow {
 			<div class="mic-right-col">
 				<div>
 					<?php _e('Original picture dimensions:','microp') ?> <strong><?php echo $sizes[0]; ?> x <?php echo $sizes[1]; ?> px</strong><br />
-                    <?php _e('Target picture dimensions:','microp') ?> <strong><?php echo $width; ?>px x <?php echo $height; ?>px</strong> (<?php if ($cropMethod == 0) { _e('Soft proportional crop mode','microp'); }else { _e('Hard crop mode','microp'); } ?>)<br/>
-					<input type="checkbox" id="mic-make-2x" <?php if(get_option('mic_make2x') === 'true' ) echo 'checked="checked "' ?>/> <?php _e('Generate Retina/HiDPI (@2x):','microp') ?> <span id="mic-2x-status"></span>
+                    <?php _e('Target picture dimensions:','microp') ?> <strong><?php echo $width; ?>px x <?php echo $height; ?>px</strong> (<?php if ($cropMethod == 0) { _e('Soft proportional crop mode','microp'); }else { _e('Hard crop mode','microp'); } ?>)
 				</div>
 				
 				<div class="mic-52-col">
@@ -151,6 +161,30 @@ class ManualImageCropEditorWindow {
 				
 				<input id="micCropImage" class="button-primary button-large" type="button" value="<?php _e('Crop it!','microp') ?>" />
 				<img src="<?php echo includes_url(); ?>js/thickbox/loadingAnimation.gif" id="micLoading" />
+				
+				
+				<?php 
+            	$ext = strtolower( pathinfo($src_file, PATHINFO_EXTENSION) );
+            	if ($ext == 'jpg' || $ext == 'jpeg') {
+					echo '<div class="mic-option"><label for="micQuality">' . __('Target JPEG Quality', 'microp') . '</label> <select id="micQuality" name="mic_quality">
+	     					<option value="100">' . __('100 (best quality, biggest file)', 'microp') . '</option>
+	     					<option value="80" ' . ( $sizesSettings[$editedSize]['quality'] == '80' ? 'selected' : '' ) . '>' . __('80 (very high quality)', 'microp') . '</option>
+	     					<option value="70" ' . ( $sizesSettings[$editedSize]['quality'] == '70' ? 'selected' : '' ) . '>' . __('70 (high quality)', 'microp') . '</option>
+	     					<option value="60" ' . ( $sizesSettings[$editedSize]['quality'] == '60' ? 'selected' : '' ) . '>' . __('60 (good)', 'microp') . '</option>
+	     					<option value="50" ' . ( $sizesSettings[$editedSize]['quality'] == '50' ? 'selected' : '' ) . '>' . __('50 (average)', 'microp') . '</option>
+	     					<option value="30" ' . ( $sizesSettings[$editedSize]['quality'] == '30' ? 'selected' : '' ) . '>' . __('30 (low)', 'microp') . '</option>
+	     					<option value="10" ' . ( $sizesSettings[$editedSize]['quality'] == '10' ? 'selected' : '' ) . '>' . __('10 (very low, smallest file)', 'microp') . '</option>
+	    				</select></div>'; 
+				}
+				?>
+				<?php 
+                if ( is_plugin_active('wp-retina-2x/wp-retina-2x.php') ) { ?>
+				<div class="mic-option">
+                	<input type="checkbox" id="mic-make-2x" <?php if(get_option('mic_make2x') === 'true' ) echo 'checked="checked"' ?> /> <label for="mic-make-2x"><?php _e('Generate Retina/HiDPI (@2x):', 'microp') ?> <span id="mic-2x-status"></span></label>
+                </div>
+                <?php 
+	            } ?>
+				
 				<div id="micSuccessMessage" class="updated below-h2"><?php _e('The image has been cropped successfully','microp') ?></div>
 				<div id="micFailureMessage" class="error below-h2"><?php _e('An Error has occured. Please try again or contact plugin\'s author.','microp') ?></div>
 				
