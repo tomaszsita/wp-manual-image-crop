@@ -91,7 +91,7 @@ setInterval(function() {
 						var mRegexp = /\?post=([0-9]+)/; 
 						var match = mRegexp.exec(jQuery('.details .edit-attachment').attr('href'));
 						jQuery('.crop-image-ml.crop-image').remove();
-						jQuery('.details .edit-attachment').after( '<a class="thickbox mic-link crop-image-ml crop-image" rel="crop" title="Manual Image Crop" href="' + ajaxurl + '?action=mic_editor_window&postId=' + match[1] + '"><?php _e('Crop Image','microp') ?></a>' );
+						jQuery('.details .edit-attachment').after( '<a class="thickbox mic-link crop-image-ml crop-image" rel="crop" title="Manual Image Crop" href="' + ajaxurl + '?action=mic_editor_window&postId=' + match[1] + '"><?php esc_js(__('Crop Image','microp')) ?></a>' );
 					} catch (e) {
 						console.log(e);
 					}
@@ -118,7 +118,7 @@ setInterval(function() {
 							var mRegexp = /\?post=([0-9]+)/; 
 							var match = mRegexp.exec(jQuery(this).attr('href'));
 							if (!jQuery(this).parent().find('.edit-attachment.crop-image').length && jQuery(this).parent().find('.pinkynail').attr('src').match(/upload/g)) {
-								jQuery(this).after( '<a class="thickbox mic-link edit-attachment crop-image" rel="crop" title="Manual Image Crop" href="' + ajaxurl + '?action=mic_editor_window&postId=' + match[1] + '"><?php _e('Crop Image','microp') ?></a>' );
+								jQuery(this).after( '<a class="thickbox mic-link edit-attachment crop-image" rel="crop" title="Manual Image Crop" href="' + ajaxurl + '?action=mic_editor_window&postId=' + match[1] + '"><?php esc_js(__('Crop Image','microp')) ?></a>' );
 							}
 						} catch (e) {
 							console.log(e);
