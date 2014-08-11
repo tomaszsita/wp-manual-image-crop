@@ -167,5 +167,6 @@ class MicSettingsPage
     }
 }
 
-if( is_admin() )
+if( is_admin() ) {
     $mic_settings_page = new MicSettingsPage();
+}

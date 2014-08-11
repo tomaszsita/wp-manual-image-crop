@@ -81,83 +81,83 @@ msgstr "Ritagliala!"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:169
 msgid "Target JPEG Quality"
-msgstr ""
+msgstr "Obiettivo Qualita JPEG"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:170
 #: manual-image-crop/lib/ManualImageCropSettingsPage.php:154
 msgid "100 (best quality, biggest file)"
-msgstr ""
+msgstr "100 (migliore qualita, piu grande di file)"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:171
 #: manual-image-crop/lib/ManualImageCropSettingsPage.php:155
 msgid "80 (very high quality)"
-msgstr ""
+msgstr "80 (alta qualita)"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:172
 #: manual-image-crop/lib/ManualImageCropSettingsPage.php:156
 msgid "70 (high quality)"
-msgstr ""
+msgstr "70 (alta qualita)"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:173
 #: manual-image-crop/lib/ManualImageCropSettingsPage.php:157
 msgid "60 (good)"
-msgstr ""
+msgstr "60 (buono)"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:174
 #: manual-image-crop/lib/ManualImageCropSettingsPage.php:158
-msgid "50 (avarage)"
-msgstr ""
+msgid "50 (average)"
+msgstr "50 (media)"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:175
 #: manual-image-crop/lib/ManualImageCropSettingsPage.php:159
 msgid "30 (low)"
-msgstr ""
+msgstr "30 (basso)"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:176
 #: manual-image-crop/lib/ManualImageCropSettingsPage.php:160
 msgid "10 (very low, smallest file)"
-msgstr ""
+msgstr "10 (molto basso, il file piu piccolo)"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:183
 msgid "Generate Retina/HiDPI (@2x):"
-msgstr ""
+msgstr "Genera Retina/HiDPI (@2x)"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:188
 msgid "The image has been cropped successfully"
-msgstr "L'immagine Ë stata ritagliata con successo"
+msgstr "L'immagine ƒç stata ritagliata con successo"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:189
 msgid "An Error has occured. Please try again or contact plugin's author."
-msgstr "Si Ë verificato un errore. Prova di nuovo o contatta l'autore del plugin."
+msgstr "Si ƒç verificato un errore. Prova di nuovo o contatta l'autore del plugin."
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:232
 msgid "Compatible"
-msgstr ""
+msgstr "compatibile"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:234
 msgid "Source too small"
-msgstr ""
+msgstr "Fonte troppo piccolo"
 
 #: manual-image-crop/lib/ManualImageCropSettingsPage.php:125
 msgid "Size"
-msgstr ""
+msgstr "Dimensione"
 
 #: manual-image-crop/lib/ManualImageCropSettingsPage.php:126
 msgid "Visible"
-msgstr ""
+msgstr "Visibile"
 
 #: manual-image-crop/lib/ManualImageCropSettingsPage.php:127
 msgid "Default JPEG Quality"
-msgstr ""
+msgstr "Predefinito Qualita JPEG"
 
 #: manual-image-crop/lib/ManualImageCropSettingsPage.php:128
 msgid "Custom Label"
-msgstr ""
+msgstr "Etichetta personalizzata"
 
 #: manual-image-crop/lib/ManualImageCropSettingsPage.php:150
 msgid "Yes"
-msgstr ""
+msgstr "Si"
 
 #: manual-image-crop/lib/ManualImageCropSettingsPage.php:151
 msgid "No"
-msgstr ""
+msgstr "No"
