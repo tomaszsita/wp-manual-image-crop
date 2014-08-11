@@ -86,7 +86,7 @@ msgstr "Jakość JPEG"
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:170
 #: manual-image-crop/lib/ManualImageCropSettingsPage.php:154
 msgid "100 (best quality, biggest file)"
-msgstr "100 (najlepsza jakość, najcięższy plik)"
+msgstr "100 (najlepsza jakość, największy plik)"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:171
 #: manual-image-crop/lib/ManualImageCropSettingsPage.php:155
@@ -136,7 +136,7 @@ msgstr "Kompatybilne"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:234
 msgid "Source too small"
-msgstr "Zbyt małe zdjecie wyjściowe"
+msgstr "Zbyt małe zdjecie wejściowe"
 
 #: manual-image-crop/lib/ManualImageCropSettingsPage.php:125
 msgid "Size"

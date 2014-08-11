@@ -31,7 +31,7 @@ msgstr "Recadrer l'image"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:31
 msgid "Pick the image size:"
-msgstr "Choisissez une taille :"
+msgstr "Choisissez une taille&nbsp;:"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:41
 #: manual-image-crop/lib/ManualImageCropSettingsPage.php:115
@@ -55,11 +55,11 @@ msgstr "Taille d'origine"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:142
 msgid "Original picture dimensions:"
-msgstr "Dimension originales :"
+msgstr "Dimension originales&nbsp;:"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:143
 msgid "Target picture dimensions:"
-msgstr "Dimensions cibles :"
+msgstr "Dimensions cibles&nbsp;:"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:143
 msgid "Soft proportional crop mode"
@@ -71,11 +71,11 @@ msgstr "Recadrage non proportionnel"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:147
 msgid "New image:"
-msgstr "Nouvelle image :"
+msgstr "Nouvelle image&nbsp;:"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:154
 msgid "Previous image:"
-msgstr "Image précédente :"
+msgstr "Image précédente&nbsp;:"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:162
 msgid "Crop it!"
