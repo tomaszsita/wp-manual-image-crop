@@ -24,8 +24,7 @@ class ManualImageCropEditorWindow {
 	}
 
 	public function renderWindow() {
-		$sizes_settings = get_option( 'mic_options' );
-		$sizesSettings = unserialize( $sizes_settings['sizes_settings'] );
+		$sizesSettings = MicSettingsPage::getSettings();
 		?>
 		<div class="mic-editor-wrapper">
             <h4><?php _e('Pick the image size:','microp'); ?></h4>
@@ -46,7 +45,7 @@ class ManualImageCropEditorWindow {
             $sizeLabels = apply_filters( 'image_size_names_choose', array() );
 
 			foreach ($imageSizes as $s) {
-				if (!  $sizesSettings[$s] ) {
+				if ( ! isset($sizesSettings[$s]) ) {
 					$sizesSettings[$s] = array('label' => '', 'quality' => 80, 'visibility' => 'visible');
 				}
 				
@@ -186,7 +185,7 @@ class ManualImageCropEditorWindow {
 	            } ?>
 				
 				<div id="micSuccessMessage" class="updated below-h2"><?php _e('The image has been cropped successfully','microp') ?></div>
-				<div id="micFailureMessage" class="error below-h2"><?php _e('An Error has occured. Please try again or contact plugin\'s author.','microp') ?></div>
+				<div id="micFailureMessage" class="error below-h2"><span class="error-message"></span><br /><?php _e('An Error has occured. Please try again or contact plugin\'s author.','microp') ?></div>
 				
 			</div>
 		</div>

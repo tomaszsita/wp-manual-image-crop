@@ -96,6 +96,16 @@ setInterval(function() {
 						console.log(e);
 					}
 				}
+
+				if (jQuery('.attachment-details .details-image').length) {
+					try {
+						var postId = jQuery('.attachment-details').attr('data-id');
+						jQuery('.button.crop-image-ml.crop-image').remove();
+						jQuery('.button.edit-attachment').after( ' <a class="thickbox mic-link crop-image-ml crop-image button" rel="crop" title="Manual Image Crop" href="' + ajaxurl + '?action=mic_editor_window&postId=' + postId + '"><?php _e('Crop Image','microp') ?></a>' );
+					} catch (e) {
+						console.log(e);
+					}
+				}
 			}, 500);
 		});
 	</script>
@@ -211,10 +221,15 @@ setInterval(function() {
 
         if ( function_exists('wp_get_image_editor') ) {
             $img = wp_get_image_editor( $src_file );
+            
             if ( ! is_wp_error( $img ) ) {
-                $img->crop( $src_x, $src_y, $src_w, $src_h, $dst_w, $dst_h, false );
+				
+            	$img->crop( $src_x, $src_y, $src_w, $src_h, $dst_w, $dst_h, false );
                 $img->set_quality( $quality );
                 $img->save($dst_file);
+            }else {
+            	echo json_encode (array('status' => 'error', 'message' => 'WP_ERROR: ' . $img->get_error_message() ) );
+				exit;
             }
         } else {
             //determines what's the image format
@@ -226,20 +241,37 @@ setInterval(function() {
             } else {
                 $src_img = imagecreatefromjpeg($src_file);
             }
-            $dst_img = imagecreatetruecolor($dst_w, $dst_h);
-            imagecopyresampled($dst_img, $src_img, $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h);
-
-            if ($ext == "gif"){
-                imagegif($dst_img, $dst_file);
-            } else if($ext =="png"){
-                imagepng($dst_img, $dst_file);
-            } else {
-                imagejpeg($dst_img, $dst_file, $quality);
+            
+            if ($src_img === false ) {
+            	echo json_encode (array('status' => 'error', 'message' => 'PHP ERROR: Cannot create image from the source file' ) );
+            	exit;
             }
+            
+            $dst_img = imagecreatetruecolor($dst_w, $dst_h);
+            $resampleReturn  = imagecopyresampled($dst_img, $src_img, $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h);
+            
+            if ($resampleReturn === false ) {
+            	echo json_encode (array('status' => 'error', 'message' => 'PHP ERROR: imagecopyresampled' ) );
+	          	exit;
+            }
+            
+			$imageSaveReturn = true;
+            if ($ext == "gif"){
+                $imageSaveReturn = imagegif($dst_img, $dst_file);
+            } else if($ext =="png"){
+                $imageSaveReturn = imagepng($dst_img, $dst_file);
+            } else {
+                $imageSaveReturn = imagejpeg($dst_img, $dst_file, $quality);
+            }
+            
+            if ($imageSaveReturn === false ) {
+            	echo json_encode (array('status' => 'error', 'message' => 'PHP ERROR: imagejpeg/imagegif/imagepng' ) );
+            	exit;
+        	}
         }
         
 		// Generate Retina Image
-		if($_POST['make2x'] === 'true') {
+		if( isset( $_POST['make2x'] ) && $_POST['make2x'] === 'true' ) {
 			$dst_w2x = $dst_w * 2;
 			$dst_h2x = $dst_h * 2;
 		
@@ -254,25 +286,42 @@ setInterval(function() {
 						$img->crop( $src_x, $src_y, $src_w, $src_h, $dst_w2x, $dst_h2x, false );
 						$img->set_quality( $quality );
 						$img->save($dst_file2x);
-					}
+					}else {
+            			echo json_encode (array('status' => 'error', 'message' => 'WP_ERROR: ' . $img->get_error_message() ) );
+						exit;
+            		}
 				} else {			
 					$dst_img2x = imagecreatetruecolor($dst_w2x, $dst_h2x);
-					imagecopyresampled($dst_img2x, $src_img, $dst_x, $dst_y, $src_x, $src_y, $dst_w2x, $dst_h2x, $src_w, $src_h);
+					$resampleReturn = imagecopyresampled($dst_img2x, $src_img, $dst_x, $dst_y, $src_x, $src_y, $dst_w2x, $dst_h2x, $src_w, $src_h);
+            
+		            if ($resampleReturn === false ) {
+		            	echo json_encode (array('status' => 'error', 'message' => 'PHP ERROR: imagecopyresampled' ) );
+			          	exit;
+		            }
+		            
+		            $imageSaveReturn = true;
 					if ($ext == "gif"){
-						imagegif($dst_img2x, $dst_file2x);
+						$imageSaveReturn = imagegif($dst_img2x, $dst_file2x);
 					} else if($ext =="png"){
-						imagepng($dst_img2x, $dst_file2x);
+						$imageSaveReturn = imagepng($dst_img2x, $dst_file2x);
 					} else {
-						imagejpeg($dst_img2x, $dst_file2x, $quality);
+						$imageSaveReturn = imagejpeg($dst_img2x, $dst_file2x, $quality);
+					}
+					
+					if ($imageSaveReturn === false ) {
+						echo json_encode (array('status' => 'error', 'message' => 'PHP ERROR: imagejpeg/imagegif/imagepng' ) );
+						exit;
 					}
 				}
 			}
 		}
 		// update 'mic_make2x' option status to persist choice  
-		if($_POST['make2x'] !== get_option('mic_make2x')) update_option('mic_make2x', $_POST['make2x']);
+		if( isset( $_POST['make2x'] ) && $_POST['make2x'] !== get_option('mic_make2x') ) {
+			update_option('mic_make2x', $_POST['make2x']);
+		}
 
 		//returns the url to the generated image (to allow refreshing the preview)
-		echo json_encode (array('status' => 'ok', 'file' => $dst_file_url[0] . '?' . time() ) );
+		echo json_encode (array('status' => 'ok', 'file' => $dst_file_url[0] ) );
 		exit;
 	}
 }

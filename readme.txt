@@ -1,11 +1,12 @@
 === Manual Image Crop ===
 Contributors: tomasz.sita
 Tags: crop, cropping, thumbnail, featured image, gallery, images, picture, image, image area
+Tested up to: 4.0
 Requires at least: 3.0.1
-Tested up to: 3.7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 1.04
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WB5ZQWGUM7T96
+Stable tag: 1.08
 
 Plugin allows you to manually crop all the image sizes registered in your WordPress theme (in particular featured image).
 
@@ -20,50 +21,51 @@ Apart from media library list, the plugin adds links in few more places:
 * Below featured image box ("Crop featured image")
 * In the media insert modal window (once you select an image)
 
+GitHub Repository:
+https://github.com/tomaszsita/wp-manual-image-crop
+
+Translations:
+* French (Gabriel Féron)
+* German (Bertram Greenhough)
+* Italian (Alessandro Curci)
+* Polish (myself)
+* Russian (Andrey Hohlov)
+* Spanish (Andrew Kurtis)
+
+Please contact me if you want to add a translation (or submit a pull request on GitHub)
+
 
 == Installation ==
 Manually:
-1. Upload `manual-image-crop` to the `/wp-content/plugins/` directory
-2. Activate the plugin through the 'Plugins' menu in WordPress
+* Upload `manual-image-crop` to the `/wp-content/plugins/` directory
+* Activate the plugin through the 'Plugins' menu in WordPress
 
 Automatically:
-1. Navigate to the 'Plugins' menu inside of the wordpress wp-admin dashboard, and select AD NEW 
-2. Search for 'Manual Imag Crop', and click install 
-3. When the plugin has been installed, Click 'Activate' 
-
-== Frequently Asked Questions ==
-= How to display additional image sizes with custom labels? =
-A theme can add custom image sizes in their functions.php file, the typical code looks like:
-
-`add_theme_support( 'post-thumbnails' );`
-`add_image_size( 'sample-thumb-mid', 400, 400, 1 );`
-`add_image_size( 'sample-thumb-big', 800, 400, 1 );`
-
-If you want these images to show up with custom friendly labels you need to use also **image_size_names_choose** filter, eg:
-
-`function add_my_image_size_labels ($sizes) {`
-`    $custom_sizes = array(`
-`        'sample-thumb-mid' => __('Custom label for middle size','your_theme_textdomain'),`
-`        'sample-thumb-big' => __('Custom label for big size','your_theme_textdomain')`
-`    );`
-`    return array_merge( $sizes, $custom_sizes );`
-`}`
-`add_filter('image_size_names_choose', 'add_my_image_size_labels');`
-
-= How to add a custom icon to additional image size tabs? =
-First you need to load a custom admin stylesheet in your functions.php
-
-`function load_custom_wp_admin_style() {`
-`    wp_enqueue_style( 'custom_wp_admin_css', get_stylesheet_directory_uri() . '/css/admin-style.css', array(), '0.1', 'all' );`
-`}`
-`add_action( 'admin_enqueue_scripts', 'load_custom_wp_admin_style' );`
-
-in admin-style.css add something like
-`.mic-icon-YOUR_CUSTOM_SIZE_ID { ... }`
+* Navigate to the 'Plugins' menu inside of the wordpress wp-admin dashboard, and select AD NEW 
+* Search for 'Manual Imag Crop', and click install 
+* When the plugin has been installed, Click 'Activate' 
 
 == Changelog ==
+= 1.08 =
+* More descriptive error messages
+* Russian translation added
+* Hooked 'Crop' link to new media library layout (WP 4.0)
+* A few minor edits
 
-= 1.04 
+= 1.07 =
+* Fixed 'Cannot use string offset as an array' error
+
+= 1.06 =
+* French, German, Italian, Polish, Spanish translations added
+* Settings page added (quality, visibility, custom labels)
+* Compatibility with Retina/HiDPI (@2x) plugin added
+* Fixed issue with closing editor window from within media uploader screen
+
+= 1.05 =
+* WordPress 3.9 compatibility issues fixed
+* Removed randomly floated 'Maximum upload file size'
+
+= 1.04 =
 * Added remembering of the previously selected area after cropping the specific image size
 * Fixed the "wp_enqueue_script was called incorrectly" warning in the WP debug mode
 

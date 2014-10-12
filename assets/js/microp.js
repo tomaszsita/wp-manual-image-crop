@@ -16,11 +16,11 @@ jQuery(document).ready(function($) {
 		$.post(ajaxurl + '?action=mic_crop_image', { select: jcrop_api.tellSelect(), scaled: jcrop_api.tellScaled(), attachmentId: mic_attachment_id, editedSize: mic_edited_size,  previewScale: mic_preview_scale, make2x: $('#mic-make-2x').prop('checked'), mic_quality: $('#micQuality').val() } ,  function(response) {
 			if (response.status == 'ok') {
 				var newImage = new Image();
-				newImage.src = response.file;
+				newImage.src = response.file + '?' + Math.random();
 				var count = 0;
 				function updateImage() {
 				    if(newImage.complete) {
-				        $('#micPreviousImage').attr('src', newImage.src);
+				        $('img[src^="' + response.file + '"]').attr('src', newImage.src);
 						$('#micCropImage').show();
 						$('#micSuccessMessage').show().delay(5000).fadeOut();
 						$('#micLoading').hide();
@@ -30,7 +30,8 @@ jQuery(document).ready(function($) {
 				}
 				updateImage();
 			}else {
-				$('#micFailureMessage').show().delay(5000).fadeOut();
+				$('#micFailureMessage').show().delay(10000).fadeOut();
+				$('#micFailureMessage .error-message').html(response.message);
 				$('#micCropImage').show();
 				$('#micLoading').hide();
 			}

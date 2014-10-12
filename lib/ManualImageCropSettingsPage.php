@@ -14,6 +14,26 @@ class MicSettingsPage
         add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
         add_action( 'admin_init', array( $this, 'page_init' ) );
     }
+    
+    /**
+     * Fix of settings serialized twice or more
+     * @return mixed
+     */
+    static function getSettings() {
+    	$micOptions = get_option( 'mic_options' );
+    	if ( ! isset( $micOptions['sizes_settings'] ) ) {
+    		return array();
+    	}
+    	$settings = unserialize( $micOptions['sizes_settings'] );
+    	$i = 0;
+    	while ( ! empty($settings) && ! is_array($settings) ) {
+    		if ($i++ == 10) {
+    			break;
+    		}
+    		$settings = unserialize($settings);
+    	}
+    	return $settings;
+    }
 
     /**
      * Add options page
@@ -35,8 +55,6 @@ class MicSettingsPage
      */
     public function create_admin_page()
     {
-        // Set class property
-        $this->options = get_option( 'mic_options' );
         ?>
         <div class="wrap">
             <?php screen_icon(); ?>
@@ -88,9 +106,9 @@ class MicSettingsPage
     public function sanitize( $input )
     {
         $new_input = array();
-        if( isset( $input['sizes_settings'] ) )
+        if( isset( $input['sizes_settings'] ) ) {
             $new_input['sizes_settings'] = serialize( $input['sizes_settings'] );
-
+        }
         return $new_input;
     }
 
@@ -130,7 +148,7 @@ class MicSettingsPage
 			 </thead>
              <tbody>';
 		
-		$sizesSettings = unserialize($this->options['sizes_settings']);
+		$sizesSettings = self::getSettings();
 		
 		foreach ($imageSizes as $s) {
 			$label = isset($sizeLabels[$s]) ? $sizeLabels[$s] : ucfirst( str_replace( '-', ' ', $s ) );
@@ -167,5 +185,6 @@ class MicSettingsPage
     }
 }
 
-if( is_admin() )
+if( is_admin() ) {
     $mic_settings_page = new MicSettingsPage();
+}
