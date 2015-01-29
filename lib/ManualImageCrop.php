@@ -214,6 +214,7 @@ setInterval(function() {
 																	'y' => $_POST['select']['y'],
 																	'w' => $_POST['select']['w'],
 																	'h' => $_POST['select']['h'],
+																	'scale' => $_POST['previewScale'],
 																);
 		wp_update_attachment_metadata($_POST['attachmentId'], $imageMetadata);
 		
