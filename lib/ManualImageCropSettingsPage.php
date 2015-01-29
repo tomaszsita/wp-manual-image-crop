@@ -148,7 +148,7 @@ class MicSettingsPage
 			 </thead>
              <tbody>';
 		
-		$sizesSettings = self::getSettings();
+		$sizesSettings = self::getSettings() || array();
 		
 		foreach ($imageSizes as $s) {
 			$label = isset($sizeLabels[$s]) ? $sizeLabels[$s] : ucfirst( str_replace( '-', ' ', $s ) );
