@@ -224,9 +224,14 @@ setInterval(function() {
             
             if ( ! is_wp_error( $img ) ) {
 				
-            	$img->crop( $src_x, $src_y, $src_w, $src_h, $dst_w, $dst_h, false );
-                $img->set_quality( $quality );
-                $img->save($dst_file);
+              $img->crop( $src_x, $src_y, $src_w, $src_h, $dst_w, $dst_h, false );
+              $img->set_quality( $quality );
+              $saveStatus = $img->save( $dst_file );
+
+              if ( is_wp_error( $saveStatus ) ) {
+                echo json_encode( array( 'status' => 'error', 'message' => 'WP_ERROR: ' . $saveStatus->get_error_message() ) );
+                exit;
+              }
             }else {
             	echo json_encode (array('status' => 'error', 'message' => 'WP_ERROR: ' . $img->get_error_message() ) );
 				exit;
