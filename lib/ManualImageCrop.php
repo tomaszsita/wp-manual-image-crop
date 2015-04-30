@@ -187,7 +187,7 @@ setInterval(function() {
 
 		//sets the destination image dimensions
 		if (isset($_wp_additional_image_sizes[$_POST['editedSize']])) {
-			$dst_w = min(intval($_wp_additional_image_sizes[$_POST['editedSize']]['width']), $_POST['select']['w'] * $_POST['previewScale']);;
+			$dst_w = min(intval($_wp_additional_image_sizes[$_POST['editedSize']]['width']), $_POST['select']['w'] * $_POST['previewScale']);
 			$dst_h = min(intval($_wp_additional_image_sizes[$_POST['editedSize']]['height']), $_POST['select']['h'] * $_POST['previewScale']);
 		} else {
 			$dst_w = min(get_option($_POST['editedSize'].'_size_w'), $_POST['select']['w'] * $_POST['previewScale']);
@@ -198,7 +198,7 @@ setInterval(function() {
 			echo json_encode (array('status' => 'error', 'message' => 'wrong dimensions' ) );
 			exit;
 		}
-
+		
 		//prepares coordinates that will be passed to cropping function
 		$dst_x = 0;
 		$dst_y = 0;
@@ -206,6 +206,23 @@ setInterval(function() {
 		$src_y = max(0, $_POST['select']['y']) * $_POST['previewScale'];
 		$src_w = max(0, $_POST['select']['w']) * $_POST['previewScale'];
 		$src_h = max(0, $_POST['select']['h']) * $_POST['previewScale'];
+		
+		$size = wp_get_image_editor( $src_file )->get_size();
+		
+		$is_higher = ( $dst_h > $size["height"] );
+		$is_wider = ( $dst_w > $size["width"] );
+		
+		if ( $is_higher || $is_wider ) :
+			if ( $is_higher )
+				$scale = $src_h / $size["height"];
+			else
+				$scale = $src_w / $size["width"];	
+				
+			$src_w = $src_w / $scale;
+			$src_h = $src_h / $scale;
+			$src_x = $src_x / $scale;
+			$src_y = $src_y / $scale;
+		endif;	
 		
 		//saves the selected area
 		$imageMetadata = wp_get_attachment_metadata($_POST['attachmentId']);

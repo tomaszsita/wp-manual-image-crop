@@ -94,6 +94,15 @@ class ManualImageCropEditorWindow {
 				$src_file = str_replace($uploadsDir['baseurl'], $uploadsDir['basedir'], $src_file_url[0]);
 				$sizes = getimagesize($src_file);
 
+				$original[0] = $sizes[0];
+				$original[1] = $sizes[1];
+
+				if ($width > $sizes[0]) {
+					$sizes[1] = ( $sizes[1] * ($width / $sizes[0]) );
+					$height = ceil($height);
+					$sizes[0] = $width;
+				}
+
 				$previewWidth = min($sizes[0], 500);
 				$previewHeight = min($sizes[1], 350);
 				$previewRatio = 1;
@@ -133,13 +142,18 @@ class ManualImageCropEditorWindow {
 				}else {
 					$smallPreviewWidth = $smallPreviewHeight * $aspectRatio;
 				}
+				
 				?>
 				<div style="margin: auto; width: <?php echo $previewWidth; ?>px;"><img style="width: <?php echo $previewWidth; ?>px; height: <?php echo $previewHeight; ?>px;" id="jcrop_target" src="<?php echo wp_get_attachment_url($_GET['postId']); ?>"></div>
 			</div>
 			<div class="mic-right-col">
 				<div>
-					<?php _e('Original picture dimensions:','microp') ?> <strong><?php echo $sizes[0]; ?> x <?php echo $sizes[1]; ?> px</strong><br />
-                    <?php _e('Target picture dimensions:','microp') ?> <strong><?php echo $width; ?>px x <?php echo $height; ?>px</strong> (<?php if ($cropMethod == 0) { _e('Soft proportional crop mode','microp'); }else { _e('Hard crop mode','microp'); } ?>)
+					<?php _e('Original picture dimensions:','microp') ?> <strong><?php echo $original[0]; ?> x <?php echo $original[1]; ?> px</strong><br />
+                    <?php _e('Target picture dimensions:','microp') ?> <strong>
+                    <?php // ($width != $width2 or $height != $height2) echo $width.' x '.$height.' px ('.$width2.' x '.$height2.' px)';
+                    //else 
+                    echo $width.' x '.$height.' px'; ?>
+                    </strong> (<?php if ($cropMethod == 0) { _e('Soft proportional crop mode','microp'); }else { _e('Hard crop mode','microp'); } ?>)
 				</div>
 				
 				<div class="mic-52-col">
