@@ -42,8 +42,8 @@ class MicSettingsPage
     {
         // This page will be under "Settings"
         add_options_page(
-            'Settings Admin', 
-            'Manual Image Crop', 
+            __('Manual Image Crop Settings', 'microp'), 
+            __('Manual Image Crop', 'microp'), 
             'manage_options', 
             'Mic-setting-admin', 
             array( $this, 'create_admin_page' )
@@ -58,7 +58,7 @@ class MicSettingsPage
         ?>
         <div class="wrap">
             <?php screen_icon(); ?>
-            <h2>Manual Image Crop Settings</h2>           
+            <h2><?php _e('Manual Image Crop Settings', 'microp'); ?></h2>           
             <form method="post" action="options.php" class="mic-settings-page">
             <?php
                 // This prints out all hidden setting fields
@@ -84,14 +84,14 @@ class MicSettingsPage
 
         add_settings_section(
             'setting_section_id', // ID
-            'Mic Custom Settings', // Title
+            __('Mic Custom Settings', 'microp'), // Title
             array( $this, 'print_section_info' ), // Callback
             'Mic-setting-admin' // Page
         );  
 
         add_settings_field(
             'sizes_settings', // ID
-            'Crop sizes settings', // Title 
+            __('Crop sizes settings', 'microp'), // Title 
             array( $this, 'sizes_settings_callback' ), // Callback
             'Mic-setting-admin', // Page
             'setting_section_id' // Section           
@@ -117,7 +117,7 @@ class MicSettingsPage
      */
     public function print_section_info()
     {
-        print 'Enter your settings below:';
+        print __('Enter your settings below:', 'microp');
     }
 
     /** 
