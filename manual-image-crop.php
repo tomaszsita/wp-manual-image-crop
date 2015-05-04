@@ -13,11 +13,6 @@ Domain Path: /languages/
 
 define('mic_VERSION', '1.08');
 
-
-include_once(dirname(__FILE__) . '/lib/ManualImageCrop.php');
-include_once(dirname(__FILE__) . '/lib/ManualImageCropEditorWindow.php');
-include_once(dirname(__FILE__) . '/lib/ManualImageCropSettingsPage.php');
-
 //mic - stands for Manual Image Crop
 
 add_action('plugins_loaded', 'mic_init_plugin');
@@ -28,12 +23,12 @@ add_option('mic_make2x', 'true'); //Add option so we can persist make2x choice a
  * inits the plugin
  */
 function mic_init_plugin() {
-	if (! is_admin()) {
-		//we are gonna use our plugin in the admin area only, so ends here if it's a frontend
-		return;
-	}
+	// we are gonna use our plugin in the admin area only, so ends here if it's a frontend
+	if ( ! is_admin()) return;
+	
+	include_once(dirname(__FILE__) . '/lib/ManualImageCrop.php');
 
-    load_plugin_textdomain('microp', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+	load_plugin_textdomain('microp', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 
 	$ManualImageCrop = ManualImageCrop::getInstance();
 	add_action( 'admin_enqueue_scripts', array($ManualImageCrop, 'enqueueAssets') );
@@ -48,8 +43,8 @@ function mic_init_plugin() {
  * ajax call rendering the image cropping area
  */
 function mic_ajax_editor_window() {
-	$ManualImageCropEditorWindow = ManualImageCropEditorWindow::getInstance();
-	$ManualImageCropEditorWindow->renderWindow();
+	include_once(dirname(__FILE__) . '/lib/ManualImageCropEditorWindow.php');
+	ManualImageCropEditorWindow::getInstance()->renderWindow();
 	exit;
 }
 
@@ -57,8 +52,8 @@ function mic_ajax_editor_window() {
  * ajax call that does the cropping job and overrides the previous image version
  */
 function mic_ajax_crop_image() {
-	$ManualImageCrop = ManualImageCrop::getInstance();
-	$ManualImageCrop->cropImage();
+	include_once(dirname(__FILE__) . '/lib/ManualImageCropSettingsPage.php');
+	ManualImageCrop::getInstance()->cropImage();
 	exit;
 }
 ;
