@@ -234,7 +234,7 @@ setInterval(function() {
 																);
 		wp_update_attachment_metadata($_POST['attachmentId'], $imageMetadata);
 		
-		$quality = intval($_POST['mic_quality']);
+		$quality = isset($_POST['mic_quality']) ? intval($_POST['mic_quality']) : 60;
 
         if ( function_exists('wp_get_image_editor') ) {
             $img = wp_get_image_editor( $src_file );
