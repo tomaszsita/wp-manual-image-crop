@@ -64,7 +64,7 @@ class ManualImageCrop {
 	 * Adds link below "Remove featured image" in post editing form
 	 */
 	public function addCropFeatureImageEditorLink($content, $post) {
-		$content .= '<a id="micCropFeatureImage" class="thickbox mic-link" rel="crop" title="Manual Image Crop" href="' . admin_url( 'admin-ajax.php' ) . '?action=mic_editor_window&postId=' . get_post_thumbnail_id($post) . '">' . __('Crop featured image','microp') . '</a>
+		$content .= '<a id="micCropFeatureImage" class="thickbox mic-link" rel="crop" title="' . __('Manual Image Crop','microp') . '" href="' . admin_url( 'admin-ajax.php' ) . '?action=mic_editor_window&postId=' . get_post_thumbnail_id($post) . '">' . __('Crop featured image','microp') . '</a>
 <script>
 setInterval(function() {
 	if (jQuery(\'#remove-post-thumbnail\').is(\':visible\')) {
@@ -91,7 +91,7 @@ setInterval(function() {
 						var mRegexp = /\?post=([0-9]+)/; 
 						var match = mRegexp.exec(jQuery('.details .edit-attachment').attr('href'));
 						jQuery('.crop-image-ml.crop-image').remove();
-						jQuery('.details .edit-attachment').after( '<a class="thickbox mic-link crop-image-ml crop-image" rel="crop" title="Manual Image Crop" href="' + ajaxurl + '?action=mic_editor_window&postId=' + match[1] + '"><?php _e('Crop Image','microp') ?></a>' );
+						jQuery('.details .edit-attachment').after( '<a class="thickbox mic-link crop-image-ml crop-image" rel="crop" title="<?php _e("Manual Image Crop","microp"); ?>" href="' + ajaxurl + '?action=mic_editor_window&postId=' + match[1] + '"><?php _e('Crop Image','microp') ?></a>' );
 					} catch (e) {
 						console.log(e);
 					}
@@ -101,7 +101,7 @@ setInterval(function() {
 					try {
 						var postId = jQuery('.attachment-details').attr('data-id');
 						jQuery('.button.crop-image-ml.crop-image').remove();
-						jQuery('.button.edit-attachment').after( ' <a class="thickbox mic-link crop-image-ml crop-image button" rel="crop" title="Manual Image Crop" href="' + ajaxurl + '?action=mic_editor_window&postId=' + postId + '"><?php _e('Crop Image','microp') ?></a>' );
+						jQuery('.button.edit-attachment').after( ' <a class="thickbox mic-link crop-image-ml crop-image button" rel="crop" title="<?php _e("Manual Image Crop","microp"); ?>" href="' + ajaxurl + '?action=mic_editor_window&postId=' + postId + '"><?php _e('Crop Image','microp') ?></a>' );
 					} catch (e) {
 						console.log(e);
 					}
@@ -128,7 +128,7 @@ setInterval(function() {
 							var mRegexp = /\?post=([0-9]+)/; 
 							var match = mRegexp.exec(jQuery(this).attr('href'));
 							if (!jQuery(this).parent().find('.edit-attachment.crop-image').length && jQuery(this).parent().find('.pinkynail').attr('src').match(/upload/g)) {
-								jQuery(this).after( '<a class="thickbox mic-link edit-attachment crop-image" rel="crop" title="Manual Image Crop" href="' + ajaxurl + '?action=mic_editor_window&postId=' + match[1] + '"><?php _e('Crop Image','microp') ?></a>' );
+								jQuery(this).after( '<a class="thickbox mic-link edit-attachment crop-image" rel="crop" title="<?php _e("Manual Image Crop","microp"); ?>" href="' + ajaxurl + '?action=mic_editor_window&postId=' + match[1] + '"><?php _e('Crop Image','microp') ?></a>' );
 							}
 						} catch (e) {
 							console.log(e);
@@ -187,7 +187,7 @@ setInterval(function() {
 
 		//sets the destination image dimensions
 		if (isset($_wp_additional_image_sizes[$_POST['editedSize']])) {
-			$dst_w = min(intval($_wp_additional_image_sizes[$_POST['editedSize']]['width']), $_POST['select']['w'] * $_POST['previewScale']);;
+			$dst_w = min(intval($_wp_additional_image_sizes[$_POST['editedSize']]['width']), $_POST['select']['w'] * $_POST['previewScale']);
 			$dst_h = min(intval($_wp_additional_image_sizes[$_POST['editedSize']]['height']), $_POST['select']['h'] * $_POST['previewScale']);
 		} else {
 			$dst_w = min(get_option($_POST['editedSize'].'_size_w'), $_POST['select']['w'] * $_POST['previewScale']);
@@ -198,7 +198,7 @@ setInterval(function() {
 			echo json_encode (array('status' => 'error', 'message' => 'wrong dimensions' ) );
 			exit;
 		}
-
+		
 		//prepares coordinates that will be passed to cropping function
 		$dst_x = 0;
 		$dst_y = 0;
@@ -206,6 +206,23 @@ setInterval(function() {
 		$src_y = max(0, $_POST['select']['y']) * $_POST['previewScale'];
 		$src_w = max(0, $_POST['select']['w']) * $_POST['previewScale'];
 		$src_h = max(0, $_POST['select']['h']) * $_POST['previewScale'];
+		
+		$size = wp_get_image_editor( $src_file )->get_size();
+		
+		$is_higher = ( $dst_h > $size["height"] );
+		$is_wider = ( $dst_w > $size["width"] );
+		
+		if ( $is_higher || $is_wider ) :
+			if ( $is_higher )
+				$scale = $src_h / $size["height"];
+			else
+				$scale = $src_w / $size["width"];	
+				
+			$src_w = $src_w / $scale;
+			$src_h = $src_h / $scale;
+			$src_x = $src_x / $scale;
+			$src_y = $src_y / $scale;
+		endif;	
 		
 		//saves the selected area
 		$imageMetadata = wp_get_attachment_metadata($_POST['attachmentId']);

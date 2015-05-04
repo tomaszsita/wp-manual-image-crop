@@ -7,6 +7,8 @@ Version: 1.08
 Author: Tomasz Sita
 Author URI: http://www.rocketmill.co.uk/author/tomasz
 License: GPL2
+Text Domain: microp
+Domain Path: /languages/
 */
 
 define('mic_VERSION', '1.08');
