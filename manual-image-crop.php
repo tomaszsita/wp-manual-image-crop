@@ -58,4 +58,13 @@ function mic_ajax_crop_image() {
 	ManualImageCrop::getInstance()->cropImage();
 	exit;
 }
-;
+
+// Add settings link on plugin page
+function mic_settings_link($links) { 
+  $settings_link = '<a href="options-general.php?page=Mic-setting-admin">' . __('Settings') . '</a>'; 
+  array_unshift($links, $settings_link); 
+  return $links; 
+}
+ 
+$plugin = plugin_basename(__FILE__); 
+add_filter("plugin_action_links_$plugin", 'mic_settings_link' );
