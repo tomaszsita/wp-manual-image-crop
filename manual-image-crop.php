@@ -26,7 +26,7 @@ add_option('mic_make2x', 'true'); //Add option so we can persist make2x choice a
  */
 function mic_init_plugin() {
 	// we are gonna use our plugin in the admin area only, so ends here if it's a frontend
-	if ( ! is_admin()) return;
+	if (!is_admin()) return;
 	
 	include_once(dirname(__FILE__) . '/lib/ManualImageCrop.php');
 
@@ -46,7 +46,8 @@ function mic_init_plugin() {
  */
 function mic_ajax_editor_window() {
 	include_once(dirname(__FILE__) . '/lib/ManualImageCropEditorWindow.php');
-	ManualImageCropEditorWindow::getInstance()->renderWindow();
+	$ManualImageCropEditorWindow = ManualImageCropEditorWindow::getInstance();
+	$ManualImageCropEditorWindow->renderWindow();
 	exit;
 }
 
@@ -54,17 +55,20 @@ function mic_ajax_editor_window() {
  * ajax call that does the cropping job and overrides the previous image version
  */
 function mic_ajax_crop_image() {
-	include_once(dirname(__FILE__) . '/lib/ManualImageCropSettingsPage.php');
-	ManualImageCrop::getInstance()->cropImage();
+	$ManualImageCrop = ManualImageCrop::getInstance();
+	$ManualImageCrop->cropImage();
 	exit;
 }
 
-// Add settings link on plugin page
+
+/**
+ * add settings link on plugin page
+ */
 function mic_settings_link($links) { 
   $settings_link = '<a href="options-general.php?page=Mic-setting-admin">' . __('Settings') . '</a>'; 
   array_unshift($links, $settings_link); 
   return $links; 
 }
- 
+
 $plugin = plugin_basename(__FILE__); 
 add_filter("plugin_action_links_$plugin", 'mic_settings_link' );
