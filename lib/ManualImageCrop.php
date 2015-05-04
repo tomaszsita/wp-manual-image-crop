@@ -147,31 +147,38 @@ setInterval(function() {
 	public function cropImage() {
 		global $_wp_additional_image_sizes;
 
-		$uploadsDir = wp_upload_dir();
-		
-		// checks for ssl. wp_upload_dir does not handle ssl (ssl admin trips on this and subsequent ajax success to browser)
-		if (is_ssl()) {			
-			$uploadsDir['baseurl'] = preg_replace('#^http://#i', 'https://', $uploadsDir['baseurl']);
-		}
+    $dst_file_url = wp_get_attachment_image_src($_POST['attachmentId'], $_POST['editedSize']);
 
-		$src_file_url = wp_get_attachment_image_src($_POST['attachmentId'], 'full');
+    if (!$dst_file_url) {
+      exit;
+    }
 
-		if (!$src_file_url) {
-			echo json_encode (array('status' => 'error', 'message' => 'wrong attachment' ) );
-			exit;
-		}
-		
-		
-		$src_file = str_replace($uploadsDir['baseurl'], $uploadsDir['basedir'], $src_file_url[0]);
-		$dst_file_url = wp_get_attachment_image_src($_POST['attachmentId'], $_POST['editedSize']);
-		
-		if (!$dst_file_url) {
-			exit;
-		}
-		$dst_file = str_replace($uploadsDir['baseurl'], $uploadsDir['basedir'], $dst_file_url[0]);
-		
+    $uploadsDir = wp_upload_dir();
 
-		//checks if the destination image file is present (if it's not, we want to create a new file, as the WordPress returns the original image instead of specific one)
+    // checks for ssl. wp_upload_dir does not handle ssl (ssl admin trips on this and subsequent ajax success to browser)
+    if (is_ssl()) {
+      $uploadsDir['baseurl'] = preg_replace('#^http://#i', 'https://', $uploadsDir['baseurl']);
+    }
+
+
+    if ( function_exists( '_load_image_to_edit_path' ) ) {
+      // this function is consider as private, but it return proper image path. Notice it is in function_exists condition
+      $src_file = _load_image_to_edit_path( $_POST['attachmentId'], 'full' );
+      $dst_file = _load_image_to_edit_path( $_POST['attachmentId'], $_POST['editedSize'] );
+    } else {
+      $src_file_url = wp_get_attachment_image_src( $_POST['attachmentId'], 'full' );
+
+      if ( ! $src_file_url ) {
+        echo json_encode( array( 'status' => 'error', 'message' => 'wrong attachment' ) );
+        exit;
+      }
+
+
+      $src_file = str_replace( $uploadsDir['baseurl'], $uploadsDir['basedir'], $src_file_url[0] );
+      $dst_file = str_replace( $uploadsDir['baseurl'], $uploadsDir['basedir'], $dst_file_url[0] );
+    }
+
+    //checks if the destination image file is present (if it's not, we want to create a new file, as the WordPress returns the original image instead of specific one)
 		if ($dst_file == $src_file) {
 			$attachmentData = wp_generate_attachment_metadata( $_POST['attachmentId'], $dst_file );
 			
@@ -241,9 +248,14 @@ setInterval(function() {
             
             if ( ! is_wp_error( $img ) ) {
 				
-            	$img->crop( $src_x, $src_y, $src_w, $src_h, $dst_w, $dst_h, false );
-                $img->set_quality( $quality );
-                $img->save($dst_file);
+              $img->crop( $src_x, $src_y, $src_w, $src_h, $dst_w, $dst_h, false );
+              $img->set_quality( $quality );
+              $saveStatus = $img->save( $dst_file );
+
+              if ( is_wp_error( $saveStatus ) ) {
+                echo json_encode( array( 'status' => 'error', 'message' => 'WP_ERROR: ' . $saveStatus->get_error_message() ) );
+                exit;
+              }
             }else {
             	echo json_encode (array('status' => 'error', 'message' => 'WP_ERROR: ' . $img->get_error_message() ) );
 				exit;
