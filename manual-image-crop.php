@@ -13,6 +13,8 @@ Domain Path: /languages/
 
 define('mic_VERSION', '1.08');
 
+include_once(dirname(__FILE__) . '/lib/ManualImageCropSettingsPage.php');
+
 //mic - stands for Manual Image Crop
 
 add_action('plugins_loaded', 'mic_init_plugin');
