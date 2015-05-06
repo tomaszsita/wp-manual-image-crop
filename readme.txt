@@ -1,12 +1,12 @@
 === Manual Image Crop ===
 Contributors: tomasz.sita
 Tags: crop, cropping, thumbnail, featured image, gallery, images, picture, image, image area
-Tested up to: 4.0
-Requires at least: 3.0.1
+Tested up to: 4.2.1
+Requires at least: 3.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WB5ZQWGUM7T96
-Stable tag: 1.08
+Stable tag: 1.09
 
 Plugin allows you to manually crop all the image sizes registered in your WordPress theme (in particular featured image).
 
@@ -25,6 +25,7 @@ GitHub Repository:
 https://github.com/tomaszsita/wp-manual-image-crop
 
 Translations:
+* Dutch (Bernardo Hulsman)
 * French (Gabriel Féron)
 * German (Bertram Greenhough)
 * Italian (Alessandro Curci)
@@ -46,6 +47,12 @@ Automatically:
 * When the plugin has been installed, Click 'Activate' 
 
 == Changelog ==
+= 1.09 =
+* Dutch translation added
+* Better error handling 
+* Fixed overwriting of previously saved crops
+* Minor tweaks all around
+
 = 1.08 =
 * More descriptive error messages
 * Russian translation added

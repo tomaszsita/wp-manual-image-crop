@@ -3,15 +3,15 @@
 Plugin Name: Manual Image Crop
 Plugin URI: http://www.rocketmill.co.uk/wordpress-plugin-manual-image-crop
 Description: Plugin allows you to manually crop all the image sizes registered in your WordPress theme (in particular featured image). Simply click on the "Crop" link next to any image in your media library and select the area of the image you want to crop.
-Version: 1.08
+Version: 1.09
 Author: Tomasz Sita
-Author URI: http://www.rocketmill.co.uk/author/tomasz
+Author URI: https://github.com/tomaszsita
 License: GPL2
 Text Domain: microp
 Domain Path: /languages/
 */
 
-define('mic_VERSION', '1.08');
+define('mic_VERSION', '1.09');
 
 include_once(dirname(__FILE__) . '/lib/ManualImageCropSettingsPage.php');
 
@@ -27,7 +27,7 @@ add_option('mic_make2x', 'true'); //Add option so we can persist make2x choice a
 function mic_init_plugin() {
 	// we are gonna use our plugin in the admin area only, so ends here if it's a frontend
 	if (!is_admin()) return;
-	
+
 	include_once(dirname(__FILE__) . '/lib/ManualImageCrop.php');
 
 	load_plugin_textdomain('microp', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
@@ -64,11 +64,11 @@ function mic_ajax_crop_image() {
 /**
  * add settings link on plugin page
  */
-function mic_settings_link($links) { 
-  $settings_link = '<a href="options-general.php?page=Mic-setting-admin">' . __('Settings') . '</a>'; 
-  array_unshift($links, $settings_link); 
-  return $links; 
+function mic_settings_link($links) {
+	$settings_link = '<a href="options-general.php?page=Mic-setting-admin">' . __('Settings') . '</a>';
+	array_unshift($links, $settings_link);
+	return $links;
 }
 
-$plugin = plugin_basename(__FILE__); 
+$plugin = plugin_basename(__FILE__);
 add_filter("plugin_action_links_$plugin", 'mic_settings_link' );
