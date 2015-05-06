@@ -1,0 +1,202 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Manual Image Crop\n"
+"POT-Creation-Date: 2015-05-01 00:50+0100\n"
+"PO-Revision-Date: 2015-05-06 17:17+0100\n"
+"Last-Translator: Bernardo Hulsman <b.hulsman@tripix.nl>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.7.6\n"
+"X-Poedit-Basepath: D:\\Programy\\xampp\\apps\\wordpress\\htdocs\\wp-content"
+"\\plugins\\manual-image-crop\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: _e;__\n"
+"Language: nl_NL\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: manual-image-crop.php:5
+msgid ""
+"Plugin allows you to manually crop all the image sizes registered in your "
+"WordPress theme (in particular featured image). Simply click on the \"Crop\" "
+"link next to any image in your media library and select the area of the "
+"image you want to crop."
+msgstr ""
+"Met deze plugin kun je handmatig de in je WordPress thema geregistreerde "
+"afbeeldingsgroottes bijsnijden.  Klik simpelweg op 'Bijsnijden' naast de "
+"afbeelding in de mediabibliotheek, of naast een uitgelichte afbeelding en "
+"selecteer het gedeelte van de afbeelding dat je wil bijsnijden."
+
+#: lib/ManualImageCrop.php:58
+msgid "Crop"
+msgstr "Bijsnijden"
+
+#: lib/ManualImageCrop.php:67 lib/ManualImageCrop.php:94
+#: lib/ManualImageCrop.php:104 lib/ManualImageCrop.php:131
+#: lib/ManualImageCropSettingsPage.php:45
+#: lib/ManualImageCropSettingsPage.php:46 manual-image-crop.php:3
+msgid "Manual Image Crop"
+msgstr "Manual Image Crop"
+
+#: lib/ManualImageCrop.php:67
+msgid "Crop featured image"
+msgstr "Uitgelichte afbeelding bijsnijden"
+
+#: lib/ManualImageCrop.php:94 lib/ManualImageCrop.php:104
+#: lib/ManualImageCrop.php:131
+msgid "Crop Image"
+msgstr "Afbeelding bijsnijden"
+
+#: lib/ManualImageCropEditorWindow.php:30
+msgid "Pick the image size:"
+msgstr "Kies een afmeting"
+
+#: lib/ManualImageCropEditorWindow.php:40
+#: lib/ManualImageCropSettingsPage.php:133
+msgid "Thumbnail"
+msgstr "Thumbnail"
+
+#: lib/ManualImageCropEditorWindow.php:41
+#: lib/ManualImageCropSettingsPage.php:134
+msgid "Medium"
+msgstr "Gemiddeld"
+
+#: lib/ManualImageCropEditorWindow.php:42
+#: lib/ManualImageCropSettingsPage.php:135
+msgid "Large"
+msgstr "Groot"
+
+#: lib/ManualImageCropEditorWindow.php:43
+#: lib/ManualImageCropSettingsPage.php:136
+msgid "Full Size"
+msgstr "Volledige grootte"
+
+#: lib/ManualImageCropEditorWindow.php:151
+msgid "Original picture dimensions:"
+msgstr "Oorspronkelijke afmeting:"
+
+#: lib/ManualImageCropEditorWindow.php:152
+msgid "Target picture dimensions:"
+msgstr "Nieuwe afmeting:"
+
+#: lib/ManualImageCropEditorWindow.php:156
+msgid "Soft proportional crop mode"
+msgstr "soft crop"
+
+#: lib/ManualImageCropEditorWindow.php:156
+msgid "Hard crop mode"
+msgstr "hard crop"
+
+#: lib/ManualImageCropEditorWindow.php:160
+msgid "New image:"
+msgstr "Nieuwe afbeelding:"
+
+#: lib/ManualImageCropEditorWindow.php:167
+msgid "Previous image:"
+msgstr "Vorige afbeelding:"
+
+#: lib/ManualImageCropEditorWindow.php:175
+msgid "Crop it!"
+msgstr "Bijsnijden!"
+
+#: lib/ManualImageCropEditorWindow.php:182
+msgid "Target JPEG Quality"
+msgstr "JPEG kwaliteit"
+
+#: lib/ManualImageCropEditorWindow.php:183
+#: lib/ManualImageCropSettingsPage.php:172
+msgid "100 (best quality, biggest file)"
+msgstr "100 (hoogste kwaliteit, grootste bestand)"
+
+#: lib/ManualImageCropEditorWindow.php:184
+#: lib/ManualImageCropSettingsPage.php:173
+msgid "80 (very high quality)"
+msgstr "80 (zeer hoge kwaliteit)"
+
+#: lib/ManualImageCropEditorWindow.php:185
+#: lib/ManualImageCropSettingsPage.php:174
+msgid "70 (high quality)"
+msgstr "70 (hoge kwaliteit)"
+
+#: lib/ManualImageCropEditorWindow.php:186
+#: lib/ManualImageCropSettingsPage.php:175
+msgid "60 (good)"
+msgstr "60 (goede kwaliteit)"
+
+#: lib/ManualImageCropEditorWindow.php:187
+#: lib/ManualImageCropSettingsPage.php:176
+msgid "50 (average)"
+msgstr "50 (gemiddelde kwaliteit)"
+
+#: lib/ManualImageCropEditorWindow.php:188
+#: lib/ManualImageCropSettingsPage.php:177
+msgid "30 (low)"
+msgstr "30 (lage kwaliteit)"
+
+#: lib/ManualImageCropEditorWindow.php:189
+#: lib/ManualImageCropSettingsPage.php:178
+msgid "10 (very low, smallest file)"
+msgstr "10 (zeer lage kwaliteit, kleinste bestand)"
+
+#: lib/ManualImageCropEditorWindow.php:196
+msgid "Generate Retina/HiDPI (@2x):"
+msgstr "Genereer Retina/HiDPI (@2x):"
+
+#: lib/ManualImageCropEditorWindow.php:201
+msgid "The image has been cropped successfully"
+msgstr "De afbeelding is succesvol bijgesneden"
+
+#: lib/ManualImageCropEditorWindow.php:202
+msgid "An Error has occured. Please try again or contact plugin's author."
+msgstr ""
+"Er heeft zich een fout voorgedaan! Probeer het nog eens of neem contact op "
+"met de maker van de plugin."
+
+#: lib/ManualImageCropEditorWindow.php:245
+msgid "Compatible"
+msgstr "Geschikt"
+
+#: lib/ManualImageCropEditorWindow.php:247
+msgid "Source too small"
+msgstr "Bronbestand te klein"
+
+#: lib/ManualImageCropSettingsPage.php:61
+msgid "Manual Image Crop Settings"
+msgstr "Manual Image Crop instellingen"
+
+#: lib/ManualImageCropSettingsPage.php:87
+msgid "Mic Custom Settings"
+msgstr "Aangepaste instellingen"
+
+#: lib/ManualImageCropSettingsPage.php:94
+msgid "Crop sizes settings"
+msgstr "Afbeeldingsgrootte instellingen"
+
+#: lib/ManualImageCropSettingsPage.php:120
+msgid "Enter your settings below:"
+msgstr "Pas hieronder de instellingen aan:"
+
+#: lib/ManualImageCropSettingsPage.php:143
+msgid "Size"
+msgstr "Afmeting"
+
+#: lib/ManualImageCropSettingsPage.php:144
+msgid "Visible"
+msgstr "Zichtbaar"
+
+#: lib/ManualImageCropSettingsPage.php:145
+msgid "Default JPEG Quality"
+msgstr "Standaard JPEG kwaliteit"
+
+#: lib/ManualImageCropSettingsPage.php:146
+msgid "Custom Label"
+msgstr "Aangepast label"
+
+#: lib/ManualImageCropSettingsPage.php:168
+msgid "Yes"
+msgstr "Ja"
+
+#: lib/ManualImageCropSettingsPage.php:169
+msgid "No"
+msgstr "Nee"
