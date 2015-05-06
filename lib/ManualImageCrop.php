@@ -181,12 +181,18 @@ setInterval(function() {
 		if ($dst_file == $src_file) {
 			$attachmentData = wp_generate_attachment_metadata( $_POST['attachmentId'], $dst_file );
 			
-			//new destination file path - replaces original file name with the correct one
-			$dst_file = str_replace( basename($attachmentData['file']), $attachmentData['sizes'][ $_POST['editedSize'] ]['file'], $dst_file);
-
+			//overwrite with previous values
+			$prevAttachmentData = wp_get_attachment_metadata($_POST['attachmentId']);
+			if (isset($prevAttachmentData['micSelectedArea'])) {
+				$attachmentData['micSelectedArea'] = $prevAttachmentData['micSelectedArea'];
+			}
+			
 			//saves new path to the image size in the database
 			wp_update_attachment_metadata( $_POST['attachmentId'],  $attachmentData );
 			
+			//new destination file path - replaces original file name with the correct one
+			$dst_file = str_replace( basename($attachmentData['file']), $attachmentData['sizes'][ $_POST['editedSize'] ]['file'], $dst_file);
+
 			//retrieves the new url to file (needet to refresh the preview)
 			$dst_file_url = wp_get_attachment_image_src($_POST['attachmentId'], $_POST['editedSize']);
 		}

@@ -34,7 +34,7 @@ class ManualImageCropEditorWindow {
 
 			$imageSizes = get_intermediate_image_sizes();
 
-			$editedSize = isset( $_GET['size'] ) ? $_GET['size'] : $imageSizes[0];
+			$editedSize = isset( $_GET['size'] ) ? $_GET['size'] : null;
 			
             $sizeLabels = apply_filters( 'image_size_names_choose', array(
                 'thumbnail' => __('Thumbnail'),
@@ -50,6 +50,9 @@ class ManualImageCropEditorWindow {
 				}
 				
 				if ( $sizesSettings[$s]['visibility'] == 'hidden') {
+					if ($editedSize == $s) {
+						$editedSize = null;
+					}
 					continue;
 				}
 				
@@ -60,6 +63,10 @@ class ManualImageCropEditorWindow {
 				}
 				if ($cropMethod == 0) {
 					continue;
+				}
+				
+				if ( is_null($editedSize) ) {
+					$editedSize = $s;
 				}
 
                 // Get user defined label for the size or just cleanup a bit
@@ -120,9 +127,12 @@ class ManualImageCropEditorWindow {
 	
 				if ($cropMethod == 1) {
 					$aspectRatio = ($width / $height);
-					if ($aspectRatio * $minWidth > $sizes[0]) {
-						$aspectRatio = ($previewWidth / $minHeight);
-					}else if (1 / $aspectRatio * $minHeight > $sizes[1]) {
+// 					if ($aspectRatio * $minWidth > $sizes[0]) {
+// 						die('a');
+// 						$aspectRatio = ($previewWidth / $minHeight);
+// 					}
+					
+					if (1 / $aspectRatio * $minHeight > $sizes[1]) {
 						$aspectRatio = ($minWidth / $previewHeight);
 					}
 					
