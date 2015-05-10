@@ -207,6 +207,8 @@ setInterval(function() {
 		$src_w = max(0, $_POST['select']['w']) * $_POST['previewScale'];
 		$src_h = max(0, $_POST['select']['h']) * $_POST['previewScale'];
 		
+		$size = wp_get_image_editor( $src_file )->get_size();
+		
 		if ( $dst_w > $size["width"] || $dst_h > $size["height"] ) {
 			$size_ratio = max($dst_w / $size["width"], $dst_h / $size["height"]);
 
