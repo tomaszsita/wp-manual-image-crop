@@ -1,0 +1,202 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Manual Image Crop\n"
+"POT-Creation-Date: 2015-05-01 00:50+0100\n"
+"PO-Revision-Date: 2015-07-09 20:07+0100\n"
+"Last-Translator: KO. Mattsson <karloskar@ponty.se>\n"
+"Language-Team: \n"
+"Language: sv_SE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: \n"
+"X-Poedit-Basepath: D:\\Programy\\xampp\\apps\\wordpress\\htdocs\\wp-content"
+"\\plugins\\manual-image-crop\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: _e;__\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: manual-image-crop.php:5
+msgid ""
+"Plugin allows you to manually crop all the image sizes registered in your "
+"WordPress theme (in particular featured image). Simply click on the \"Crop\" "
+"link next to any image in your media library and select the area of the "
+"image you want to crop."
+msgstr ""
+"Tillägget ger dig möjlighet att manuellt beskära alla bildstorlekar som "
+"registrerats i ditt WordPress-tema (särskilt utvalda bilder). Klicka bara på "
+"\"Beskär\" bredvid en bild i media-biblioteket och välj område som du vill "
+"beskära till."
+
+#: lib/ManualImageCrop.php:58
+msgid "Crop"
+msgstr "Beskär"
+
+#: lib/ManualImageCrop.php:67 lib/ManualImageCrop.php:94
+#: lib/ManualImageCrop.php:104 lib/ManualImageCrop.php:131
+#: lib/ManualImageCropSettingsPage.php:45
+#: lib/ManualImageCropSettingsPage.php:46 manual-image-crop.php:3
+msgid "Manual Image Crop"
+msgstr "Manuell bildbeskärning"
+
+#: lib/ManualImageCrop.php:67
+msgid "Crop featured image"
+msgstr "Beskär utvald bild"
+
+#: lib/ManualImageCrop.php:94 lib/ManualImageCrop.php:104
+#: lib/ManualImageCrop.php:131
+msgid "Crop Image"
+msgstr "Beskär bild"
+
+#: lib/ManualImageCropEditorWindow.php:30
+msgid "Pick the image size:"
+msgstr "Välj bildstorlek:"
+
+#: lib/ManualImageCropEditorWindow.php:40
+#: lib/ManualImageCropSettingsPage.php:133
+msgid "Thumbnail"
+msgstr "Miniatyr"
+
+#: lib/ManualImageCropEditorWindow.php:41
+#: lib/ManualImageCropSettingsPage.php:134
+msgid "Medium"
+msgstr "Medium"
+
+#: lib/ManualImageCropEditorWindow.php:42
+#: lib/ManualImageCropSettingsPage.php:135
+msgid "Large"
+msgstr "Large"
+
+#: lib/ManualImageCropEditorWindow.php:43
+#: lib/ManualImageCropSettingsPage.php:136
+msgid "Full Size"
+msgstr "Full storlek"
+
+#: lib/ManualImageCropEditorWindow.php:151
+msgid "Original picture dimensions:"
+msgstr "Ursprungliga bilddimensioner:"
+
+#: lib/ManualImageCropEditorWindow.php:152
+msgid "Target picture dimensions:"
+msgstr "Bilddimensioner i ändrad bild:"
+
+#: lib/ManualImageCropEditorWindow.php:156
+msgid "Soft proportional crop mode"
+msgstr "Mjukt proportionellt beskärningssätt"
+
+#: lib/ManualImageCropEditorWindow.php:156
+msgid "Hard crop mode"
+msgstr "Hårt beskärningssätt"
+
+#: lib/ManualImageCropEditorWindow.php:160
+msgid "New image:"
+msgstr "Ny bild:"
+
+#: lib/ManualImageCropEditorWindow.php:167
+msgid "Previous image:"
+msgstr "Föregående bild:"
+
+#: lib/ManualImageCropEditorWindow.php:175
+msgid "Crop it!"
+msgstr "Beskär!"
+
+#: lib/ManualImageCropEditorWindow.php:182
+msgid "Target JPEG Quality"
+msgstr "Målets JPEG-kvalité"
+
+#: lib/ManualImageCropEditorWindow.php:183
+#: lib/ManualImageCropSettingsPage.php:172
+msgid "100 (best quality, biggest file)"
+msgstr "100 (högst kvalité, störst filstorlek)"
+
+#: lib/ManualImageCropEditorWindow.php:184
+#: lib/ManualImageCropSettingsPage.php:173
+msgid "80 (very high quality)"
+msgstr "80 (mycket hög kvalité)"
+
+#: lib/ManualImageCropEditorWindow.php:185
+#: lib/ManualImageCropSettingsPage.php:174
+msgid "70 (high quality)"
+msgstr "70 (hög kvalité)"
+
+#: lib/ManualImageCropEditorWindow.php:186
+#: lib/ManualImageCropSettingsPage.php:175
+msgid "60 (good)"
+msgstr "60 (bra)"
+
+#: lib/ManualImageCropEditorWindow.php:187
+#: lib/ManualImageCropSettingsPage.php:176
+msgid "50 (average)"
+msgstr "50 (medelmåttig)"
+
+#: lib/ManualImageCropEditorWindow.php:188
+#: lib/ManualImageCropSettingsPage.php:177
+msgid "30 (low)"
+msgstr "30 (låg)"
+
+#: lib/ManualImageCropEditorWindow.php:189
+#: lib/ManualImageCropSettingsPage.php:178
+msgid "10 (very low, smallest file)"
+msgstr "10 (väldigt låg, minst filstorlek)"
+
+#: lib/ManualImageCropEditorWindow.php:196
+msgid "Generate Retina/HiDPI (@2x):"
+msgstr "Skapa Retina/HiDPI (@2x):"
+
+#: lib/ManualImageCropEditorWindow.php:201
+msgid "The image has been cropped successfully"
+msgstr "Bilden har beskurits med framgång"
+
+#: lib/ManualImageCropEditorWindow.php:202
+msgid "An Error has occured. Please try again or contact plugin's author."
+msgstr ""
+"Ett fel har inträttat. Var vänlig försök igen eller kontakta tilläggets "
+"skapare."
+
+#: lib/ManualImageCropEditorWindow.php:245
+msgid "Compatible"
+msgstr "Kompatibel"
+
+#: lib/ManualImageCropEditorWindow.php:247
+msgid "Source too small"
+msgstr "Källfilen är för liten"
+
+#: lib/ManualImageCropSettingsPage.php:61
+msgid "Manual Image Crop Settings"
+msgstr "Inställningar för manuell bildbeskärning"
+
+#: lib/ManualImageCropSettingsPage.php:87
+msgid "Mic Custom Settings"
+msgstr "Mic Custom Settings"
+
+#: lib/ManualImageCropSettingsPage.php:94
+msgid "Crop sizes settings"
+msgstr "Inställningar för beskärnings-storlekar"
+
+#: lib/ManualImageCropSettingsPage.php:120
+msgid "Enter your settings below:"
+msgstr "Fyll i dina inställningar nedan:"
+
+#: lib/ManualImageCropSettingsPage.php:143
+msgid "Size"
+msgstr "Storlek"
+
+#: lib/ManualImageCropSettingsPage.php:144
+msgid "Visible"
+msgstr "Synlig"
+
+#: lib/ManualImageCropSettingsPage.php:145
+msgid "Default JPEG Quality"
+msgstr "Förinställt värde JPEG-kvalité"
+
+#: lib/ManualImageCropSettingsPage.php:146
+msgid "Custom Label"
+msgstr "Egen etikett"
+
+#: lib/ManualImageCropSettingsPage.php:168
+msgid "Yes"
+msgstr "Ja"
+
+#: lib/ManualImageCropSettingsPage.php:169
+msgid "No"
+msgstr "Nej"
