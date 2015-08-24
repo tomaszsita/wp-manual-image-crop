@@ -1,0 +1,202 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Manual Image Crop\n"
+"POT-Creation-Date: 2015-08-24 23:01+0100\n"
+"PO-Revision-Date: 2015-08-24 23:51+0100\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.4\n"
+"X-Poedit-Basepath: D:/Programy/xampp/apps/wordpress/htdocs/wp-content/"
+"plugins/manual-image-crop\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: _e;__\n"
+"Last-Translator: \n"
+"Language: hu_HU\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: manual-image-crop.php:5
+msgid ""
+"Plugin allows you to manually crop all the image sizes registered in your "
+"WordPress theme (in particular featured image). Simply click on the \"Crop\" "
+"link next to any image in your media library and select the area of the "
+"image you want to crop."
+msgstr ""
+"Ez a bővítmény lehetővé teszi hogy manuálisan kivágd es átméretezd az összes "
+"regisztrált kép méretet a WordPress sablonban. Csak egyszerűen kattincs a "
+"“Kivág” linkre bármelyik kép mellett a médiatárban és válaszd ki a kivágandó "
+"feluletet."
+
+#: lib/ManualImageCrop.php:58
+msgid "Crop"
+msgstr "Kivág"
+
+#: lib/ManualImageCrop.php:67 lib/ManualImageCrop.php:94
+#: lib/ManualImageCrop.php:104 lib/ManualImageCrop.php:131
+#: lib/ManualImageCropSettingsPage.php:45
+#: lib/ManualImageCropSettingsPage.php:46 manual-image-crop.php:3
+msgid "Manual Image Crop"
+msgstr "Manuális Kép Kivágó"
+
+#: lib/ManualImageCrop.php:67
+msgid "Crop featured image"
+msgstr "Kiemelt kép kivágása:"
+
+#: lib/ManualImageCrop.php:94 lib/ManualImageCrop.php:104
+#: lib/ManualImageCrop.php:131
+msgid "Crop Image"
+msgstr "Kép kivágása:"
+
+#: lib/ManualImageCropEditorWindow.php:30
+msgid "Pick the image size:"
+msgstr "Válassz kép méretet:"
+
+#: lib/ManualImageCropEditorWindow.php:40
+#: lib/ManualImageCropSettingsPage.php:133
+msgid "Thumbnail"
+msgstr "Bélyegkép"
+
+#: lib/ManualImageCropEditorWindow.php:41
+#: lib/ManualImageCropSettingsPage.php:134
+msgid "Medium"
+msgstr "Közepes"
+
+#: lib/ManualImageCropEditorWindow.php:42
+#: lib/ManualImageCropSettingsPage.php:135
+msgid "Large"
+msgstr "Nagy"
+
+#: lib/ManualImageCropEditorWindow.php:43
+#: lib/ManualImageCropSettingsPage.php:136
+msgid "Full Size"
+msgstr "Teljes méret"
+
+#: lib/ManualImageCropEditorWindow.php:151
+msgid "Original picture dimensions:"
+msgstr "Eredeti kép méretei:"
+
+#: lib/ManualImageCropEditorWindow.php:152
+msgid "Target picture dimensions:"
+msgstr "Végleges kép méretei:"
+
+#: lib/ManualImageCropEditorWindow.php:156
+msgid "Soft proportional crop mode"
+msgstr "Arányos kivágás"
+
+#: lib/ManualImageCropEditorWindow.php:156
+msgid "Hard crop mode"
+msgstr "Aránytalan kivágás"
+
+#: lib/ManualImageCropEditorWindow.php:160
+msgid "New image:"
+msgstr "Új kép:"
+
+#: lib/ManualImageCropEditorWindow.php:167
+msgid "Previous image:"
+msgstr "Előző kép:"
+
+#: lib/ManualImageCropEditorWindow.php:175
+msgid "Crop it!"
+msgstr "Kivágás"
+
+#: lib/ManualImageCropEditorWindow.php:182
+msgid "Target JPEG Quality"
+msgstr "Végleges JPEG Minőség"
+
+#: lib/ManualImageCropEditorWindow.php:183
+#: lib/ManualImageCropSettingsPage.php:172
+msgid "100 (best quality, biggest file)"
+msgstr "100 (legjobb, legnagyobb fájl)"
+
+#: lib/ManualImageCropEditorWindow.php:184
+#: lib/ManualImageCropSettingsPage.php:173
+msgid "80 (very high quality)"
+msgstr "80 (nagyon jó)"
+
+#: lib/ManualImageCropEditorWindow.php:185
+#: lib/ManualImageCropSettingsPage.php:174
+msgid "70 (high quality)"
+msgstr "70 (jobb)"
+
+#: lib/ManualImageCropEditorWindow.php:186
+#: lib/ManualImageCropSettingsPage.php:175
+msgid "60 (good)"
+msgstr "60 (jó)"
+
+#: lib/ManualImageCropEditorWindow.php:187
+#: lib/ManualImageCropSettingsPage.php:176
+msgid "50 (average)"
+msgstr "50 (átlagos)"
+
+#: lib/ManualImageCropEditorWindow.php:188
+#: lib/ManualImageCropSettingsPage.php:177
+msgid "30 (low)"
+msgstr "30 (alacsony)"
+
+#: lib/ManualImageCropEditorWindow.php:189
+#: lib/ManualImageCropSettingsPage.php:178
+msgid "10 (very low, smallest file)"
+msgstr "10 (nagyon alacson, legkissebb fájl)"
+
+#: lib/ManualImageCropEditorWindow.php:196
+msgid "Generate Retina/HiDPI (@2x):"
+msgstr "Retina/HiDPI (@2x) generálása:"
+
+#: lib/ManualImageCropEditorWindow.php:201
+msgid "The image has been cropped successfully"
+msgstr "A kép sikeresen átalakítva"
+
+#: lib/ManualImageCropEditorWindow.php:202
+msgid "An Error has occured. Please try again or contact plugin's author."
+msgstr ""
+"Hiba lépett fel. Kérem probálja  újra vagy vegye fel a kapcsolatot a "
+"bővítmény szerzőjével."
+
+#: lib/ManualImageCropEditorWindow.php:245
+msgid "Compatible"
+msgstr "Kompatibilis"
+
+#: lib/ManualImageCropEditorWindow.php:247
+msgid "Source too small"
+msgstr "Forrás túl kicsi"
+
+#: lib/ManualImageCropSettingsPage.php:61
+msgid "Manual Image Crop Settings"
+msgstr "Manuális Kép Kivágó Beállítások"
+
+#: lib/ManualImageCropSettingsPage.php:87
+msgid "Mic Custom Settings"
+msgstr "Manuális Kép Kivágó Egyéni Beállítások"
+
+#: lib/ManualImageCropSettingsPage.php:94
+msgid "Crop sizes settings"
+msgstr "Méret beállítások"
+
+#: lib/ManualImageCropSettingsPage.php:120
+msgid "Enter your settings below:"
+msgstr "Adja meg a beállításait"
+
+#: lib/ManualImageCropSettingsPage.php:143
+msgid "Size"
+msgstr "Méret"
+
+#: lib/ManualImageCropSettingsPage.php:144
+msgid "Visible"
+msgstr "Látható"
+
+#: lib/ManualImageCropSettingsPage.php:145
+msgid "Default JPEG Quality"
+msgstr "Alapértelmezett JPEG Minőség"
+
+#: lib/ManualImageCropSettingsPage.php:146
+msgid "Custom Label"
+msgstr "Egyéni címke"
+
+#: lib/ManualImageCropSettingsPage.php:168
+msgid "Yes"
+msgstr "Igen"
+
+#: lib/ManualImageCropSettingsPage.php:169
+msgid "No"
+msgstr "Nem"
