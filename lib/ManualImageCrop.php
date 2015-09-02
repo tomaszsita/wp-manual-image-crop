@@ -140,14 +140,45 @@ class ManualImageCrop {
 	</script>
 <?php
 	}
+	
+	private function filterPostData() {
+		$imageSizes = get_intermediate_image_sizes();
+	
+		$data = array(
+				'attachmentId' => filter_var($_POST['attachmentId'], FILTER_SANITIZE_NUMBER_INT),			
+				'editedSize' => in_array($_POST['editedSize'], $imageSizes) ? $_POST['editedSize'] : null,
+				'select' => array(
+							'x' => filter_var($_POST['select']['x'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION),
+							'y' => filter_var($_POST['select']['y'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION),
+							'w' => filter_var($_POST['select']['w'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION),
+							'h' => filter_var($_POST['select']['h'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION),
+						),
+				'previewScale' => filter_var($_POST['previewScale'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION)
+				
+		);
+
+		if (isset($_POST['mic_quality'])) {
+			$data['mic_quality'] = filter_var($_POST['mic_quality'], FILTER_SANITIZE_NUMBER_INT);
+		} else {
+			$data['mic_quality'] = 60;
+		}
+
+		if (isset($_POST['make2x'])) {
+			$data['make2x'] = filter_var($_POST['make2x'], FILTER_VALIDATE_BOOLEAN);
+		}
+
+		return $data;
+	}
 
 	/**
 	 * Crops the image based on params passed in $_POST array
 	 */
 	public function cropImage() {
 		global $_wp_additional_image_sizes;
+		
+		$data = $this->filterPostData();
 
-		$dst_file_url = wp_get_attachment_image_src($_POST['attachmentId'], $_POST['editedSize']);
+		$dst_file_url = wp_get_attachment_image_src($data['attachmentId'], $data['editedSize']);
 
 		if (!$dst_file_url) {
 			exit;
@@ -163,10 +194,10 @@ class ManualImageCrop {
 
 		if ( function_exists( '_load_image_to_edit_path' ) ) {
 			// this function is consider as private, but it return proper image path. Notice it is in function_exists condition
-			$src_file = _load_image_to_edit_path( $_POST['attachmentId'], 'full' );
-			$dst_file = _load_image_to_edit_path( $_POST['attachmentId'], $_POST['editedSize'] );
+			$src_file = _load_image_to_edit_path( $data['attachmentId'], 'full' );
+			$dst_file = _load_image_to_edit_path( $data['attachmentId'], $data['editedSize'] );
 		} else {
-			$src_file_url = wp_get_attachment_image_src( $_POST['attachmentId'], 'full' );
+			$src_file_url = wp_get_attachment_image_src( $data['attachmentId'], 'full' );
 
 			if ( ! $src_file_url ) {
 				echo json_encode( array( 'status' => 'error', 'message' => 'wrong attachment' ) );
@@ -179,31 +210,31 @@ class ManualImageCrop {
 
 		//checks if the destination image file is present (if it's not, we want to create a new file, as the WordPress returns the original image instead of specific one)
 		if ($dst_file == $src_file) {
-			$attachmentData = wp_generate_attachment_metadata( $_POST['attachmentId'], $dst_file );
+			$attachmentData = wp_generate_attachment_metadata( $data['attachmentId'], $dst_file );
 				
 			//overwrite with previous values
-			$prevAttachmentData = wp_get_attachment_metadata($_POST['attachmentId']);
+			$prevAttachmentData = wp_get_attachment_metadata($data['attachmentId']);
 			if (isset($prevAttachmentData['micSelectedArea'])) {
 				$attachmentData['micSelectedArea'] = $prevAttachmentData['micSelectedArea'];
 			}
 				
 			//saves new path to the image size in the database
-			wp_update_attachment_metadata( $_POST['attachmentId'],  $attachmentData );
+			wp_update_attachment_metadata( $data['attachmentId'],  $attachmentData );
 				
 			//new destination file path - replaces original file name with the correct one
-			$dst_file = str_replace( basename($attachmentData['file']), $attachmentData['sizes'][ $_POST['editedSize'] ]['file'], $dst_file);
+			$dst_file = str_replace( basename($attachmentData['file']), $attachmentData['sizes'][ $data['editedSize'] ]['file'], $dst_file);
 
 			//retrieves the new url to file (needet to refresh the preview)
-			$dst_file_url = wp_get_attachment_image_src($_POST['attachmentId'], $_POST['editedSize']);
+			$dst_file_url = wp_get_attachment_image_src($data['attachmentId'], $data['editedSize']);
 		}
 
 		//sets the destination image dimensions
-		if (isset($_wp_additional_image_sizes[$_POST['editedSize']])) {
-			$dst_w = min(intval($_wp_additional_image_sizes[$_POST['editedSize']]['width']), $_POST['select']['w'] * $_POST['previewScale']);
-			$dst_h = min(intval($_wp_additional_image_sizes[$_POST['editedSize']]['height']), $_POST['select']['h'] * $_POST['previewScale']);
+		if (isset($_wp_additional_image_sizes[$data['editedSize']])) {
+			$dst_w = min(intval($_wp_additional_image_sizes[$data['editedSize']]['width']), $data['select']['w'] * $data['previewScale']);
+			$dst_h = min(intval($_wp_additional_image_sizes[$data['editedSize']]['height']), $data['select']['h'] * $data['previewScale']);
 		} else {
-			$dst_w = min(get_option($_POST['editedSize'].'_size_w'), $_POST['select']['w'] * $_POST['previewScale']);
-			$dst_h = min(get_option($_POST['editedSize'].'_size_h'), $_POST['select']['h'] * $_POST['previewScale']);
+			$dst_w = min(get_option($data['editedSize'].'_size_w'), $data['select']['w'] * $data['previewScale']);
+			$dst_h = min(get_option($data['editedSize'].'_size_h'), $data['select']['h'] * $data['previewScale']);
 		}
 
 		if (!$dst_w || !$dst_h) {
@@ -214,10 +245,10 @@ class ManualImageCrop {
 		//prepares coordinates that will be passed to cropping function
 		$dst_x = 0;
 		$dst_y = 0;
-		$src_x = max(0, $_POST['select']['x']) * $_POST['previewScale'];
-		$src_y = max(0, $_POST['select']['y']) * $_POST['previewScale'];
-		$src_w = max(0, $_POST['select']['w']) * $_POST['previewScale'];
-		$src_h = max(0, $_POST['select']['h']) * $_POST['previewScale'];
+		$src_x = max(0, $data['select']['x']) * $data['previewScale'];
+		$src_y = max(0, $data['select']['y']) * $data['previewScale'];
+		$src_w = max(0, $data['select']['w']) * $data['previewScale'];
+		$src_h = max(0, $data['select']['h']) * $data['previewScale'];
 
 		$size = wp_get_image_editor( $src_file )->get_size();
 
@@ -238,17 +269,15 @@ class ManualImageCrop {
 		}
 
 		//saves the selected area
-		$imageMetadata = wp_get_attachment_metadata($_POST['attachmentId']);
-		$imageMetadata['micSelectedArea'][$_POST['editedSize']] = array(
-				'x' => $_POST['select']['x'],
-				'y' => $_POST['select']['y'],
-				'w' => $_POST['select']['w'],
-				'h' => $_POST['select']['h'],
-				'scale' => $_POST['previewScale'],
+		$imageMetadata = wp_get_attachment_metadata($data['attachmentId']);
+		$imageMetadata['micSelectedArea'][$data['editedSize']] = array(
+				'x' => $data['select']['x'],
+				'y' => $data['select']['y'],
+				'w' => $data['select']['w'],
+				'h' => $data['select']['h'],
+				'scale' => $data['previewScale'],
 		);
-		wp_update_attachment_metadata($_POST['attachmentId'], $imageMetadata);
-
-		$quality = isset($_POST['mic_quality']) ? intval($_POST['mic_quality']) : 60;
+		wp_update_attachment_metadata($data['attachmentId'], $imageMetadata);
 
 		if ( function_exists('wp_get_image_editor') ) {
 			$img = wp_get_image_editor( $src_file );
@@ -256,7 +285,7 @@ class ManualImageCrop {
 			if ( ! is_wp_error( $img ) ) {
 
 				$img->crop( $src_x, $src_y, $src_w, $src_h, $dst_w, $dst_h, false );
-				$img->set_quality( $quality );
+				$img->set_quality( $data['mic_quality'] );
 				$saveStatus = $img->save( $dst_file );
 
 				if ( is_wp_error( $saveStatus ) ) {
@@ -307,7 +336,7 @@ class ManualImageCrop {
 		}
 
 		// Generate Retina Image
-		if( isset( $_POST['make2x'] ) && $_POST['make2x'] === 'true' ) {
+		if( isset( $data['make2x'] ) && $data['make2x'] === 'true' ) {
 			$dst_w2x = $dst_w * 2;
 			$dst_h2x = $dst_h * 2;
 
@@ -352,8 +381,8 @@ class ManualImageCrop {
 			}
 		}
 		// update 'mic_make2x' option status to persist choice
-		if( isset( $_POST['make2x'] ) && $_POST['make2x'] !== get_option('mic_make2x') ) {
-			update_option('mic_make2x', $_POST['make2x']);
+		if( isset( $data['make2x'] ) && $data['make2x'] !== get_option('mic_make2x') ) {
+			update_option('mic_make2x', $data['make2x']);
 		}
 
 		//returns the url to the generated image (to allow refreshing the preview)

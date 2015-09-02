@@ -36,8 +36,10 @@ class ManualImageCropEditorWindow {
 
 		$imageSizes = get_intermediate_image_sizes();
 
-		$editedSize = isset( $_GET['size'] ) ? $_GET['size'] : null;
+		$editedSize = in_array($_GET['size'], $imageSizes) ? $_GET['size'] : null;
 			
+		$postId = filter_var($_GET['postId'], FILTER_SANITIZE_NUMBER_INT);
+		
 		$sizeLabels = apply_filters( 'image_size_names_choose', array(
 				'thumbnail' => __('Thumbnail'),
 				'medium'    => __('Medium'),
@@ -74,7 +76,7 @@ class ManualImageCropEditorWindow {
 			// Get user defined label for the size or just cleanup a bit
 			$label = isset($sizeLabels[$s]) ? $sizeLabels[$s] : ucfirst( str_replace( '-', ' ', $s ) );
 			$label = $sizesSettings[$s]['label'] ? $sizesSettings[$s]['label'] : $label;
-			echo '<a href="' . admin_url( 'admin-ajax.php' ) . '?action=mic_editor_window&size=' . $s . '&postId=' . $_GET['postId'] . '&width=940" class="mic-icon-' . $s . ' rm-crop-size-tab nav-tab ' . ( ($s == $editedSize) ? 'nav-tab-active' : '' ) .  '">' . $label . '</a>';
+			echo '<a href="' . admin_url( 'admin-ajax.php' ) . '?action=mic_editor_window&size=' . $s . '&postId=' . $postId . '&width=940" class="mic-icon-' . $s . ' rm-crop-size-tab nav-tab ' . ( ($s == $editedSize) ? 'nav-tab-active' : '' ) .  '">' . $label . '</a>';
 		}
 		?>
 	</h2>
@@ -93,9 +95,9 @@ class ManualImageCropEditorWindow {
 
 		$uploadsDir = wp_upload_dir();
 
-		$metaData = wp_get_attachment_metadata($_GET['postId']);
+		$metaData = wp_get_attachment_metadata($postId);
 
-		$src_file_url = wp_get_attachment_image_src($_GET['postId'], 'full');
+		$src_file_url = wp_get_attachment_image_src($postId, 'full');
 		if (!$src_file_url) {
 			echo json_encode (array('status' => 'error', 'message' => 'wrong attachement' ) );
 			exit;
@@ -127,12 +129,11 @@ class ManualImageCropEditorWindow {
 		$minWidth = min($width / $previewRatio, $previewWidth);
 		$minHeight = min($height / $previewRatio, $previewHeight);
 
-		if ($cropMethod == 1) {
+		if ($cropMethod != 0) {
 			$aspectRatio = ($width / $height);
-			// 					if ($aspectRatio * $minWidth > $sizes[0]) {
-			// 						die('a');
-			// 						$aspectRatio = ($previewWidth / $minHeight);
-			// 					}
+			// if ($aspectRatio * $minWidth > $sizes[0]) {
+			// 	$aspectRatio = ($previewWidth / $minHeight);
+			// }
 
 			if (1 / $aspectRatio * $minHeight > $sizes[1]) {
 				$aspectRatio = ($minWidth / $previewHeight);
@@ -157,7 +158,7 @@ class ManualImageCropEditorWindow {
 
 		?>
 		<div style="margin: auto; width: <?php echo $previewWidth; ?>px;">
-			<img style="width: <?php echo $previewWidth; ?>px; height: <?php echo $previewHeight; ?>px;" id="jcrop_target" src="<?php echo wp_get_attachment_url($_GET['postId']); ?>">
+			<img style="width: <?php echo $previewWidth; ?>px; height: <?php echo $previewHeight; ?>px;" id="jcrop_target" src="<?php echo wp_get_attachment_url($postId); ?>">
 		</div>
 	</div>
 	<div class="mic-right-col">
@@ -181,13 +182,13 @@ class ManualImageCropEditorWindow {
 			<br />
 			<div style="width: <?php echo $smallPreviewWidth; ?>px; height: <?php echo $smallPreviewHeight; ?>px; overflow: hidden; margin-left: 5px; float: right;">
 				<img id="preview"
-					src="<?php echo wp_get_attachment_url($_GET['postId']); ?>">
+					src="<?php echo wp_get_attachment_url($postId); ?>">
 			</div>
 		</div>
 
 		<div class="mic-48-col">
 			<?php _e('Previous image:','microp');
-			$editedImage =  wp_get_attachment_image_src($_GET['postId'], $editedSize);
+			$editedImage =  wp_get_attachment_image_src($postId, $editedSize);
 			?>
 			<div style="width: <?php echo $smallPreviewWidth; ?>px; height: <?php echo $smallPreviewHeight; ?>px; overflow: hidden; margin-left: 5px;">
 				<img id="micPreviousImage" style="max-width: <?php echo $smallPreviewWidth; ?>px; max-height: <?php echo $smallPreviewHeight; ?>px;" src="<?php echo $editedImage[0] . '?' . time(); ?>">
@@ -237,7 +238,7 @@ class ManualImageCropEditorWindow {
 </div>
 <script>
 		jQuery(document).ready(function($) {
-			mic_attachment_id = <?php echo $_GET['postId']; ?>;
+			mic_attachment_id = <?php echo $postId; ?>;
 			mic_edited_size = '<?php echo $editedSize; ?>';
 			mic_preview_scale = <?php echo $previewRatio; ?>;
 			
@@ -283,6 +284,5 @@ class ManualImageCropEditorWindow {
 		});
 		</script>
 <?php
-die;
 	}
 }

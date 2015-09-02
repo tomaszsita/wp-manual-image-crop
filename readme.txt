@@ -1,15 +1,14 @@
 === Manual Image Crop ===
 Contributors: tomasz.sita
 Tags: crop, cropping, thumbnail, featured image, gallery, images, picture, image, image area
-Tested up to: 4.2.1
+Tested up to: 4.3
 Requires at least: 3.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WB5ZQWGUM7T96
-Stable tag: 1.09
+Stable tag: 1.12
 
 Plugin allows you to manually crop all the image sizes registered in your WordPress theme (in particular featured image).
-
 
 == Description ==
 Plugin allows you to manually crop all the image sizes registered in your WordPress theme (in particular featured image).
@@ -21,32 +20,49 @@ Apart from media library list, the plugin adds links in few more places:
 * Below featured image box ("Crop featured image")
 * In the media insert modal window (once you select an image)
 
-GitHub Repository:
+= Enjoying using Manual Image Crop? =
+[Donate the plugin here](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WB5ZQWGUM7T96 "Donate")
+
+Thank you!
+
+= GitHub Repository =
 https://github.com/tomaszsita/wp-manual-image-crop
 
-Translations:
+= Translations =
 * Dutch (Bernardo Hulsman)
 * French (Gabriel Féron)
 * German (Bertram Greenhough)
+* Hungarian (Roland Kal)
 * Italian (Alessandro Curci)
 * Polish (myself)
 * Russian (Andrey Hohlov)
 * Spanish (Andrew Kurtis)
+* Swedish (Karl Oskar Mattsson)
 
 Please contact me if you want to add a translation (or submit a pull request on GitHub)
 
-
 == Installation ==
-Manually:
-* Upload `manual-image-crop` to the `/wp-content/plugins/` directory
-* Activate the plugin through the 'Plugins' menu in WordPress
+= Manually: =
+*   Upload `manual-image-crop` to the `/wp-content/plugins/` directory
+*   Activate the plugin through the 'Plugins' menu in WordPress
 
-Automatically:
-* Navigate to the 'Plugins' menu inside of the wordpress wp-admin dashboard, and select AD NEW 
-* Search for 'Manual Imag Crop', and click install 
-* When the plugin has been installed, Click 'Activate' 
+= Automatically: =
+*   Navigate to the 'Plugins' menu inside of the wordpress wp-admin dashboard, and select AD NEW 
+*   Search for 'Manual Imag Crop', and click install 
+*   When the plugin has been installed, Click 'Activate' 
 
 == Changelog ==
+= 1.12 =
+* Fixed 'streched images' issue
+
+= 1.11 =
+* Hungarian translation added
+* Swedish translation added
+* Security improvements
+
+= 1.10 =
+* Fixed handling of array $crop param
+
 = 1.09 =
 * Dutch translation added
 * Better error handling 
