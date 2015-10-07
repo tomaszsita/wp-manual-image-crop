@@ -219,7 +219,7 @@ class ManualImageCropEditorWindow {
                 if ( is_plugin_active('wp-retina-2x/wp-retina-2x.php') ) { ?>
 		<div class="mic-option">
 			<input type="checkbox" id="mic-make-2x"
-			<?php if(get_option('mic_make2x') === 'true' ) echo 'checked="checked"' ?> />
+			<?php if(get_option('mic_make2x')) echo 'checked="checked"' ?> />
 			<label for="mic-make-2x"><?php _e('Generate Retina/HiDPI (@2x):', 'microp') ?>
 				<span id="mic-2x-status"></span> </label>
 		</div>
