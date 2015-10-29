@@ -36,7 +36,7 @@ class ManualImageCropEditorWindow {
 
 		$imageSizes = get_intermediate_image_sizes();
 
-		$editedSize = in_array($_GET['size'], $imageSizes) ? $_GET['size'] : null;
+		$editedSize = (isset($_GET['size']) && in_array($_GET['size'], $imageSizes)) ? $_GET['size'] : null;
 			
 		$postId = filter_var($_GET['postId'], FILTER_SANITIZE_NUMBER_INT);
 		
@@ -131,17 +131,7 @@ class ManualImageCropEditorWindow {
 
 		if ($cropMethod != 0) {
 			$aspectRatio = ($width / $height);
-			// if ($aspectRatio * $minWidth > $sizes[0]) {
-			// 	$aspectRatio = ($previewWidth / $minHeight);
-			// }
 
-			if (1 / $aspectRatio * $minHeight > $sizes[1]) {
-				$aspectRatio = ($minWidth / $previewHeight);
-			}
-
-			if ($minWidth / $aspectRatio > $previewHeight) {
-				$aspectRatio = $minWidth / $previewHeight;
-			}
 		}else {
 			$aspectRatio = $sizes[0] / $sizes[1];
 		}
@@ -249,7 +239,6 @@ class ManualImageCropEditorWindow {
 				$('#jcrop_target').Jcrop({
 					onChange: showPreview,
 					onSelect: showPreview,
-					minSize: [<?php echo $minWidth; ?>, <?php echo $minHeight; ?>],
 					maxSize: [<?php echo $previewWidth; ?>, <?php echo $previewHeight; ?>],
 					<?php if ( isset( $metaData['micSelectedArea'][$editedSize] ) ) { ?>
 						setSelect: [<?php echo max(0, $metaData['micSelectedArea'][$editedSize]['x']) ?>, <?php echo max(0, $metaData['micSelectedArea'][$editedSize]['y']) ?>, <?php echo max(0, $metaData['micSelectedArea'][$editedSize]['x']) + $metaData['micSelectedArea'][$editedSize]['w']; ?>, <?php echo max(0, $metaData['micSelectedArea'][$editedSize]['y']) + $metaData['micSelectedArea'][$editedSize]['h']; ?>],
