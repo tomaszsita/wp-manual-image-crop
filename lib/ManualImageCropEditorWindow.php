@@ -36,10 +36,10 @@ class ManualImageCropEditorWindow {
 
 		$imageSizes = get_intermediate_image_sizes();
 
-		$editedSize = in_array($_GET['size'], $imageSizes) ? $_GET['size'] : null;
-			
+		$editedSize = ( isset($_GET['size']) && in_array($_GET['size'], $imageSizes) ) ? $_GET['size'] : null;
+	
 		$postId = filter_var($_GET['postId'], FILTER_SANITIZE_NUMBER_INT);
-		
+	
 		$sizeLabels = apply_filters( 'image_size_names_choose', array(
 				'thumbnail' => __('Thumbnail'),
 				'medium'    => __('Medium'),
