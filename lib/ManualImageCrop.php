@@ -84,16 +84,25 @@ class ManualImageCrop {
 <script>
 		var micEditAttachemtnLinkAdded = false;
 		var micEditAttachemtnLinkAddedInterval = 0;
-		jQuery(document).ready(function() {			
+
+		var micInsertAttachmentLinkElement = function() {
+		};
+
+		jQuery(document).ready(function() {
 			micEditAttachemtnLinkAddedInterval = setInterval(function() {
-				if (jQuery('.details .edit-attachment').length) {
-					try {
-						var mRegexp = /\?post=([0-9]+)/; 
-						var match = mRegexp.exec(jQuery('.details .edit-attachment').attr('href'));
-						jQuery('.crop-image-ml.crop-image').remove();
-						jQuery('.details .edit-attachment').after( '<a class="thickbox mic-link crop-image-ml crop-image" rel="crop" title="<?php _e("Manual Image Crop","microp"); ?>" href="' + ajaxurl + '?action=mic_editor_window&postId=' + match[1] + '"><?php _e('Crop Image','microp') ?></a>' );
-					} catch (e) {
-						console.log(e);
+				var $mediaEditLink = jQuery('.details .edit-attachment');
+
+				if ($mediaEditLink.length) {
+					// Check if we already have the "Crop Image" link before adding a new one
+					if ( $mediaEditLink.siblings('.crop-image-ml.crop-image').length == 0 ) {
+						try {
+							var mRegexp = /\?post=([0-9]+)/;
+							var match = mRegexp.exec($mediaEditLink.attr('href'));
+							jQuery('.crop-image-ml.crop-image').remove();
+							$mediaEditLink.after( '<a class="thickbox mic-link crop-image-ml crop-image" rel="crop" title="<?php _e("Manual Image Crop","microp"); ?>" href="' + ajaxurl + '?action=mic_editor_window&postId=' + match[1] + '"><?php _e('Crop Image','microp') ?></a>' );
+						} catch (e) {
+							console.log(e);
+						}
 					}
 				}
 
