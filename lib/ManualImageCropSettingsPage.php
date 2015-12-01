@@ -137,7 +137,7 @@ class MicSettingsPage
         ) );
         $sizeLabels = apply_filters( 'image_size_names_choose', array() );
 		
-		echo '<table class="widefat fixed mic-table" cellspacing="0">';
+		echo '<table class="widefat fixed mic-table striped" cellspacing="0">';
 		echo '<thead>
 			  <tr>
 			     <th class="mic-size">' . __('Size', 'microp') . '</th>
@@ -166,12 +166,12 @@ class MicSettingsPage
 			}
 			
 			echo '<tr>
-			     <td>' . $label. '</td>
-			     <td><select name="mic_options[sizes_settings][' . $s . '][visibility]">
+			     <td class="mic-size">' . $label. '</td>
+			     <td class="mic-visible"><select name="mic_options[sizes_settings][' . $s . '][visibility]">
      					<option value="visible">' . __('Yes', 'microp') . '</option>
      					<option value="hidden" ' . ( $sizesSettings[$s]['visibility'] == 'hidden' ? 'selected' : '' ) . '>' . __('No', 'microp') . '</option>
     				</select></td>
-			     <td><select name="mic_options[sizes_settings][' . $s . '][quality]">
+			     <td class="mic-quality"><select name="mic_options[sizes_settings][' . $s . '][quality]">
      					<option value="100">' . __('100 (best quality, biggest file)', 'microp') . '</option>
      					<option value="80" ' . ( !isset ($sizesSettings[$s]['quality']) || $sizesSettings[$s]['quality'] == '80' ? 'selected' : '' ) . '>' . __('80 (very high quality)', 'microp') . '</option>
      					<option value="70" ' . ( $sizesSettings[$s]['quality'] == '70' ? 'selected' : '' ) . '>' . __('70 (high quality)', 'microp') . '</option>
@@ -180,7 +180,7 @@ class MicSettingsPage
      					<option value="30" ' . ( $sizesSettings[$s]['quality'] == '30' ? 'selected' : '' ) . '>' . __('30 (low)', 'microp') . '</option>
      					<option value="10" ' . ( $sizesSettings[$s]['quality'] == '10' ? 'selected' : '' ) . '>' . __('10 (very low, smallest file)', 'microp') . '</option>
     				</select></td>
-			     <td><input name="mic_options[sizes_settings][' . $s . '][label]" type="text" placeholder="' . $label . '" value="' . str_replace('"', '&quot;', $sizesSettings[$s]['label']) .  '"/></td>
+			     <td class="mic-label"><input name="mic_options[sizes_settings][' . $s . '][label]" type="text" placeholder="' . $label . '" value="' . str_replace('"', '&quot;', $sizesSettings[$s]['label']) .  '"/></td>
 			</tr>';
 		}
 		echo '</tbody></table>';
