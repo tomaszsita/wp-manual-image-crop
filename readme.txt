@@ -61,7 +61,9 @@ Provides $do_crop (bool) and $metadata (array). Returning false for $do_crop wil
 Provides $path (string) and $data (array). Manual Image Crop will write the new image to $path and save that path to the image metadata. $data contains the crop parameters that the user chose in WordPress admin.
 
 =mic_dst_file_url=
-Provides $url (string) and $data (array). Manual Image Crop will return $url in an AJAX response if the image crop is successful. The admin screen uses this URL to display the updated image. This URL is not stored with the image or used elsewhere in WordPress. wp_get_attachment_image_src is used instead to generate the image URL. $data contains the crop parameters that the user chose in WordPress admin.
+Provides $url (string) and $data (array). Manual Image Crop will return $url in an AJAX response if the image crop is successful. $data contains the crop parameters that the user chose in WordPress admin.
+
+The admin screen uses this URL to display the updated image. This URL is not stored with the image or used elsewhere in WordPress. wp_get_attachment_image_src is used instead to generate the image URL.
 
 == Changelog ==
 = 1.12 =
