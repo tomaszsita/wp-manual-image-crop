@@ -385,6 +385,10 @@ class ManualImageCrop {
 			update_option('mic_make2x', $data['make2x']);
 		}
 
+		// run an action that other scripts can hook into, letting them
+		// know that the cropping is done for the given image
+		do_action('mic_crop_done', $data, $imageMetadata);
+
 		//returns the url to the generated image (to allow refreshing the preview)
 		echo json_encode (array('status' => 'ok', 'file' => $dst_file_url[0] ) );
 		exit;
