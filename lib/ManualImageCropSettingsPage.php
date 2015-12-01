@@ -140,10 +140,10 @@ class MicSettingsPage
 		echo '<table class="widefat fixed mic-table" cellspacing="0">';
 		echo '<thead>
 			  <tr>
-			     <th>' . __('Size', 'microp') . '</th>
-			     <th>' . __('Visible', 'microp') . '</th>
-			     <th>' . __('Default JPEG Quality', 'microp') . '</th>
-			     <th>' . __('Custom Label', 'microp') . '</th>
+			     <th class="mic-size">' . __('Size', 'microp') . '</th>
+			     <th class="mic-visible">' . __('Visible', 'microp') . '</th>
+			     <th class="mic-quality">' . __('Default JPEG Quality', 'microp') . '</th>
+			     <th class="mic-label">' . __('Custom Label', 'microp') . '</th>
 			  </tr>
 			 </thead>
              <tbody>';

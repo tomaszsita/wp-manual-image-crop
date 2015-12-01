@@ -141,3 +141,20 @@
 	padding: 8px 10px;
 	font-weight: 400;
 }
+
+.mic-table {
+	max-width: 1000px;
+}
+
+th.mic-size {
+	width: auto;
+}
+th.mic-visible {
+	width: 120px;
+}
+th.mic-quality {
+	width: 300px;
+}
+th.mic-label {
+	width: 240px;
+}
