@@ -51,6 +51,12 @@ Please contact me if you want to add a translation (or submit a pull request on 
 *   Search for 'Manual Imag Crop', and click install 
 *   When the plugin has been installed, Click 'Activate' 
 
+== Actions ==
+The plugin includes actions that can be used by other plugins:
+
+= mic_crop_done =
+Triggered after a crop has been successfully completed, immediately before the JSON response is sent to the browser.
+
 == Changelog ==
 = 1.12 =
 * Fixed 'streched images' issue
