@@ -29,7 +29,7 @@ class ManualImageCrop {
 	public function enqueueAssets() {
 		add_thickbox();
 
-		wp_register_style( 'rct-admin', plugins_url('assets/css/mic-admin.css', dirname( __FILE__ ) ) );
+		wp_register_style( 'rct-admin', plugins_url('assets/css/mic-admin.css', dirname( __FILE__ ) ), array(), mic_VERSION );
 		wp_enqueue_style( 'rct-admin' );
 
 		wp_register_style( 'jquery-jcrop', plugins_url('assets/css/jquery.Jcrop.min.css', dirname( __FILE__ ) ) );
@@ -37,7 +37,7 @@ class ManualImageCrop {
 
 		wp_enqueue_script( 'jquery-color', plugins_url('assets/js/jquery.color.js', dirname( __FILE__ )), array( 'jquery') );
 		wp_enqueue_script( 'jquery-jcrop', plugins_url('assets/js/jquery.Jcrop.min.js', dirname( __FILE__ )), array( 'jquery') );
-		wp_enqueue_script( 'miccrop', plugins_url('assets/js/microp.js', dirname( __FILE__ )), array( 'jquery') );
+		wp_enqueue_script( 'miccrop', plugins_url('assets/js/microp.js', dirname( __FILE__ )), array( 'jquery'), mic_VERSION );
 	}
 
 	/**
