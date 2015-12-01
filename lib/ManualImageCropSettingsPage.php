@@ -137,7 +137,7 @@ class MicSettingsPage
         ) );
         $sizeLabels = apply_filters( 'image_size_names_choose', array() );
 		
-		echo '<table class="widefat fixed" cellspacing="0">';
+		echo '<table class="widefat fixed mic-table" cellspacing="0">';
 		echo '<thead>
 			  <tr>
 			     <th>' . __('Size', 'microp') . '</th>

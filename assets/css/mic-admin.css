@@ -136,3 +136,8 @@
 .mic-editor-wrapper h2 .nav-tab-active:hover {
 	color: #32373c;
 }
+
+.widefat.mic-table th {
+	padding: 8px 10px;
+	font-weight: 400;
+}
