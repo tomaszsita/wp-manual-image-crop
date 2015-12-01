@@ -99,3 +99,9 @@
 .mic-option {
 	margin-top: 10px;
 }
+
+.attachment-info .mic-link.crop-image {
+	display: block;
+	text-decoration: none;
+	white-space: nowrap;
+}
