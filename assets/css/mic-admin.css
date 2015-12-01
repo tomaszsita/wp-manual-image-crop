@@ -105,3 +105,34 @@
 	text-decoration: none;
 	white-space: nowrap;
 }
+
+.attachment-info .mic-link.crop-image {
+	display: block;
+	text-decoration: none;
+	white-space: nowrap;
+}
+
+.mic-editor-wrapper h2 .nav-tab {
+	font-weight: 400;
+	font-size: 14px;
+	padding: 6px 12px;
+
+	color: #21759b;
+	background: none;
+	border: none;
+}
+
+.mic-editor-wrapper h2 .nav-tab:hover {
+	color: #d54e21;
+}
+
+.mic-editor-wrapper h2 .nav-tab-active {
+	color: #32373c;
+	background: #fff;
+	border: 1px solid #ddd;
+	border-bottom: none;
+}
+
+.mic-editor-wrapper h2 .nav-tab-active:hover {
+	color: #32373c;
+}
