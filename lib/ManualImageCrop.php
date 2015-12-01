@@ -293,9 +293,10 @@ class ManualImageCrop {
 		);
 		wp_update_attachment_metadata($data['attachmentId'], $imageMetadata);
 
-		$do_crop = apply_filters( 'mic_do_crop', true, $imageMetadata );
+		$dims = array( $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h );
+		$do_crop = apply_filters( 'mic_do_crop', true, $imageMetadata, $dims );
 		if ( !$do_crop ) {
-			// Another plugin has already taken care of the croppng.
+			// Another plugin has already taken care of the cropping.
 			$this->cropSuccess( $data, $dst_file_url );
 		}
 
