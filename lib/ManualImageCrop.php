@@ -85,9 +85,6 @@ class ManualImageCrop {
 		var micEditAttachemtnLinkAdded = false;
 		var micEditAttachemtnLinkAddedInterval = 0;
 
-		var micInsertAttachmentLinkElement = function() {
-		};
-
 		jQuery(document).ready(function() {
 			micEditAttachemtnLinkAddedInterval = setInterval(function() {
 				var $mediaEditLink = jQuery('.details .edit-attachment');
