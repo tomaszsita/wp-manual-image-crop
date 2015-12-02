@@ -13,13 +13,15 @@ class MicSettingsPage
     {
         add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
         add_action( 'admin_init', array( $this, 'page_init' ) );
+
+        add_action( 'wp_print_scripts', array( $this, 'print_autocrop_js_var' ) );
     }
     
     /**
      * Fix of settings serialized twice or more
      * @return mixed
      */
-    static function getSizesSettings() {
+    static function getSettings() {
     	$micOptions = get_option( 'mic_options' );
     	if ( ! isset( $micOptions['sizes_settings'] ) ) {
     		return array();
@@ -36,12 +38,12 @@ class MicSettingsPage
     }
 
     /**
-     * Return whether or not to automatically open crop page for featured images
+     * Return whether or not to automatically open crop page for uploaded images
      * @return int
      */
-    static function getAutocropFeaturedSetting() {
+    static function getAutocropUploadSetting() {
         $micOptions = get_option( 'mic_options' );
-    	return empty($micOptions['autocrop_featured']) ? 0 : 1;
+    	return empty($micOptions['autocrop_uploads']) ? 0 : 1;
     }
 
     /**
@@ -107,9 +109,9 @@ class MicSettingsPage
         );
 
         add_settings_field(
-            'autocrop_featured', // ID
-            __('Autocrop featured images setting', 'microp'), // Title
-            array( $this, 'autocrop_featured_callback' ), // Callback
+            'autocrop_uploads', // ID
+            __('Autocrop uploaded images setting', 'microp'), // Title
+            array( $this, 'autocrop_uploads_callback' ), // Callback
             'Mic-setting-admin', // Page
             'setting_section_id' // Section
         );
@@ -128,10 +130,10 @@ class MicSettingsPage
         if( isset( $input['sizes_settings'] ) ) {
             $new_input['sizes_settings'] = serialize( $input['sizes_settings'] );
         }
-        if( isset( $input['autocrop_featured'] ) ) {
-            $new_input['autocrop_featured'] = 1;
+        if( isset( $input['autocrop_uploads'] ) ) {
+            $new_input['autocrop_uploads'] = 1;
         }else{
-            $new_input['autocrop_featured'] = 0;
+            $new_input['autocrop_uploads'] = 0;
         }
         return $new_input;
     }
@@ -164,7 +166,7 @@ class MicSettingsPage
 			 </thead>
              <tbody>';
 		
-		$sizesSettings = self::getSizesSettings();
+		$sizesSettings = self::getSettings();
 		if (!is_array($sizesSettings)) {
 			$sizesSettings = array();
 		}
@@ -206,19 +208,35 @@ class MicSettingsPage
     /** 
      * Display settings for the autocrop option
      */
-    public function autocrop_featured_callback()
+    public function autocrop_uploads_callback()
     {
-        $autocrop = self::getAutocropFeaturedSetting();
+        $autocrop = self::getAutocropUploadSetting();
 
         ?>
         <p>
             <label>
-                <input type="checkbox" name="mic_options[autocrop_featured]" id="mic-autocrop-featured" <?php checked($autocrop); ?>>
-                <?php _e('Automatically ask to crop featured images on upload', 'microp'); ?>
+                <input type="checkbox" name="mic_options[autocrop_uploads]" <?php checked($autocrop); ?>>
+                <?php _e('Automatically ask to crop images on upload', 'microp'); ?>
             </label>
         </p>
         <?php
 		
+    }
+
+    /**
+     * Sets a js variable is autocrop is enabled. Variable contains the title of the popup, which can be translated
+     */
+    public function print_autocrop_js_var()
+    {
+        if ( !is_admin() ) return;
+
+        $autocrop = self::getAutocropUploadSetting();
+        if ( !$autocrop ) return;
+
+        ?>
+        <script type="text/javascript">window.mic_autocrop_uploads = <?php echo json_encode( __("Manual Image Crop","microp") ); ?>;</script>
+        <?php
+
     }
 }
 
