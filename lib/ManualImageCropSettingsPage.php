@@ -87,7 +87,7 @@ class MicSettingsPage
             __('Mic Custom Settings', 'microp'), // Title
             array( $this, 'print_section_info' ), // Callback
             'Mic-setting-admin' // Page
-        );  
+        );
 
         add_settings_field(
             'sizes_settings', // ID
@@ -95,7 +95,7 @@ class MicSettingsPage
             array( $this, 'sizes_settings_callback' ), // Callback
             'Mic-setting-admin', // Page
             'setting_section_id' // Section           
-        );          
+        );
     }
 
     /**
