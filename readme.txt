@@ -1,7 +1,7 @@
 === Manual Image Crop ===
 Contributors: tomasz.sita
 Tags: crop, cropping, thumbnail, featured image, gallery, images, picture, image, image area
-Tested up to: 4.3
+Tested up to: 4.3.1
 Requires at least: 3.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
