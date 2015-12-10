@@ -73,6 +73,12 @@ Provides $url (string) and $data (array). Manual Image Crop will return $url in 
 
 The admin screen uses this URL to display the updated image. This URL is not stored with the image or used elsewhere in WordPress. wp_get_attachment_image_src is used instead to generate the image URL.
 
+== Actions ==
+The plugin includes actions that can be used by other plugins:
+
+= mic_crop_done =
+Triggered after a crop has been successfully completed, immediately before the JSON response is sent to the browser.
+
 == Changelog ==
 = 1.12 =
 * Fixed 'streched images' issue
