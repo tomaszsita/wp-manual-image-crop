@@ -10,6 +10,14 @@ Stable tag: 1.12
 
 Plugin allows you to manually crop all the image sizes registered in your WordPress theme (in particular featured image).
 
+=== About This Branch ===
+
+The "v1.13-bgmp" branch of the plugin includes some pull requests that haven't been merged back to the main repository yet. Once the pull requests are merged back, this branch will be deprecated in favor of the mainline version of the plugin.
+
+Included pull requests:
+- https://github.com/tomaszsita/wp-manual-image-crop/pull/46
+- https://github.com/tomaszsita/wp-manual-image-crop/pull/47
+
 == Description ==
 Plugin allows you to manually crop all the image sizes registered in your WordPress theme (in particular featured image).
 Simply click on the "Crop" link next to any image in your media library.
