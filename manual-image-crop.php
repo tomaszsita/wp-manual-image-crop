@@ -3,7 +3,7 @@
 Plugin Name: Manual Image Crop
 Plugin URI: https://github.com/tomaszsita/wp-manual-image-crop
 Description: Plugin allows you to manually crop all the image sizes registered in your WordPress theme (in particular featured image). Simply click on the "Crop" link next to any image in your media library and select the area of the image you want to crop.
-Version: 1.13-bgmp
+Version: 1.12
 Author: Tomasz Sita
 Author URI: https://github.com/tomaszsita
 License: GPL2
