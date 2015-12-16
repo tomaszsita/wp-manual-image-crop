@@ -69,7 +69,7 @@ The admin screen uses this URL to display the updated image. This URL is not sto
 The plugin includes actions that can be used by other plugins:
 
 = mic_crop_done =
-Triggered after a crop has been successfully completed, immediately before the JSON response is sent to the browser.
+Triggered after a crop has been successfully completed, immediately before the JSON response is sent to the browser. Provides $data (array) and $imageMetadata (array).
 
 == Changelog ==
 = 1.12 =
