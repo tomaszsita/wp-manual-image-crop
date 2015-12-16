@@ -55,7 +55,7 @@ Please contact me if you want to add a translation (or submit a pull request on 
 The plugin includes filters that can be used by other plugins:
 
 =mic_do_crop=
-Provides $do_crop (bool) and $metadata (array). Returning false for $do_crop will prevent Manual Image Crop from cropping the image. $metadata contains the crop parameters, so another plugin can take over the actual cropping.
+Provides $do_crop (bool), $metadata (array), and $dims (array). Returning false for $do_crop will prevent Manual Image Crop from cropping the image. $metadata contains the crop parameters, so another plugin can take over the actual cropping.
 
 =mic_dst_file_path=
 Provides $path (string) and $data (array). Manual Image Crop will write the new image to $path and save that path to the image metadata. $data contains the crop parameters that the user chose in WordPress admin.
