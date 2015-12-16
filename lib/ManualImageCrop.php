@@ -84,11 +84,11 @@ class ManualImageCrop {
 <script>
 		var micEditAttachemtnLinkAdded = false;
 		var micEditAttachemtnLinkAddedInterval = 0;
-		jQuery(document).ready(function() {			
+		jQuery(document).ready(function() {
 			micEditAttachemtnLinkAddedInterval = setInterval(function() {
 				if (jQuery('.details .edit-attachment').length) {
 					try {
-						var mRegexp = /\?post=([0-9]+)/; 
+						var mRegexp = /\?post=([0-9]+)/;
 						var match = mRegexp.exec(jQuery('.details .edit-attachment').attr('href'));
 						jQuery('.crop-image-ml.crop-image').remove();
 						jQuery('.details .edit-attachment').after( '<a class="thickbox mic-link crop-image-ml crop-image" rel="crop" title="<?php _e("Manual Image Crop","microp"); ?>" href="' + ajaxurl + '?action=mic_editor_window&postId=' + match[1] + '"><?php _e('Crop Image','microp') ?></a>' );
@@ -125,7 +125,7 @@ class ManualImageCrop {
 				if (jQuery('#media-items .edit-attachment').length) {
 					jQuery('#media-items .edit-attachment').each(function(i, k) {
 						try {
-							var mRegexp = /\?post=([0-9]+)/; 
+							var mRegexp = /\?post=([0-9]+)/;
 							var match = mRegexp.exec(jQuery(this).attr('href'));
 							if (!jQuery(this).parent().find('.edit-attachment.crop-image').length && jQuery(this).parent().find('.pinkynail').attr('src').match(/upload/g)) {
 								jQuery(this).after( '<a class="thickbox mic-link edit-attachment crop-image" rel="crop" title="<?php _e("Manual Image Crop","microp"); ?>" href="' + ajaxurl + '?action=mic_editor_window&postId=' + match[1] + '"><?php _e('Crop Image','microp') ?></a>' );
@@ -140,12 +140,12 @@ class ManualImageCrop {
 	</script>
 <?php
 	}
-	
+
 	private function filterPostData() {
 		$imageSizes = get_intermediate_image_sizes();
-	
+
 		$data = array(
-				'attachmentId' => filter_var($_POST['attachmentId'], FILTER_SANITIZE_NUMBER_INT),			
+				'attachmentId' => filter_var($_POST['attachmentId'], FILTER_SANITIZE_NUMBER_INT),
 				'editedSize' => in_array($_POST['editedSize'], $imageSizes) ? $_POST['editedSize'] : null,
 				'select' => array(
 							'x' => filter_var($_POST['select']['x'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION),
@@ -154,7 +154,7 @@ class ManualImageCrop {
 							'h' => filter_var($_POST['select']['h'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION),
 						),
 				'previewScale' => filter_var($_POST['previewScale'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION)
-				
+
 		);
 
 		if (isset($_POST['mic_quality'])) {
@@ -170,12 +170,23 @@ class ManualImageCrop {
 		return $data;
 	}
 
+	public function cropSuccess( $data, $dst_file_url ) {
+		// update 'mic_make2x' option status to persist choice
+		if( isset( $data['make2x'] ) && $data['make2x'] !== get_option('mic_make2x') ) {
+			update_option('mic_make2x', $data['make2x']);
+		}
+
+		//returns the url to the generated image (to allow refreshing the preview)
+		echo json_encode (array('status' => 'ok', 'file' => $dst_file_url[0] ) );
+		exit;
+	}
+
 	/**
 	 * Crops the image based on params passed in $_POST array
 	 */
 	public function cropImage() {
 		global $_wp_additional_image_sizes;
-		
+
 		$data = $this->filterPostData();
 
 		$dst_file_url = wp_get_attachment_image_src($data['attachmentId'], $data['editedSize']);
@@ -208,19 +219,22 @@ class ManualImageCrop {
 			$dst_file = str_replace( $uploadsDir['baseurl'], $uploadsDir['basedir'], $dst_file_url[0] );
 		}
 
+		$dst_file = apply_filters( 'mic_dst_file_path', $dst_file, $data );
+		$dst_file_url[0] = apply_filters( 'mic_dst_file_url', $dst_file_url[0], $data );
+
 		//checks if the destination image file is present (if it's not, we want to create a new file, as the WordPress returns the original image instead of specific one)
 		if ($dst_file == $src_file) {
 			$attachmentData = wp_generate_attachment_metadata( $data['attachmentId'], $dst_file );
-				
+
 			//overwrite with previous values
 			$prevAttachmentData = wp_get_attachment_metadata($data['attachmentId']);
 			if (isset($prevAttachmentData['micSelectedArea'])) {
 				$attachmentData['micSelectedArea'] = $prevAttachmentData['micSelectedArea'];
 			}
-				
+
 			//saves new path to the image size in the database
 			wp_update_attachment_metadata( $data['attachmentId'],  $attachmentData );
-				
+
 			//new destination file path - replaces original file name with the correct one
 			$dst_file = str_replace( basename($attachmentData['file']), $attachmentData['sizes'][ $data['editedSize'] ]['file'], $dst_file);
 
@@ -278,6 +292,13 @@ class ManualImageCrop {
 				'scale' => $data['previewScale'],
 		);
 		wp_update_attachment_metadata($data['attachmentId'], $imageMetadata);
+
+		$dims = array( $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h );
+		$do_crop = apply_filters( 'mic_do_crop', true, $imageMetadata, $dims );
+		if ( !$do_crop ) {
+			// Another plugin has already taken care of the cropping.
+			$this->cropSuccess( $data, $dst_file_url );
+		}
 
 		if ( function_exists('wp_get_image_editor') ) {
 			$img = wp_get_image_editor( $src_file );
@@ -372,7 +393,7 @@ class ManualImageCrop {
 					} else {
 						$imageSaveReturn = imagejpeg($dst_img2x, $dst_file2x, $quality);
 					}
-						
+
 					if ($imageSaveReturn === false ) {
 						echo json_encode (array('status' => 'error', 'message' => 'PHP ERROR: imagejpeg/imagegif/imagepng' ) );
 						exit;
@@ -380,13 +401,12 @@ class ManualImageCrop {
 				}
 			}
 		}
-		// update 'mic_make2x' option status to persist choice
-		if( isset( $data['make2x'] ) && $data['make2x'] !== get_option('mic_make2x') ) {
-			update_option('mic_make2x', $data['make2x']);
-		}
 
-		//returns the url to the generated image (to allow refreshing the preview)
-		echo json_encode (array('status' => 'ok', 'file' => $dst_file_url[0] ) );
+		// run an action that other scripts can hook into, letting them
+		// know that the cropping is done for the given image
+		do_action('mic_crop_done', $data, $imageMetadata);
+
+		$this->cropSuccess( $data, $dst_file_url );
 		exit;
 	}
 }

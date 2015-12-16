@@ -12,7 +12,7 @@ Plugin allows you to manually crop all the image sizes registered in your WordPr
 
 == Description ==
 Plugin allows you to manually crop all the image sizes registered in your WordPress theme (in particular featured image).
-Simply click on the "Crop" link next to any image in your media library. 
+Simply click on the "Crop" link next to any image in your media library.
 The "lightbox" style interface will be brought up and you are ready to go.
 Whole cropping process is really intuitive and simple.
 
@@ -47,9 +47,29 @@ Please contact me if you want to add a translation (or submit a pull request on 
 *   Activate the plugin through the 'Plugins' menu in WordPress
 
 = Automatically: =
-*   Navigate to the 'Plugins' menu inside of the wordpress wp-admin dashboard, and select AD NEW 
-*   Search for 'Manual Imag Crop', and click install 
-*   When the plugin has been installed, Click 'Activate' 
+*   Navigate to the 'Plugins' menu inside of the wordpress wp-admin dashboard, and select AD NEW
+*   Search for 'Manual Imag Crop', and click install
+*   When the plugin has been installed, Click 'Activate'
+
+== Filters ==
+The plugin includes filters that can be used by other plugins:
+
+=mic_do_crop=
+Provides $do_crop (bool), $metadata (array), and $dims (array). Returning false for $do_crop will prevent Manual Image Crop from cropping the image. $metadata contains the crop parameters, so another plugin can take over the actual cropping.
+
+=mic_dst_file_path=
+Provides $path (string) and $data (array). Manual Image Crop will write the new image to $path and save that path to the image metadata. $data contains the crop parameters that the user chose in WordPress admin.
+
+=mic_dst_file_url=
+Provides $url (string) and $data (array). Manual Image Crop will return $url in an AJAX response if the image crop is successful. $data contains the crop parameters that the user chose in WordPress admin.
+
+The admin screen uses this URL to display the updated image. This URL is not stored with the image or used elsewhere in WordPress. wp_get_attachment_image_src is used instead to generate the image URL.
+
+== Actions ==
+The plugin includes actions that can be used by other plugins:
+
+= mic_crop_done =
+Triggered after a crop has been successfully completed, immediately before the JSON response is sent to the browser. Provides $data (array) and $imageMetadata (array).
 
 == Changelog ==
 = 1.12 =
@@ -65,7 +85,7 @@ Please contact me if you want to add a translation (or submit a pull request on 
 
 = 1.09 =
 * Dutch translation added
-* Better error handling 
+* Better error handling
 * Fixed overwriting of previously saved crops
 * Minor tweaks all around
 
