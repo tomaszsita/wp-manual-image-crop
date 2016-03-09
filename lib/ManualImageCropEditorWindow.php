@@ -27,12 +27,25 @@ class ManualImageCropEditorWindow {
 		$sizesSettings = MicSettingsPage::getSettings();
 		?>
 <div class="mic-editor-wrapper">
+	<?php
+		global $_wp_additional_image_sizes;
+
+		// check if there are image definitions that allow cropping
+		$crop = false;
+		foreach($_wp_additional_image_sizes as $size) {
+			if ( $size["crop"] === true ) {
+				$crop = true;
+			}
+		}
+		if ( $crop === false ) : ?>
+			<h3><?php echo __('No available image size has "crop" enabled', 'microp'); ?></h3>
+			<p><?php echo __('Enable in a plugin/theme with either: add_image_size(x,y,<strong>true</strong>) or set_post_thumbnail_size(x,y,<strong>true</strong>)', 'microp'); ?></p>
+		<?php else : ?>
 	<h4>
 		<?php _e('Pick the image size:','microp'); ?>
 	</h4>
 	<h2 class="nav-tab-wrapper">
 		<?php
-		global $_wp_additional_image_sizes;
 
 		$imageSizes = get_intermediate_image_sizes();
 
@@ -283,6 +296,6 @@ class ManualImageCropEditorWindow {
 			}
 		});
 		</script>
-<?php
+<?php endif; // condition: crop enabled for at least one image size
 	}
 }
