@@ -180,17 +180,26 @@ class ManualImageCrop {
 
 	/**
 	 * Crops the image based on params passed in $_POST array
+	 * 
+	 * Optional parameter $data can be used by plugins to call this method using previous configurations.
+	 *
+	 * @param null $data
 	 */
-	public function cropImage() {
+	public function cropImage( $data = null, $silent_result = false ) {
 		global $_wp_additional_image_sizes;
-		
-		$data = $this->filterPostData();
+
+		if ( $data === null ) {
+			$data = $this->filterPostData();
+		}
 
 		$dst_file_url = wp_get_attachment_image_src($data['attachmentId'], $data['editedSize']);
 
 		if (!$dst_file_url) {
-			exit;
+			if ( $silent_result ) return;
+			else exit;
 		}
+
+		update_post_meta( $data['attachmentId'], '_mic_resizesize-' . $data['editedSize'], $data );
 
 		$quality = $data['mic_quality'];
 
@@ -210,8 +219,12 @@ class ManualImageCrop {
 			$src_file_url = wp_get_attachment_image_src( $data['attachmentId'], 'full' );
 
 			if ( ! $src_file_url ) {
-				echo json_encode( array( 'status' => 'error', 'message' => 'wrong attachment' ) );
-				exit;
+				if ( $silent_result ) {
+					return;
+				}else{
+					echo json_encode( array( 'status' => 'error', 'message' => 'wrong attachment' ) );
+					exit;
+				}
 			}
 
 			$src_file = str_replace( $uploadsDir['baseurl'], $uploadsDir['basedir'], $src_file_url[0] );
@@ -248,8 +261,12 @@ class ManualImageCrop {
 		}
 
 		if (!$dst_w || !$dst_h) {
-			echo json_encode (array('status' => 'error', 'message' => 'wrong dimensions' ) );
-			exit;
+			if ( $silent_result) {
+				return;
+			}else{
+				echo json_encode (array('status' => 'error', 'message' => 'wrong dimensions' ) );
+				exit;
+			}
 		}
 
 		//prepares coordinates that will be passed to cropping function
@@ -299,12 +316,20 @@ class ManualImageCrop {
 				$saveStatus = $img->save( $dst_file );
 
 				if ( is_wp_error( $saveStatus ) ) {
-					echo json_encode( array( 'status' => 'error', 'message' => 'WP_ERROR: ' . $saveStatus->get_error_message() ) );
-					exit;
+					if ( $silent_result ) {
+						return;
+					}else{
+						echo json_encode( array( 'status' => 'error', 'message' => 'WP_ERROR: ' . $saveStatus->get_error_message() ) );
+						exit;
+					}
 				}
 			}else {
-				echo json_encode (array('status' => 'error', 'message' => 'WP_ERROR: ' . $img->get_error_message() ) );
-				exit;
+				if ( $silent_result ) {
+					return;
+				}else{
+					echo json_encode (array('status' => 'error', 'message' => 'WP_ERROR: ' . $img->get_error_message() ) );
+					exit;
+				}
 			}
 		} else {
 			//determines what's the image format
@@ -318,16 +343,24 @@ class ManualImageCrop {
 			}
 
 			if ($src_img === false ) {
-				echo json_encode (array('status' => 'error', 'message' => 'PHP ERROR: Cannot create image from the source file' ) );
-				exit;
+				if ( $silent_result ) {
+					return;
+				}else{
+					echo json_encode (array('status' => 'error', 'message' => 'PHP ERROR: Cannot create image from the source file' ) );
+					exit;
+				}
 			}
 
 			$dst_img = imagecreatetruecolor($dst_w, $dst_h);
 			$resampleReturn  = imagecopyresampled($dst_img, $src_img, $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h);
 
 			if ($resampleReturn === false ) {
-				echo json_encode (array('status' => 'error', 'message' => 'PHP ERROR: imagecopyresampled' ) );
-				exit;
+				if ( $silent_result ) {
+					return;
+				}else{
+					echo json_encode (array('status' => 'error', 'message' => 'PHP ERROR: imagecopyresampled' ) );
+					exit;
+				}
 			}
 
 			$imageSaveReturn = true;
@@ -340,8 +373,12 @@ class ManualImageCrop {
 			}
 
 			if ($imageSaveReturn === false ) {
-				echo json_encode (array('status' => 'error', 'message' => 'PHP ERROR: imagejpeg/imagegif/imagepng' ) );
-				exit;
+				if ( $silent_result ) {
+					return;
+				}else{
+					echo json_encode (array('status' => 'error', 'message' => 'PHP ERROR: imagejpeg/imagegif/imagepng' ) );
+					exit;
+				}
 			}
 		}
 
@@ -362,16 +399,24 @@ class ManualImageCrop {
 						$img->set_quality( $quality );
 						$img->save($dst_file2x);
 					}else {
-						echo json_encode (array('status' => 'error', 'message' => 'WP_ERROR: ' . $img->get_error_message() ) );
-						exit;
+						if ( $silent_result ) {
+							return;
+						}else{
+							echo json_encode (array('status' => 'error', 'message' => 'WP_ERROR: ' . $img->get_error_message() ) );
+							exit;
+						}
 					}
 				} else {
 					$dst_img2x = imagecreatetruecolor($dst_w2x, $dst_h2x);
 					$resampleReturn = imagecopyresampled($dst_img2x, $src_img, $dst_x, $dst_y, $src_x, $src_y, $dst_w2x, $dst_h2x, $src_w, $src_h);
 
 					if ($resampleReturn === false ) {
-						echo json_encode (array('status' => 'error', 'message' => 'PHP ERROR: imagecopyresampled' ) );
-						exit;
+						if ( $silent_result ) {
+							return;
+						}else{
+							echo json_encode (array('status' => 'error', 'message' => 'PHP ERROR: imagecopyresampled' ) );
+							exit;
+						}
 					}
 
 					$imageSaveReturn = true;
@@ -384,8 +429,12 @@ class ManualImageCrop {
 					}
 						
 					if ($imageSaveReturn === false ) {
-						echo json_encode (array('status' => 'error', 'message' => 'PHP ERROR: imagejpeg/imagegif/imagepng' ) );
-						exit;
+						if ( $silent_result ) {
+							return;
+						}else{
+							echo json_encode (array('status' => 'error', 'message' => 'PHP ERROR: imagejpeg/imagegif/imagepng' ) );
+							exit;
+						}
 					}
 				}
 			}
@@ -396,7 +445,11 @@ class ManualImageCrop {
 		}
 
 		//returns the url to the generated image (to allow refreshing the preview)
-		echo json_encode (array('status' => 'ok', 'file' => $dst_file_url[0] ) );
-		exit;
+		if ( $silent_result ) {
+			return;
+		}else{
+			echo json_encode (array('status' => 'ok', 'file' => $dst_file_url[0] ) );
+			exit;
+		}
 	}
 }

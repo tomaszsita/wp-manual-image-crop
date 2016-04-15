@@ -41,6 +41,11 @@ function mic_init_plugin() {
 	//attach admin actions
 	add_action('wp_ajax_mic_editor_window', 'mic_ajax_editor_window');
 	add_action('wp_ajax_mic_crop_image', 'mic_ajax_crop_image');
+
+	// Support regenerate thumbnails to regenerate them at the specified size
+	if ( class_exists('RegenerateThumbnails') ) {
+		include_once( dirname(__FILE__) . '/extensions/regenerate-thumbnails.php' );
+	}
 }
 
 /**
