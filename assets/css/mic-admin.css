@@ -100,3 +100,7 @@
 .mic-option {
 	margin-top: 10px;
 }
+
+input.micQuality {
+	width: 3.5em;
+}

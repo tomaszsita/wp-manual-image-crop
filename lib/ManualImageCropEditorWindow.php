@@ -204,15 +204,10 @@ class ManualImageCropEditorWindow {
 		<?php 
 		$ext = strtolower( pathinfo($src_file, PATHINFO_EXTENSION) );
 		if ($ext == 'jpg' || $ext == 'jpeg') {
-			echo '<div class="mic-option"><label for="micQuality">' . __('Target JPEG Quality', 'microp') . '</label> <select id="micQuality" name="mic_quality">
-			<option value="100">' . __('100 (best quality, biggest file)', 'microp') . '</option>
-			<option value="80" ' . ( $sizesSettings[$editedSize]['quality'] == '80' ? 'selected' : '' ) . '>' . __('80 (very high quality)', 'microp') . '</option>
-			<option value="70" ' . ( $sizesSettings[$editedSize]['quality'] == '70' ? 'selected' : '' ) . '>' . __('70 (high quality)', 'microp') . '</option>
-			<option value="60" ' . ( $sizesSettings[$editedSize]['quality'] == '60' ? 'selected' : '' ) . '>' . __('60 (good)', 'microp') . '</option>
-			<option value="50" ' . ( $sizesSettings[$editedSize]['quality'] == '50' ? 'selected' : '' ) . '>' . __('50 (average)', 'microp') . '</option>
-			<option value="30" ' . ( $sizesSettings[$editedSize]['quality'] == '30' ? 'selected' : '' ) . '>' . __('30 (low)', 'microp') . '</option>
-			<option value="10" ' . ( $sizesSettings[$editedSize]['quality'] == '10' ? 'selected' : '' ) . '>' . __('10 (very low, smallest file)', 'microp') . '</option>
-			</select></div>';
+			echo '<div class="mic-option">';
+				echo '<label for="micQuality">' . __('Target JPEG Quality', 'microp') . ':</label> ';
+				echo '<input type="number" pattern="[0-9\.]+" min="0" max="100" step="1" id="micQuality" class="micQuality" name="mic_quality" value="'. esc_attr( $sizesSettings[$editedSize]['quality'] ) .'"> %';
+			echo '</div>';
 		}
 		?>
 		<?php 
