@@ -24,11 +24,6 @@ function mic_check_conflicting_plugins() {
 	// Collect conflicting plugins into an array.
 	$conflicting = array();
 
-	if ( $v = _mic_find_plugin('Regenerate Thumbnails') ) {
-		$v['reason'] = __('Will overwrite custom thumbnail cropping when regenerating thumbnails.', 'microp');
-		$conflicting[] = $v;
-	}
-
 	if ( $v = _mic_find_plugin('WP Smush') ) {
 		$v['reason'] = __('Will overwrite custom thumbnail cropping positions when images are "smushed".', 'microp');
 		$conflicting[] = $v;
