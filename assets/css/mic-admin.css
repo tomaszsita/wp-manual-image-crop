@@ -104,3 +104,66 @@
 input.micQuality {
 	width: 3.5em;
 }
+
+.attachment-info .mic-link.crop-image {
+	display: block;
+	text-decoration: none;
+	white-space: nowrap;
+}
+
+.attachment-info .mic-link.crop-image {
+	display: block;
+	text-decoration: none;
+	white-space: nowrap;
+}
+
+.mic-editor-wrapper h2 .nav-tab {
+	font-weight: 400;
+	font-size: 14px;
+	padding: 6px 12px;
+
+	color: #21759b;
+	background: none;
+	border: none;
+}
+
+.mic-editor-wrapper h2 .nav-tab:hover {
+	color: #d54e21;
+}
+
+.mic-editor-wrapper h2 .nav-tab-active {
+	color: #32373c;
+	background: #fff;
+	border: 1px solid #ddd;
+	border-bottom: none;
+}
+
+.mic-editor-wrapper h2 .nav-tab-active:hover {
+	color: #32373c;
+}
+
+.widefat.mic-table th {
+	padding: 8px 10px;
+	font-weight: 400;
+}
+
+.mic-table {
+	max-width: 1000px;
+}
+
+th.mic-size {
+	width: auto;
+}
+th.mic-visible {
+	width: 120px;
+}
+th.mic-quality {
+	width: 300px;
+}
+th.mic-label {
+	width: 240px;
+}
+
+td.mic-size {
+	font-weight: 700;
+}
