@@ -59,7 +59,7 @@ class MicSettingsPage
         <div class="wrap">
             <?php screen_icon(); ?>
             <h2><?php _e('Manual Image Crop Settings', 'microp'); ?></h2>           
-            <form method="post" action="options.php" class="mic-settings-page">
+            <form method="post" action="<?php echo esc_attr(admin_url('options.php')); ?>" class="mic-settings-page">
             <?php
                 // This prints out all hidden setting fields
                 settings_fields( 'mic_options_group' );   
