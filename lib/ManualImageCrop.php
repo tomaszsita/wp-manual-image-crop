@@ -186,6 +186,8 @@ class ManualImageCrop {
 			exit;
 		}
 
+		$quality = $data['mic_quality'];
+
 		$uploadsDir = wp_upload_dir();
 
 		// checks for ssl. wp_upload_dir does not handle ssl (ssl admin trips on this and subsequent ajax success to browser)
