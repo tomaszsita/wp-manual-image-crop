@@ -65,7 +65,7 @@ function mic_ajax_crop_image() {
  * add settings link on plugin page
  */
 function mic_settings_link($links) {
-	$settings_link = '<a href="options-general.php?page=Mic-setting-admin">' . __('Settings') . '</a>';
+	$settings_link = '<a href="'. admin_url( 'options-general.php?page=Mic-setting-admin' ) .'">' . __('Settings') . '</a>';
 	array_unshift($links, $settings_link);
 	return $links;
 }
