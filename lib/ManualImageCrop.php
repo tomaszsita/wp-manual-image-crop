@@ -122,8 +122,10 @@ class ManualImageCrop {
 		var micEditAttachemtnLinkAddedInterval = 0;
 		jQuery(document).ready(function() {
 			micEditAttachemtnLinkAddedInterval = setInterval(function() {
-				if (jQuery('#media-items .edit-attachment').length) {
-					jQuery('#media-items .edit-attachment').each(function(i, k) {
+				var $editAttachment = jQuery('#media-items').find('.edit-attachment');
+
+				if ($editAttachment.length) {
+					$editAttachment.each(function(i, k) {
 						try {
 							var mRegexp = /\?post=([0-9]+)/; 
 							var match = mRegexp.exec(jQuery(this).attr('href'));
