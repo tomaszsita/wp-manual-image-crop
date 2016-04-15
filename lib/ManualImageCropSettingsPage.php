@@ -98,11 +98,13 @@ class MicSettingsPage
         );          
     }
 
-    /**
-     * Sanitize each setting field as needed
-     *
-     * @param array $input Contains all settings fields as array keys
-     */
+	/**
+	 * Sanitize each setting field as needed
+	 *
+	 * @param array $input Contains all settings fields as array keys
+	 *
+	 * @return array
+	 */
     public function sanitize( $input )
     {
         $new_input = array();
