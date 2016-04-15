@@ -131,12 +131,6 @@ class MicSettingsPage
 		
     	$imageSizes = get_intermediate_image_sizes();
     	
-        $sizeLabels = apply_filters( 'image_size_names_choose', array(
-            'thumbnail' => __('Thumbnail'),
-            'medium'    => __('Medium'),
-            'large'     => __('Large'),
-            'full'      => __('Full Size'),
-        ) );
         $sizeLabels = apply_filters( 'image_size_names_choose', array() );
 		
 		echo '<table class="widefat fixed" cellspacing="0">';
