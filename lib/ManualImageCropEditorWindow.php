@@ -97,10 +97,10 @@ class ManualImageCropEditorWindow {
 			add_filter( 'as3cf_get_attached_file_copy_back_to_local', 'ManualImageCrop::get_attached_file_copy_back_to_local', 10, 3 );
 
 			// function get_attached_file is called to trigger the hook above
-			$metaData = wp_generate_attachment_metadata($postId,get_attached_file($postId));
-		} else {
-			$metaData = wp_get_attachment_metadata($postId);
+			get_attached_file($postId);
 		}
+
+		$metaData = wp_get_attachment_metadata($postId);
 
 		if (!$metaData) {
 			echo json_encode (array('status' => 'error', 'message' => 'could not get metadata for attachement(' . $postId . ') try reuploading the file' ) );

@@ -174,7 +174,11 @@ class ManualImageCrop {
 	 * Callback function for plugin: amazon-s3-and-cloudfront
 	 */
 	function get_attached_file_copy_back_to_local( $copy_back_to_local, $file, $attachment_id ) {
-		return true; // we want the image on the server
+		if ( !file_exists($file)) {
+			return true; // we want the image on the server
+		} else {
+			return false;
+		}
 	}
 
 	/**
