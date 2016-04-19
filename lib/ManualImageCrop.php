@@ -171,12 +171,32 @@ class ManualImageCrop {
 	}
 
 	/**
+	 * Callback function for plugin: amazon-s3-and-cloudfront
+	 */
+	function get_attached_file_copy_back_to_local( $copy_back_to_local, $file, $attachment_id ) {
+		if ( !file_exists($file)) {
+			return true; // we want the image on the server
+		} else {
+			return false;
+		}
+	}
+
+	/**
 	 * Crops the image based on params passed in $_POST array
 	 */
 	public function cropImage() {
 		global $_wp_additional_image_sizes;
 		
 		$data = $this->filterPostData();
+
+		$imageMetadata = wp_get_attachment_metadata($data['attachmentId']);
+
+		if ( is_plugin_active('amazon-s3-and-cloudfront/wordpress-s3.php') ) {
+			add_filter( 'as3cf_get_attached_file_copy_back_to_local', array( $this, 'get_attached_file_copy_back_to_local' ), 10, 3 );
+			
+			// This funciton is called to trigger the hook above
+			get_attached_file($data['attachmentId']);
+		}
 
 		$dst_file_url = wp_get_attachment_image_src($data['attachmentId'], $data['editedSize']);
 
@@ -269,7 +289,6 @@ class ManualImageCrop {
 		}
 
 		//saves the selected area
-		$imageMetadata = wp_get_attachment_metadata($data['attachmentId']);
 		$imageMetadata['micSelectedArea'][$data['editedSize']] = array(
 				'x' => $data['select']['x'],
 				'y' => $data['select']['y'],
@@ -280,6 +299,12 @@ class ManualImageCrop {
 		wp_update_attachment_metadata($data['attachmentId'], $imageMetadata);
 
 		if ( function_exists('wp_get_image_editor') ) {
+
+			// get local file - possible improvement: change hooks, so one call is enough
+			if ( is_plugin_active('amazon-s3-and-cloudfront/wordpress-s3.php') ) {
+				$src_file = get_attached_file($data['attachmentId']);
+			}
+
 			$img = wp_get_image_editor( $src_file );
 
 			if ( ! is_wp_error( $img ) ) {
@@ -383,6 +408,11 @@ class ManualImageCrop {
 		// update 'mic_make2x' option status to persist choice
 		if( isset( $data['make2x'] ) && $data['make2x'] !== get_option('mic_make2x') ) {
 			update_option('mic_make2x', $data['make2x']);
+		}
+
+		// trigger s3 sync
+		if ( is_plugin_active('amazon-s3-and-cloudfront/wordpress-s3.php') ) {
+			wp_update_attachment_metadata($data['attachmentId'], $imageMetadata);
 		}
 
 		//returns the url to the generated image (to allow refreshing the preview)
