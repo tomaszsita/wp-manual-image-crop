@@ -93,17 +93,22 @@ class ManualImageCropEditorWindow {
 			$cropMethod = get_option($editedSize.'_crop');
 		}
 
-		$uploadsDir = wp_upload_dir();
+		if ( is_plugin_active('amazon-s3-and-cloudfront/wordpress-s3.php') ) {
+			add_filter( 'as3cf_get_attached_file_copy_back_to_local', 'ManualImageCrop::get_attached_file_copy_back_to_local', 10, 3 );
 
-		$metaData = wp_get_attachment_metadata($postId);
+			// function get_attached_file is called to trigger the hook above
+			$metaData = wp_generate_attachment_metadata($postId,get_attached_file($postId));
+		} else {
+			$metaData = wp_get_attachment_metadata($postId);
+		}
 
-		$src_file_url = wp_get_attachment_image_src($postId, 'full');
-		if (!$src_file_url) {
-			echo json_encode (array('status' => 'error', 'message' => 'wrong attachement' ) );
+		if (!$metaData) {
+			echo json_encode (array('status' => 'error', 'message' => 'could not get metadata for attachement(' . $postId . ') try reuploading the file' ) );
 			exit;
 		}
-		$src_file = str_replace($uploadsDir['baseurl'], $uploadsDir['basedir'], $src_file_url[0]);
-		$sizes = getimagesize($src_file);
+
+		$sizes[0] = $metaData["width"];
+		$sizes[1] = $metaData["height"];
 
 		$original[0] = $sizes[0];
 		$original[1] = $sizes[1];
@@ -202,7 +207,7 @@ class ManualImageCropEditorWindow {
 
 
 		<?php 
-		$ext = strtolower( pathinfo($src_file, PATHINFO_EXTENSION) );
+		$ext = strtolower( pathinfo($metaData["file"], PATHINFO_EXTENSION) );
 		if ($ext == 'jpg' || $ext == 'jpeg') {
 			echo '<div class="mic-option"><label for="micQuality">' . __('Target JPEG Quality', 'microp') . '</label> <select id="micQuality" name="mic_quality">
 			<option value="100">' . __('100 (best quality, biggest file)', 'microp') . '</option>
