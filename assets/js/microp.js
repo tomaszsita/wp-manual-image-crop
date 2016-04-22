@@ -66,4 +66,17 @@ jQuery(document).ready(function($) {
 	 
 	 setInterval(adjustMicWindowSize, 200);
 
+	// Prompt to crop featured images automatically, if set in settings page
+	if ( typeof mic_autocrop_uploads != 'undefined' && typeof wp.Uploader != 'undefined' ) {
+		// When the uploader receives a new image, invoke the crop feature.
+		$.extend( wp.Uploader.prototype, {
+			success : function( file_attachment ){
+				if ( file_attachment.id ) {
+					var crop_url = '/wp-admin/admin-ajax.php?action=mic_editor_window&postId=' + file_attachment.id;
+					tb_show( mic_autocrop_uploads, crop_url );
+				}
+			}
+		});
+	}
+
 });

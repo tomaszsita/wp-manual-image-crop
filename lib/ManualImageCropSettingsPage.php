@@ -13,6 +13,8 @@ class MicSettingsPage
     {
         add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
         add_action( 'admin_init', array( $this, 'page_init' ) );
+
+        add_action( 'wp_print_scripts', array( $this, 'print_autocrop_js_var' ) );
     }
     
     /**
@@ -33,6 +35,15 @@ class MicSettingsPage
     		$settings = unserialize($settings);
     	}
     	return $settings;
+    }
+
+    /**
+     * Return whether or not to automatically open crop page for uploaded images
+     * @return int
+     */
+    static function getAutocropUploadSetting() {
+        $micOptions = get_option( 'mic_options' );
+    	return empty($micOptions['autocrop_uploads']) ? 0 : 1;
     }
 
     /**
@@ -59,7 +70,7 @@ class MicSettingsPage
         <div class="wrap">
             <?php screen_icon(); ?>
             <h2><?php _e('Manual Image Crop Settings', 'microp'); ?></h2>           
-            <form method="post" action="options.php" class="mic-settings-page">
+            <form method="post" action="<?php echo admin_url('options.php'); ?>" class="mic-settings-page">
             <?php
                 // This prints out all hidden setting fields
                 settings_fields( 'mic_options_group' );   
@@ -84,24 +95,34 @@ class MicSettingsPage
 
         add_settings_section(
             'setting_section_id', // ID
-            __('Mic Custom Settings', 'microp'), // Title
-            array( $this, 'print_section_info' ), // Callback
+            null, // Title
+            null, // Callback
             'Mic-setting-admin' // Page
-        );  
+        );
 
         add_settings_field(
             'sizes_settings', // ID
-            __('Crop sizes settings', 'microp'), // Title 
+            __('Crop sizes settings', 'microp'), // Title
             array( $this, 'sizes_settings_callback' ), // Callback
             'Mic-setting-admin', // Page
-            'setting_section_id' // Section           
-        );          
+            'setting_section_id' // Section
+        );
+
+        add_settings_field(
+            'autocrop_uploads', // ID
+            __('Autocrop uploaded images setting', 'microp'), // Title
+            array( $this, 'autocrop_uploads_callback' ), // Callback
+            'Mic-setting-admin', // Page
+            'setting_section_id' // Section
+        );
     }
 
     /**
      * Sanitize each setting field as needed
      *
      * @param array $input Contains all settings fields as array keys
+     *
+     * @return array
      */
     public function sanitize( $input )
     {
@@ -109,15 +130,12 @@ class MicSettingsPage
         if( isset( $input['sizes_settings'] ) ) {
             $new_input['sizes_settings'] = serialize( $input['sizes_settings'] );
         }
+        if( isset( $input['autocrop_uploads'] ) ) {
+            $new_input['autocrop_uploads'] = 1;
+        }else{
+            $new_input['autocrop_uploads'] = 0;
+        }
         return $new_input;
-    }
-
-    /** 
-     * Print the Section text
-     */
-    public function print_section_info()
-    {
-        print __('Enter your settings below:', 'microp');
     }
 
     /** 
@@ -129,21 +147,15 @@ class MicSettingsPage
 		
     	$imageSizes = get_intermediate_image_sizes();
     	
-        $sizeLabels = apply_filters( 'image_size_names_choose', array(
-            'thumbnail' => __('Thumbnail'),
-            'medium'    => __('Medium'),
-            'large'     => __('Large'),
-            'full'      => __('Full Size'),
-        ) );
         $sizeLabels = apply_filters( 'image_size_names_choose', array() );
 		
-		echo '<table class="widefat fixed" cellspacing="0">';
+		echo '<table class="widefat fixed mic-table striped" cellspacing="0">';
 		echo '<thead>
 			  <tr>
-			     <th>' . __('Size', 'microp') . '</th>
-			     <th>' . __('Visible', 'microp') . '</th>
-			     <th>' . __('Default JPEG Quality', 'microp') . '</th>
-			     <th>' . __('Custom Label', 'microp') . '</th>
+			     <th class="mic-size">' . __('Size', 'microp') . '</th>
+			     <th class="mic-visible">' . __('Visible', 'microp') . '</th>
+			     <th class="mic-quality">' . __('Default JPEG Quality', 'microp') . '</th>
+			     <th class="mic-label">' . __('Custom Label', 'microp') . '</th>
 			  </tr>
 			 </thead>
              <tbody>';
@@ -164,27 +176,57 @@ class MicSettingsPage
 			if ($cropMethod == 0) {
 				continue;
 			}
-			
+
+			if ( empty($sizesSettings[$s]['quality']) && $sizesSettings[$s]['quality'] !== 0 ) {
+				$sizesSettings[$s]['quality'] = 80; // Default
+			}
+
 			echo '<tr>
-			     <td>' . $label. '</td>
-			     <td><select name="mic_options[sizes_settings][' . $s . '][visibility]">
+			     <td class="mic-size">' . $label. '</td>
+			     <td class="mic-visible"><select name="mic_options[sizes_settings][' . $s . '][visibility]">
      					<option value="visible">' . __('Yes', 'microp') . '</option>
      					<option value="hidden" ' . ( $sizesSettings[$s]['visibility'] == 'hidden' ? 'selected' : '' ) . '>' . __('No', 'microp') . '</option>
     				</select></td>
-			     <td><select name="mic_options[sizes_settings][' . $s . '][quality]">
-     					<option value="100">' . __('100 (best quality, biggest file)', 'microp') . '</option>
-     					<option value="80" ' . ( !isset ($sizesSettings[$s]['quality']) || $sizesSettings[$s]['quality'] == '80' ? 'selected' : '' ) . '>' . __('80 (very high quality)', 'microp') . '</option>
-     					<option value="70" ' . ( $sizesSettings[$s]['quality'] == '70' ? 'selected' : '' ) . '>' . __('70 (high quality)', 'microp') . '</option>
-     					<option value="60" ' . ( $sizesSettings[$s]['quality'] == '60' ? 'selected' : '' ) . '>' . __('60 (good)', 'microp') . '</option>
-     					<option value="50" ' . ( $sizesSettings[$s]['quality'] == '50' ? 'selected' : '' ) . '>' . __('50 (average)', 'microp') . '</option>
-     					<option value="30" ' . ( $sizesSettings[$s]['quality'] == '30' ? 'selected' : '' ) . '>' . __('30 (low)', 'microp') . '</option>
-     					<option value="10" ' . ( $sizesSettings[$s]['quality'] == '10' ? 'selected' : '' ) . '>' . __('10 (very low, smallest file)', 'microp') . '</option>
-    				</select></td>
-			     <td><input name="mic_options[sizes_settings][' . $s . '][label]" type="text" placeholder="' . $label . '" value="' . str_replace('"', '&quot;', $sizesSettings[$s]['label']) .  '"/></td>
+			     <td class="mic-quality"><input type="number" pattern="[0-9\.]+" min="0" max="100" step="1" class="micQuality" name="mic_options[sizes_settings][' . $s . '][quality]" value="'. esc_attr( $sizesSettings[$s]['quality'] ) .'"> %</td>
+			     <td class="mic-label"><input name="mic_options[sizes_settings][' . $s . '][label]" type="text" placeholder="' . $label . '" value="' . str_replace('"', '&quot;', $sizesSettings[$s]['label']) .  '"/></td>
 			</tr>';
 		}
 		echo '</tbody></table>';
 		
+    }
+
+    /** 
+     * Display settings for the autocrop option
+     */
+    public function autocrop_uploads_callback()
+    {
+        $autocrop = self::getAutocropUploadSetting();
+
+        ?>
+        <p>
+            <label>
+                <input type="checkbox" name="mic_options[autocrop_uploads]" <?php checked($autocrop); ?>>
+                <?php _e('Automatically ask to crop images on upload', 'microp'); ?>
+            </label>
+        </p>
+        <?php
+		
+    }
+
+    /**
+     * Sets a js variable is autocrop is enabled. Variable contains the title of the popup, which can be translated
+     */
+    public function print_autocrop_js_var()
+    {
+        if ( !is_admin() ) return;
+
+        $autocrop = self::getAutocropUploadSetting();
+        if ( !$autocrop ) return;
+
+        ?>
+        <script type="text/javascript">window.mic_autocrop_uploads = <?php echo json_encode( __("Manual Image Crop","microp") ); ?>;</script>
+        <?php
+
     }
 }
 
