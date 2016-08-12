@@ -1,0 +1,203 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2016-08-12 18:08+0100\n"
+"PO-Revision-Date: 2016-08-12 18:10+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: sk_SK\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.6\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: manual-image-crop.php:5
+msgid ""
+"Plugin allows you to manually crop all the image sizes registered in your "
+"WordPress theme (in particular featured image). Simply click on the \"Crop\" "
+"link next to any image in your media library and select the area of the "
+"image you want to crop."
+msgstr ""
+"Modul vám umožňuje manuálne orezať všetky veľkosti obrázkov, ktoré "
+"zaregistrovala vaša WordPress téma (predovšetkým prezentačný obrázok). "
+"Jednoducho kliknite na odkaz “Orezať” pri ktoromkoľvek obrázku vo vašej "
+"multimediálnej knižnici a vyberte časť obrázku, ktorú chcete orezať."
+
+#: lib/ManualImageCrop.php:58
+msgid "Crop"
+msgstr "Orezať"
+
+#: lib/ManualImageCrop.php:67 lib/ManualImageCrop.php:94
+#: lib/ManualImageCrop.php:104 lib/ManualImageCrop.php:131
+#: lib/ManualImageCropSettingsPage.php:45
+#: lib/ManualImageCropSettingsPage.php:46 manual-image-crop.php:3
+msgid "Manual Image Crop"
+msgstr "Manuálne orazenie obrázku"
+
+#: lib/ManualImageCrop.php:67
+msgid "Crop featured image"
+msgstr "Orezať prezentačný obrázok"
+
+#: lib/ManualImageCrop.php:94 lib/ManualImageCrop.php:104
+#: lib/ManualImageCrop.php:131
+msgid "Crop Image"
+msgstr "Orezať obrázok"
+
+#: lib/ManualImageCropEditorWindow.php:30
+msgid "Pick the image size:"
+msgstr "Vyberte rozmer obrázku:"
+
+#: lib/ManualImageCropEditorWindow.php:40
+#: lib/ManualImageCropSettingsPage.php:133
+msgid "Thumbnail"
+msgstr "Miniatúra"
+
+#: lib/ManualImageCropEditorWindow.php:41
+#: lib/ManualImageCropSettingsPage.php:134
+msgid "Medium"
+msgstr "Stredný"
+
+#: lib/ManualImageCropEditorWindow.php:42
+#: lib/ManualImageCropSettingsPage.php:135
+msgid "Large"
+msgstr "Veľký"
+
+#: lib/ManualImageCropEditorWindow.php:43
+#: lib/ManualImageCropSettingsPage.php:136
+msgid "Full Size"
+msgstr "Plná veľkosť"
+
+#: lib/ManualImageCropEditorWindow.php:151
+msgid "Original picture dimensions:"
+msgstr "Pôvodné rozmery obrázku:"
+
+#: lib/ManualImageCropEditorWindow.php:152
+msgid "Target picture dimensions:"
+msgstr "Cieľové rozmery obrázku:"
+
+#: lib/ManualImageCropEditorWindow.php:156
+msgid "Soft proportional crop mode"
+msgstr "Proporčný mód orezávania"
+
+#: lib/ManualImageCropEditorWindow.php:156
+msgid "Hard crop mode"
+msgstr "Presný mód orezávania"
+
+#: lib/ManualImageCropEditorWindow.php:160
+msgid "New image:"
+msgstr "Nový obrázok:"
+
+#: lib/ManualImageCropEditorWindow.php:167
+msgid "Previous image:"
+msgstr "Predchádzajúci obrázok:"
+
+#: lib/ManualImageCropEditorWindow.php:175
+msgid "Crop it!"
+msgstr "Orezať!"
+
+#: lib/ManualImageCropEditorWindow.php:182
+msgid "Target JPEG Quality"
+msgstr "Cieľová JPEG kvalita"
+
+#: lib/ManualImageCropEditorWindow.php:183
+#: lib/ManualImageCropSettingsPage.php:172
+msgid "100 (best quality, biggest file)"
+msgstr "100 (najlepšia kvalite, najväčší súbor)"
+
+#: lib/ManualImageCropEditorWindow.php:184
+#: lib/ManualImageCropSettingsPage.php:173
+msgid "80 (very high quality)"
+msgstr "80 (veľmi vysoká kvalita)"
+
+#: lib/ManualImageCropEditorWindow.php:185
+#: lib/ManualImageCropSettingsPage.php:174
+msgid "70 (high quality)"
+msgstr "70 (vysoká kvalita)"
+
+#: lib/ManualImageCropEditorWindow.php:186
+#: lib/ManualImageCropSettingsPage.php:175
+msgid "60 (good)"
+msgstr "60 (dobrá)"
+
+#: lib/ManualImageCropEditorWindow.php:187
+#: lib/ManualImageCropSettingsPage.php:176
+msgid "50 (average)"
+msgstr "50 (priemerná)"
+
+#: lib/ManualImageCropEditorWindow.php:188
+#: lib/ManualImageCropSettingsPage.php:177
+msgid "30 (low)"
+msgstr "30 (nízka)"
+
+#: lib/ManualImageCropEditorWindow.php:189
+#: lib/ManualImageCropSettingsPage.php:178
+msgid "10 (very low, smallest file)"
+msgstr "10 (veľmi nízka, najmenší súbor)"
+
+#: lib/ManualImageCropEditorWindow.php:196
+msgid "Generate Retina/HiDPI (@2x):"
+msgstr "Vygenerovať Retina/HiDPI (@2x):"
+
+#: lib/ManualImageCropEditorWindow.php:201
+msgid "The image has been cropped successfully"
+msgstr "Obrázok bol úspešne orezaný"
+
+#: lib/ManualImageCropEditorWindow.php:202
+msgid "An Error has occured. Please try again or contact plugin's author."
+msgstr ""
+"Vyskytla sa chyba. Prosím, skúste znova alebo kontaktujte autora modulu."
+
+#: lib/ManualImageCropEditorWindow.php:245
+msgid "Compatible"
+msgstr "Kompatibilné"
+
+#: lib/ManualImageCropEditorWindow.php:247
+msgid "Source too small"
+msgstr "Zdrojový obrázok príliš malý"
+
+#: lib/ManualImageCropSettingsPage.php:61
+msgid "Manual Image Crop Settings"
+msgstr "Nastavenia Manuálneho orezávania obrázkov"
+
+#: lib/ManualImageCropSettingsPage.php:87
+msgid "Mic Custom Settings"
+msgstr "Vlastné nastavenia"
+
+#: lib/ManualImageCropSettingsPage.php:94
+msgid "Crop sizes settings"
+msgstr "Nastavenia orezávacích rozmerov"
+
+#: lib/ManualImageCropSettingsPage.php:120
+msgid "Enter your settings below:"
+msgstr "Zadajte vaše nastavenia nižšie:"
+
+#: lib/ManualImageCropSettingsPage.php:143
+msgid "Size"
+msgstr "Veľkosť"
+
+#: lib/ManualImageCropSettingsPage.php:144
+msgid "Visible"
+msgstr "Zobraziť"
+
+#: lib/ManualImageCropSettingsPage.php:145
+msgid "Default JPEG Quality"
+msgstr "Prednastavená JPEG kvalita"
+
+#: lib/ManualImageCropSettingsPage.php:146
+msgid "Custom Label"
+msgstr "Vlastná menovka"
+
+#: lib/ManualImageCropSettingsPage.php:168
+msgid "Yes"
+msgstr "Áno"
+
+#: lib/ManualImageCropSettingsPage.php:169
+msgid "No"
+msgstr "Nie"
+
+#~ msgid "Settings"
+#~ msgstr "Nastavenia"
