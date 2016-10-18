@@ -1,0 +1,6 @@
+{
+    "name": "thesecretlab-nl/wp-manual-image-crop",
+    "description": "Plugin allows you to manually crop all the image sizes registered in your WordPress theme (in particular featured image).",
+    "type": "wordpress-plugin",
+    "require": {}
+}
