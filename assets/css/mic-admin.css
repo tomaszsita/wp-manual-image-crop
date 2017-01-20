@@ -87,7 +87,8 @@
 .mic-editor-wrapper h4 {
 	float: left;
 	width: 100px;
-	margin-top: 23px;
+	margin-top: 10px;
+	margin-top: 0px;
 	line-height: 11px;
 }
 
