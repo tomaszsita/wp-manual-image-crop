@@ -1,0 +1,11 @@
+{
+  "name": "wordpress/manual-image-crop",
+  "type": "wordpress-plugin",
+  "homepage": "http://rmd-gitlab.vrm.net/wordpress/manual-image-crop/",
+  "license": "",
+  "description": "Divi Builder Plugin",
+  "keywords": ["plugin","wordpress","crop","manual-image-crop"],
+  "require": {
+    "composer/installers": "~1.0.6"
+  }
+}
