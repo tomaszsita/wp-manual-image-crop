@@ -336,7 +336,7 @@ class ManualImageCrop {
 		}
 
 		// Generate Retina Image
-		if( isset( $data['make2x'] ) && $data['make2x'] === 'true' ) {
+		if( isset( $data['make2x'] ) && $data['make2x'] === true ) {
 			$dst_w2x = $dst_w * 2;
 			$dst_h2x = $dst_h * 2;
 
