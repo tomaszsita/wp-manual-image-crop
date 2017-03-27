@@ -27,59 +27,61 @@ class ManualImageCropEditorWindow {
 		$sizesSettings = MicSettingsPage::getSettings();
 		?>
 <div class="mic-editor-wrapper">
-	<h4>
-		<?php _e('Pick the image size:','microp'); ?>
-	</h4>
-	<h2 class="nav-tab-wrapper">
-		<?php
-		global $_wp_additional_image_sizes;
+	<div class="mic-editor-header">
+		<h4>
+			<?php _e('Pick the image size:','microp'); ?>
+		</h4>
+		<h2 class="nav-tab-wrapper">
+			<?php
+			global $_wp_additional_image_sizes;
 
-		$imageSizes = get_intermediate_image_sizes();
+			$imageSizes = get_intermediate_image_sizes();
 
-		$editedSize = in_array($_GET['size'], $imageSizes) ? $_GET['size'] : null;
+			$editedSize = in_array($_GET['size'], $imageSizes) ? $_GET['size'] : null;
+				
+			$postId = filter_var($_GET['postId'], FILTER_SANITIZE_NUMBER_INT);
 			
-		$postId = filter_var($_GET['postId'], FILTER_SANITIZE_NUMBER_INT);
-		
-		$sizeLabels = apply_filters( 'image_size_names_choose', array(
-				'thumbnail' => __('Thumbnail'),
-				'medium'    => __('Medium'),
-				'large'     => __('Large'),
-				'full'      => __('Full Size'),
-		) );
-		$sizeLabels = apply_filters( 'image_size_names_choose', array() );
+			$sizeLabels = apply_filters( 'image_size_names_choose', array(
+					'thumbnail' => __('Thumbnail'),
+					'medium'    => __('Medium'),
+					'large'     => __('Large'),
+					'full'      => __('Full Size'),
+			) );
+			$sizeLabels = apply_filters( 'image_size_names_choose', array() );
 
-		foreach ($imageSizes as $s) {
-			if ( ! isset($sizesSettings[$s]) ) {
-				$sizesSettings[$s] = array('label' => '', 'quality' => 80, 'visibility' => 'visible');
-			}
-
-			if ( $sizesSettings[$s]['visibility'] == 'hidden') {
-				if ($editedSize == $s) {
-					$editedSize = null;
+			foreach ($imageSizes as $s) {
+				if ( ! isset($sizesSettings[$s]) ) {
+					$sizesSettings[$s] = array('label' => '', 'quality' => 80, 'visibility' => 'visible');
 				}
-				continue;
-			}
 
-			if (isset($_wp_additional_image_sizes[$s])) {
-				$cropMethod = $_wp_additional_image_sizes[$s]['crop'];
-			} else {
-				$cropMethod = get_option($s.'_crop');
-			}
-			if ($cropMethod == 0) {
-				continue;
-			}
+				if ( $sizesSettings[$s]['visibility'] == 'hidden') {
+					if ($editedSize == $s) {
+						$editedSize = null;
+					}
+					continue;
+				}
 
-			if ( is_null($editedSize) ) {
-				$editedSize = $s;
-			}
+				if (isset($_wp_additional_image_sizes[$s])) {
+					$cropMethod = $_wp_additional_image_sizes[$s]['crop'];
+				} else {
+					$cropMethod = get_option($s.'_crop');
+				}
+				if ($cropMethod == 0) {
+					continue;
+				}
 
-			// Get user defined label for the size or just cleanup a bit
-			$label = isset($sizeLabels[$s]) ? $sizeLabels[$s] : ucfirst( str_replace( '-', ' ', $s ) );
-			$label = $sizesSettings[$s]['label'] ? $sizesSettings[$s]['label'] : $label;
-			echo '<a href="' . admin_url( 'admin-ajax.php' ) . '?action=mic_editor_window&size=' . $s . '&postId=' . $postId . '&width=940" class="mic-icon-' . $s . ' rm-crop-size-tab nav-tab ' . ( ($s == $editedSize) ? 'nav-tab-active' : '' ) .  '">' . $label . '</a>';
-		}
-		?>
-	</h2>
+				if ( is_null($editedSize) ) {
+					$editedSize = $s;
+				}
+
+				// Get user defined label for the size or just cleanup a bit
+				$label = isset($sizeLabels[$s]) ? $sizeLabels[$s] : ucfirst( str_replace( '-', ' ', $s ) );
+				$label = $sizesSettings[$s]['label'] ? $sizesSettings[$s]['label'] : $label;
+				echo '<a href="' . admin_url( 'admin-ajax.php' ) . '?action=mic_editor_window&size=' . $s . '&postId=' . $postId . '&width=940" class="mic-icon-' . $s . ' rm-crop-size-tab nav-tab ' . ( ($s == $editedSize) ? 'nav-tab-active' : '' ) .  '">' . $label . '</a>';
+			}
+			?>
+		</h2>
+		</div>
 	<div class="mic-left-col">
 		<?php
 		//reads the specific registered image size dimension

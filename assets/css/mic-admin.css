@@ -47,6 +47,21 @@
 	display: none;
 }
 
+/* Add clearfix */
+
+.mic-editor-header:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
+.mic-editor-header { display: inline-block; }
+* html .mic-editor-header { height: 1%; }
+.mic-editor-header { display: block; }
+
 .mic-editor-wrapper h2 .nav-tab {
 	font-size: 16px;
 	padding: 4px;
