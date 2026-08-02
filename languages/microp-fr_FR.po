@@ -53,21 +53,9 @@ msgstr "Large"
 msgid "Full Size"
 msgstr "Taille d'origine"
 
-#: manual-image-crop/lib/ManualImageCropEditorWindow.php:142
-msgid "Original picture dimensions:"
-msgstr "Dimension originales&nbsp;:"
 
-#: manual-image-crop/lib/ManualImageCropEditorWindow.php:143
-msgid "Target picture dimensions:"
-msgstr "Dimensions cibles&nbsp;:"
 
-#: manual-image-crop/lib/ManualImageCropEditorWindow.php:143
-msgid "Soft proportional crop mode"
-msgstr "Recadrage proportionnel"
 
-#: manual-image-crop/lib/ManualImageCropEditorWindow.php:143
-msgid "Hard crop mode"
-msgstr "Recadrage non proportionnel"
 
 #: manual-image-crop/lib/ManualImageCropEditorWindow.php:147
 msgid "New image:"
@@ -134,13 +122,7 @@ msgstr ""
 "Une erreur est survenue. Merci de réessayer plus tard ou de contacter "
 "l'auteur du plugin."
 
-#: manual-image-crop/lib/ManualImageCropEditorWindow.php:232
-msgid "Compatible"
-msgstr "Compatible"
 
-#: manual-image-crop/lib/ManualImageCropEditorWindow.php:234
-msgid "Source too small"
-msgstr "Image source trop petite"
 
 #: manual-image-crop/lib/ManualImageCropSettingsPage.php:125
 msgid "Size"
@@ -165,3 +147,100 @@ msgstr "Oui"
 #: manual-image-crop/lib/ManualImageCropSettingsPage.php:151
 msgid "No"
 msgstr "Non"
+
+#: lib/ManualImageCropSettingsPage.php:64
+msgid "System Information"
+msgstr "Informations système"
+
+#: lib/ManualImageCropSettingsPage.php:67
+msgid "Supported Image Formats:"
+msgstr "Formats d'image supportés :"
+
+#: lib/ManualImageCropSettingsPage.php:71
+msgid "PHP Version:"
+msgstr "Version PHP :"
+
+#: lib/ManualImageCropSettingsPage.php:75
+msgid "GD Library:"
+msgstr "Bibliothèque GD :"
+
+#: lib/ManualImageCropSettingsPage.php:79
+msgid "ImageMagick:"
+msgstr "ImageMagick :"
+
+#: lib/ManualImageCropSettingsPage.php:83
+msgid "WordPress Version:"
+msgstr "Version WordPress :"
+
+#: lib/ManualImageCropSettingsPage.php:87
+msgid "Plugin Version:"
+msgstr "Version du plugin :"
+
+#: lib/ManualImageCropSettingsPage.php:276
+msgid "Not available"
+msgstr "Non disponible"
+
+#: lib/ManualImageCropSettingsPage.php:280
+msgid "Unknown"
+msgstr "Inconnu"
+
+#: lib/ManualImageCropSettingsPage.php:324
+msgid "Available but error occurred"
+msgstr "Disponible mais erreur survenue"
+
+#: lib/ManualImageCropEditorWindow.php:218
+#: lib/ManualImageCropEditorWindow.php:292
+#: lib/ManualImageCropEditorWindow.php:325
+msgid "Dimensions:"
+msgstr "Dimensions :"
+
+#: lib/ManualImageCropEditorWindow.php:327
+msgid "Original:"
+msgstr "Original :"
+
+#: lib/ManualImageCropEditorWindow.php:328
+msgid "Target:"
+msgstr "Cible :"
+
+#: manual-image-crop.php:67
+msgid "Settings"
+msgstr "Paramètres"
+
+#: lib/ManualImageCropEditorWindow.php:150
+msgid "Target Size Too Large"
+msgstr "Taille cible trop grande"
+
+#: lib/ManualImageCropEditorWindow.php:154
+msgid "Solution:"
+msgstr "Solution :"
+
+#: lib/ManualImageCropEditorWindow.php:155
+msgid "Choose a smaller image size or upload a larger original image."
+msgstr "Choisissez une taille d'image plus petite ou téléchargez une image originale plus grande."
+
+#: lib/ManualImageCropEditorWindow.php:152
+msgid "Target size (%dx%d) is larger than original image (%dx%d). Cropping is not possible."
+msgstr "La taille cible (%dx%d) est plus grande que l'image originale (%dx%d). Le recadrage n'est pas possible."
+
+#: lib/ManualImageCropSettingsPage.php:61
+msgid "Manual Image Crop Settings"
+msgstr "Paramètres de Recadrage Manuel d'Image"
+
+#: lib/ManualImageCropSettingsPage.php:87
+msgid "Mic Custom Settings"
+msgstr "Paramètres Personnalisés MIC"
+
+#: lib/ManualImageCropSettingsPage.php:94
+msgid "Crop sizes settings"
+msgstr "Paramètres de tailles de recadrage"
+
+#: lib/ManualImageCropSettingsPage.php:120
+msgid "Enter your settings below:"
+msgstr "Entrez vos paramètres ci-dessous:"
+
+#: lib/ManualImageCrop.php:67 lib/ManualImageCrop.php:94
+#: lib/ManualImageCrop.php:104 lib/ManualImageCrop.php:131
+#: lib/ManualImageCropSettingsPage.php:45
+#: lib/ManualImageCropSettingsPage.php:46 manual-image-crop.php:3
+msgid "Manual Image Crop"
+msgstr "Recadrage Manuel d'Image"

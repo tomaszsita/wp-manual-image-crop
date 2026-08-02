@@ -72,21 +72,9 @@ msgstr "Large"
 msgid "Full Size"
 msgstr "Full storlek"
 
-#: lib/ManualImageCropEditorWindow.php:151
-msgid "Original picture dimensions:"
-msgstr "Ursprungliga bilddimensioner:"
 
-#: lib/ManualImageCropEditorWindow.php:152
-msgid "Target picture dimensions:"
-msgstr "Bilddimensioner i ändrad bild:"
 
-#: lib/ManualImageCropEditorWindow.php:156
-msgid "Soft proportional crop mode"
-msgstr "Mjukt proportionellt beskärningssätt"
 
-#: lib/ManualImageCropEditorWindow.php:156
-msgid "Hard crop mode"
-msgstr "Hårt beskärningssätt"
 
 #: lib/ManualImageCropEditorWindow.php:160
 msgid "New image:"
@@ -153,13 +141,7 @@ msgstr ""
 "Ett fel har inträttat. Var vänlig försök igen eller kontakta tilläggets "
 "skapare."
 
-#: lib/ManualImageCropEditorWindow.php:245
-msgid "Compatible"
-msgstr "Kompatibel"
 
-#: lib/ManualImageCropEditorWindow.php:247
-msgid "Source too small"
-msgstr "Källfilen är för liten"
 
 #: lib/ManualImageCropSettingsPage.php:61
 msgid "Manual Image Crop Settings"
@@ -200,3 +182,77 @@ msgstr "Ja"
 #: lib/ManualImageCropSettingsPage.php:169
 msgid "No"
 msgstr "Nej"
+
+#: lib/ManualImageCropSettingsPage.php:64
+msgid "System Information"
+msgstr "Systeminformation"
+
+#: lib/ManualImageCropSettingsPage.php:67
+msgid "Supported Image Formats:"
+msgstr "Stödda bildformat:"
+
+#: lib/ManualImageCropSettingsPage.php:71
+msgid "PHP Version:"
+msgstr "PHP-version:"
+
+#: lib/ManualImageCropSettingsPage.php:75
+msgid "GD Library:"
+msgstr "GD-bibliotek:"
+
+#: lib/ManualImageCropSettingsPage.php:79
+msgid "ImageMagick:"
+msgstr "ImageMagick:"
+
+#: lib/ManualImageCropSettingsPage.php:83
+msgid "WordPress Version:"
+msgstr "WordPress-version:"
+
+#: lib/ManualImageCropSettingsPage.php:87
+msgid "Plugin Version:"
+msgstr "Tilläggsversion:"
+
+#: lib/ManualImageCropSettingsPage.php:276
+msgid "Not available"
+msgstr "Inte tillgängligt"
+
+#: lib/ManualImageCropSettingsPage.php:280
+msgid "Unknown"
+msgstr "Okänd"
+
+#: lib/ManualImageCropSettingsPage.php:324
+msgid "Available but error occurred"
+msgstr "Tillgängligt men fel uppstod"
+
+#: lib/ManualImageCropEditorWindow.php:218
+#: lib/ManualImageCropEditorWindow.php:292
+#: lib/ManualImageCropEditorWindow.php:325
+msgid "Dimensions:"
+msgstr "Dimensioner:"
+
+#: lib/ManualImageCropEditorWindow.php:327
+msgid "Original:"
+msgstr "Original:"
+
+#: lib/ManualImageCropEditorWindow.php:328
+msgid "Target:"
+msgstr "Mål:"
+
+#: manual-image-crop.php:67
+msgid "Settings"
+msgstr "Inställningar"
+
+#: lib/ManualImageCropEditorWindow.php:150
+msgid "Target Size Too Large"
+msgstr "Målstorlek för stor"
+
+#: lib/ManualImageCropEditorWindow.php:154
+msgid "Solution:"
+msgstr "Lösning:"
+
+#: lib/ManualImageCropEditorWindow.php:155
+msgid "Choose a smaller image size or upload a larger original image."
+msgstr "Välj en mindre bildstorlek eller ladda upp en större originalbild."
+
+#: lib/ManualImageCropEditorWindow.php:152
+msgid "Target size (%dx%d) is larger than original image (%dx%d). Cropping is not possible."
+msgstr "Målstorlek (%dx%d) är större än originalbild (%dx%d). Beskärning är inte möjlig."

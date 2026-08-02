@@ -32,7 +32,8 @@ class MicSettingsPage
     		}
     		$settings = unserialize($settings);
     	}
-    	return $settings;
+    	// Ensure we always return an array, not false
+    	return is_array($settings) ? $settings : array();
     }
 
     /**
@@ -58,7 +59,41 @@ class MicSettingsPage
         ?>
         <div class="wrap">
             <?php screen_icon(); ?>
-            <h2><?php _e('Manual Image Crop Settings', 'microp'); ?></h2>           
+            <h2><?php _e('Manual Image Crop Settings', 'microp'); ?></h2>
+            
+            <!-- System Information Section -->
+            <div class="card" style="max-width: 100%; margin-bottom: 20px;">
+                <h3><?php _e('System Information', 'microp'); ?></h3>
+                <table class="widefat" style="margin-top: 10px;">
+                    <tbody>
+                        <tr>
+                            <td><strong><?php _e('Supported Image Formats:', 'microp'); ?></strong></td>
+                            <td><?php echo $this->get_supported_formats(); ?></td>
+                        </tr>
+                        <tr>
+                            <td><strong><?php _e('PHP Version:', 'microp'); ?></strong></td>
+                            <td><?php echo PHP_VERSION; ?></td>
+                        </tr>
+                        <tr>
+                            <td><strong><?php _e('GD Library:', 'microp'); ?></strong></td>
+                            <td><?php echo $this->get_gd_info(); ?></td>
+                        </tr>
+                        <tr>
+                            <td><strong><?php _e('ImageMagick:', 'microp'); ?></strong></td>
+                            <td><?php echo $this->get_imagick_info(); ?></td>
+                        </tr>
+                        <tr>
+                            <td><strong><?php _e('WordPress Version:', 'microp'); ?></strong></td>
+                            <td><?php echo get_bloginfo('version'); ?></td>
+                        </tr>
+                        <tr>
+                            <td><strong><?php _e('Plugin Version:', 'microp'); ?></strong></td>
+                            <td><?php echo mic_VERSION; ?></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
             <form method="post" action="options.php" class="mic-settings-page">
             <?php
                 // This prints out all hidden setting fields
@@ -137,13 +172,14 @@ class MicSettingsPage
         ) );
         $sizeLabels = apply_filters( 'image_size_names_choose', array() );
 		
-		echo '<table class="widefat fixed" cellspacing="0">';
+		echo '<div class="mic-settings-table-wrapper">';
+		echo '<table class="wp-list-table widefat fixed striped">';
 		echo '<thead>
 			  <tr>
-			     <th>' . __('Size', 'microp') . '</th>
-			     <th>' . __('Visible', 'microp') . '</th>
-			     <th>' . __('Default JPEG Quality', 'microp') . '</th>
-			     <th>' . __('Custom Label', 'microp') . '</th>
+			     <th scope="col" class="manage-column column-size">' . __('Size', 'microp') . '</th>
+			     <th scope="col" class="manage-column column-visible">' . __('Visible', 'microp') . '</th>
+			     <th scope="col" class="manage-column column-quality">' . __('Default JPEG Quality', 'microp') . '</th>
+			     <th scope="col" class="manage-column column-label">' . __('Custom Label', 'microp') . '</th>
 			  </tr>
 			 </thead>
              <tbody>';
@@ -180,11 +216,115 @@ class MicSettingsPage
      					<option value="30" ' . ( $sizesSettings[$s]['quality'] == '30' ? 'selected' : '' ) . '>' . __('30 (low)', 'microp') . '</option>
      					<option value="10" ' . ( $sizesSettings[$s]['quality'] == '10' ? 'selected' : '' ) . '>' . __('10 (very low, smallest file)', 'microp') . '</option>
     				</select></td>
-			     <td><input name="mic_options[sizes_settings][' . $s . '][label]" type="text" placeholder="' . $label . '" value="' . str_replace('"', '&quot;', $sizesSettings[$s]['label']) .  '"/></td>
+			     <td><input name="mic_options[sizes_settings][' . $s . '][label]" type="text" placeholder="' . $label . '" value="' . str_replace('"', '&quot;', isset($sizesSettings[$s]['label']) ? $sizesSettings[$s]['label'] : '') .  '"/></td>
 			</tr>';
 		}
 		echo '</tbody></table>';
+		echo '</div>';
 		
+    }
+    
+    /**
+     * Get supported image formats information
+     */
+    private function get_supported_formats() {
+        $formats = array();
+        
+        // Check GD formats
+        if (function_exists('gd_info')) {
+            $gd_info = gd_info();
+            if (isset($gd_info['JPEG Support']) && $gd_info['JPEG Support']) {
+                $formats[] = 'JPEG';
+            }
+            if (isset($gd_info['PNG Support']) && $gd_info['PNG Support']) {
+                $formats[] = 'PNG';
+            }
+            if (isset($gd_info['GIF Read Support']) && $gd_info['GIF Read Support']) {
+                $formats[] = 'GIF';
+            }
+            if (function_exists('imagewebp')) {
+                $formats[] = 'WebP';
+            }
+        }
+        
+        // Check Imagick formats
+        if (class_exists('Imagick')) {
+            try {
+                $imagick = new Imagick();
+                $formats_imagick = $imagick->queryFormats();
+                
+                if (in_array('WEBP', $formats_imagick) && !in_array('WebP', $formats)) {
+                    $formats[] = 'WebP (Imagick)';
+                }
+                if (in_array('TIFF', $formats_imagick)) {
+                    $formats[] = 'TIFF';
+                }
+                if (in_array('BMP', $formats_imagick)) {
+                    $formats[] = 'BMP';
+                }
+            } catch (Exception $e) {
+                // Imagick error, skip
+            }
+        }
+        
+        return implode(', ', $formats);
+    }
+    
+    /**
+     * Get GD Library information
+     */
+    private function get_gd_info() {
+        if (!function_exists('gd_info')) {
+            return __('Not available', 'microp');
+        }
+        
+        $gd_info = gd_info();
+        $version = isset($gd_info['GD Version']) ? $gd_info['GD Version'] : __('Unknown', 'microp');
+        
+        $features = array();
+        if (isset($gd_info['JPEG Support']) && $gd_info['JPEG Support']) {
+            $features[] = 'JPEG';
+        }
+        if (isset($gd_info['PNG Support']) && $gd_info['PNG Support']) {
+            $features[] = 'PNG';
+        }
+        if (isset($gd_info['GIF Read Support']) && $gd_info['GIF Read Support']) {
+            $features[] = 'GIF';
+        }
+        if (function_exists('imagewebp')) {
+            $features[] = 'WebP';
+        }
+        
+        return sprintf('%s (%s)', $version, implode(', ', $features));
+    }
+    
+    /**
+     * Get ImageMagick information
+     */
+    private function get_imagick_info() {
+        if (!class_exists('Imagick')) {
+            return __('Not available', 'microp');
+        }
+        
+        try {
+            $imagick = new Imagick();
+            $version = $imagick->getVersion();
+            $version_info = $version['versionString'];
+            
+            $formats = $imagick->queryFormats();
+            $supported_formats = array();
+            
+            $check_formats = array('JPEG', 'PNG', 'GIF', 'WEBP', 'TIFF', 'BMP');
+            foreach ($check_formats as $format) {
+                if (in_array($format, $formats)) {
+                    $supported_formats[] = $format;
+                }
+            }
+            
+            return sprintf('%s (%s)', $version_info, implode(', ', $supported_formats));
+        } catch (Exception $e) {
+            return __('Available but error occurred', 'microp');
+        }
     }
 }
 

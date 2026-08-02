@@ -27,7 +27,8 @@ class ManualImageCrop {
 	 * Enqueues all necessary CSS and Scripts
 	 */
 	public function enqueueAssets() {
-		add_thickbox();
+		// Replace thickbox with Media Modal
+		wp_enqueue_media();
 
 		wp_register_style( 'rct-admin', plugins_url('assets/css/mic-admin.css', dirname( __FILE__ ) ) );
 		wp_enqueue_style( 'rct-admin' );
@@ -37,7 +38,12 @@ class ManualImageCrop {
 
 		wp_enqueue_script( 'jquery-color', plugins_url('assets/js/jquery.color.js', dirname( __FILE__ )), array( 'jquery') );
 		wp_enqueue_script( 'jquery-jcrop', plugins_url('assets/js/jquery.Jcrop.min.js', dirname( __FILE__ )), array( 'jquery') );
-		wp_enqueue_script( 'miccrop', plugins_url('assets/js/microp.js', dirname( __FILE__ )), array( 'jquery') );
+		wp_enqueue_script( 'miccrop', plugins_url('assets/js/microp.js', dirname( __FILE__ )), array( 'jquery', 'media-views'), mic_VERSION );
+		wp_enqueue_script( 'mic-media-modal', plugins_url('assets/js/mic-media-modal.js', dirname( __FILE__ )), array( 'jquery', 'media-views', 'miccrop'), mic_VERSION );
+
+		wp_localize_script( 'miccrop', 'MicCrop', array(
+			'nonce' => wp_create_nonce( 'mic_crop' ),
+		) );
 	}
 
 	/**
@@ -55,7 +61,7 @@ class ManualImageCrop {
 	 */
 	public function addMediaEditorLinks($links, $post) {
 		if (preg_match('/image/', $post->post_mime_type)) {
-			$links['crop'] = '<a class="thickbox mic-link" rel="crop" title="Manual Image Crop" href="' . admin_url( 'admin-ajax.php' ) . '?action=mic_editor_window&postId=' . $post->ID . '">' . __('Crop','microp') . '</a>';
+			$links['crop'] = '<a class="mic-crop-link" data-attachment-id="' . $post->ID . '" href="#">' . __('Crop','microp') . '</a>';
 		}
 		return $links;
 	}
@@ -64,7 +70,7 @@ class ManualImageCrop {
 	 * Adds link below "Remove featured image" in post editing form
 	 */
 	public function addCropFeatureImageEditorLink($content, $post) {
-		$content .= '<a id="micCropFeatureImage" class="thickbox mic-link" rel="crop" title="' . __('Manual Image Crop','microp') . '" href="' . admin_url( 'admin-ajax.php' ) . '?action=mic_editor_window&postId=' . get_post_thumbnail_id($post) . '">' . __('Crop featured image','microp') . '</a>
+		$content .= '<a id="micCropFeatureImage" class="mic-crop-link" data-attachment-id="' . get_post_thumbnail_id($post) . '" href="#">' . __('Crop featured image','microp') . '</a>
 		<script>
 		setInterval(function() {
 		if (jQuery(\'#remove-post-thumbnail\').is(\':visible\')) {
@@ -86,22 +92,55 @@ class ManualImageCrop {
 		var micEditAttachemtnLinkAddedInterval = 0;
 		jQuery(document).ready(function() {			
 			micEditAttachemtnLinkAddedInterval = setInterval(function() {
-				if (jQuery('.details .edit-attachment').length) {
+				if (jQuery('.details .edit-attachment').length && !jQuery('.details .edit-attachment').siblings('.mic-crop-link').length) {
 					try {
 						var mRegexp = /\?post=([0-9]+)/; 
 						var match = mRegexp.exec(jQuery('.details .edit-attachment').attr('href'));
-						jQuery('.crop-image-ml.crop-image').remove();
-						jQuery('.details .edit-attachment').after( '<a class="thickbox mic-link crop-image-ml crop-image" rel="crop" title="<?php _e("Manual Image Crop","microp"); ?>" href="' + ajaxurl + '?action=mic_editor_window&postId=' + match[1] + '"><?php _e('Crop Image','microp') ?></a>' );
+						if (match) {
+							jQuery('.details .edit-attachment').after( '<a class="mic-crop-link crop-image-ml crop-image" data-attachment-id="' + match[1] + '" href="#"><?php _e('Crop Image','microp') ?></a>' );
+						}
 					} catch (e) {
 						console.log(e);
 					}
 				}
 
-				if (jQuery('.attachment-details .details-image').length) {
+				if (jQuery('.attachment-details .details-image').length && !jQuery('.button.edit-attachment').siblings('.mic-crop-link').length) {
 					try {
-						var postId = jQuery('.attachment-details').attr('data-id');
-						jQuery('.button.crop-image-ml.crop-image').remove();
-						jQuery('.button.edit-attachment').after( ' <a class="thickbox mic-link crop-image-ml crop-image button" rel="crop" title="<?php _e("Manual Image Crop","microp"); ?>" href="' + ajaxurl + '?action=mic_editor_window&postId=' + postId + '"><?php _e('Crop Image','microp') ?></a>' );
+						// Enhanced postId extraction - multiple fallback methods
+						var postId = null;
+						
+						// Method 1: Try to get from edit attachment link (most reliable)
+						var editLink = jQuery('.edit-attachment, .details .edit-attachment, .button.edit-attachment');
+						if (editLink.length > 0) {
+							var href = editLink.attr('href');
+							if (href) {
+								var match = href.match(/post=([0-9]+)/);
+								if (match) {
+									postId = match[1];
+								}
+							}
+						}
+						
+						// Method 2: Fallback to original method if still null
+						if (!postId) {
+							var dataIdElement = jQuery('.attachment-details');
+							postId = dataIdElement.attr('data-id');
+						}
+						
+						// Method 3: Try URL parameters
+						if (!postId) {
+							var urlParams = new URLSearchParams(window.location.search);
+							if (urlParams.has('post')) {
+								postId = urlParams.get('post');
+							} else if (urlParams.has('item')) {
+								postId = urlParams.get('item'); // item parameter is usually the post ID
+							}
+						}
+						
+						// Only add link if we have a valid postId and it doesn't exist yet
+						if (postId && postId !== 'undefined') {
+							jQuery('.button.edit-attachment').after( ' <a class="mic-crop-link crop-image-ml crop-image button" data-attachment-id="' + postId + '" href="#"><?php _e('Crop Image','microp') ?></a>' );
+						}
 					} catch (e) {
 						console.log(e);
 					}
@@ -125,10 +164,14 @@ class ManualImageCrop {
 				if (jQuery('#media-items .edit-attachment').length) {
 					jQuery('#media-items .edit-attachment').each(function(i, k) {
 						try {
-							var mRegexp = /\?post=([0-9]+)/; 
-							var match = mRegexp.exec(jQuery(this).attr('href'));
-							if (!jQuery(this).parent().find('.edit-attachment.crop-image').length && jQuery(this).parent().find('.pinkynail').attr('src').match(/upload/g)) {
-								jQuery(this).after( '<a class="thickbox mic-link edit-attachment crop-image" rel="crop" title="<?php _e("Manual Image Crop","microp"); ?>" href="' + ajaxurl + '?action=mic_editor_window&postId=' + match[1] + '"><?php _e('Crop Image','microp') ?></a>' );
+							var $this = jQuery(this);
+							// Only add if crop link doesn't exist yet
+							if (!$this.siblings('.mic-crop-link').length && !$this.parent().find('.edit-attachment.crop-image').length) {
+								var mRegexp = /\?post=([0-9]+)/; 
+								var match = mRegexp.exec($this.attr('href'));
+								if (match && $this.parent().find('.pinkynail').attr('src').match(/upload/g)) {
+									$this.after( '<a class="mic-crop-link edit-attachment crop-image" data-attachment-id="' + match[1] + '" href="#"><?php _e('Crop Image','microp') ?></a>' );
+								}
 							}
 						} catch (e) {
 							console.log(e);

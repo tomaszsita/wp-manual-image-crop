@@ -1,0 +1,237 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Manual Image Crop\n"
+"POT-Creation-Date: 2015-05-01 00:50+0100\n"
+"PO-Revision-Date: 2024-01-01 12:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ko_KR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8beta1\n"
+"X-Poedit-Basepath: D:\\Programy\\xampp\\apps\\wordpress\\htdocs\\wp-content\\plugins\\manual-image-crop\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-KeywordsList: _e;__\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: manual-image-crop.php:5
+msgid ""
+"Plugin allows you to manually crop all the image sizes registered in your "
+"WordPress theme (in particular featured image). Simply click on the \"Crop\" "
+"link next to any image in your media library and select the area of the "
+"image you want to crop."
+msgstr ""
+"플러그인을 사용하면 WordPress 테마에 등록된 모든 이미지 크기(특히 대표 이미지)를 수동으로 자를 수 있습니다. 미디어 라이브러리의 모든 이미지 옆에 있는 \"자르기\" 링크를 클릭하고 자르고 싶은 이미지 영역을 선택하기만 하면 됩니다."
+
+#: lib/ManualImageCrop.php:58
+msgid "Crop"
+msgstr "자르기"
+
+#: lib/ManualImageCrop.php:67 lib/ManualImageCrop.php:94
+#: lib/ManualImageCrop.php:104 lib/ManualImageCrop.php:131
+#: lib/ManualImageCropSettingsPage.php:45
+#: lib/ManualImageCropSettingsPage.php:46 manual-image-crop.php:3
+msgid "Manual Image Crop"
+msgstr "수동 이미지 자르기"
+
+#: lib/ManualImageCrop.php:67
+msgid "Crop featured image"
+msgstr "대표 이미지 자르기"
+
+#: lib/ManualImageCrop.php:94 lib/ManualImageCrop.php:104
+#: lib/ManualImageCrop.php:131
+msgid "Crop Image"
+msgstr "이미지 자르기"
+
+#: lib/ManualImageCropEditorWindow.php:30
+msgid "Pick the image size:"
+msgstr "이미지 크기 선택:"
+
+#: lib/ManualImageCropEditorWindow.php:40
+#: lib/ManualImageCropSettingsPage.php:133
+msgid "Thumbnail"
+msgstr "썸네일"
+
+#: lib/ManualImageCropEditorWindow.php:41
+#: lib/ManualImageCropSettingsPage.php:134
+msgid "Medium"
+msgstr "중간"
+
+#: lib/ManualImageCropEditorWindow.php:42
+#: lib/ManualImageCropSettingsPage.php:135
+msgid "Large"
+msgstr "큰"
+
+#: lib/ManualImageCropEditorWindow.php:43
+#: lib/ManualImageCropSettingsPage.php:136
+msgid "Full Size"
+msgstr "전체 크기"
+
+#: lib/ManualImageCropEditorWindow.php:150
+msgid "Target Size Too Large"
+msgstr "대상 크기가 너무 큽니다"
+
+#: lib/ManualImageCropEditorWindow.php:152
+msgid "Target size (%dx%d) is larger than original image (%dx%d). Cropping is not possible."
+msgstr "대상 크기 (%dx%d)가 원본 이미지 (%dx%d)보다 큽니다. 자르기가 불가능합니다."
+
+#: lib/ManualImageCropEditorWindow.php:154
+msgid "Solution:"
+msgstr "해결책:"
+
+#: lib/ManualImageCropEditorWindow.php:155
+msgid "Choose a smaller image size or upload a larger original image."
+msgstr "더 작은 이미지 크기를 선택하거나 더 큰 원본 이미지를 업로드하세요."
+
+#: lib/ManualImageCropEditorWindow.php:182
+msgid "Target JPEG Quality"
+msgstr "대상 JPEG 품질"
+
+#: lib/ManualImageCropEditorWindow.php:186
+msgid "100 (best quality, biggest file)"
+msgstr "100 (최고 품질, 가장 큰 파일)"
+
+#: lib/ManualImageCropEditorWindow.php:190
+msgid "80 (very high quality)"
+msgstr "80 (매우 높은 품질)"
+
+#: lib/ManualImageCropEditorWindow.php:194
+msgid "70 (high quality)"
+msgstr "70 (높은 품질)"
+
+#: lib/ManualImageCropEditorWindow.php:198
+msgid "60 (good)"
+msgstr "60 (좋음)"
+
+#: lib/ManualImageCropEditorWindow.php:202
+msgid "50 (average)"
+msgstr "50 (보통)"
+
+#: lib/ManualImageCropEditorWindow.php:206
+msgid "40 (low)"
+msgstr "40 (낮음)"
+
+#: lib/ManualImageCropEditorWindow.php:210
+msgid "30 (very low)"
+msgstr "30 (매우 낮음)"
+
+#: lib/ManualImageCropEditorWindow.php:214
+msgid "20 (poor)"
+msgstr "20 (나쁨)"
+
+#: lib/ManualImageCropEditorWindow.php:218
+msgid "10 (very poor)"
+msgstr "10 (매우 나쁨)"
+
+#: lib/ManualImageCropEditorWindow.php:222
+msgid "0 (worst quality, smallest file)"
+msgstr "0 (최악 품질, 가장 작은 파일)"
+
+#: lib/ManualImageCropEditorWindow.php:242
+msgid "Generate Retina/HiDPI (@2x):"
+msgstr "Retina/HiDPI (@2x) 생성:"
+
+#: lib/ManualImageCropEditorWindow.php:250
+msgid "Crop it!"
+msgstr "자르기!"
+
+#: lib/ManualImageCropEditorWindow.php:258
+msgid "The image has been cropped successfully"
+msgstr "이미지가 성공적으로 잘렸습니다"
+
+#: lib/ManualImageCropEditorWindow.php:266
+msgid "An Error has occured. Please try again or contact plugin's author."
+msgstr "오류가 발생했습니다. 다시 시도하거나 플러그인 작성자에게 문의하세요."
+
+#: lib/ManualImageCropEditorWindow.php:325
+msgid "Dimensions:"
+msgstr "크기:"
+
+#: lib/ManualImageCropEditorWindow.php:327
+msgid "Original:"
+msgstr "원본:"
+
+#: lib/ManualImageCropEditorWindow.php:328
+msgid "Target:"
+msgstr "대상:"
+
+#: lib/ManualImageCropSettingsPage.php:61
+msgid "Manual Image Crop Settings"
+msgstr "수동 이미지 자르기 설정"
+
+#: lib/ManualImageCropSettingsPage.php:87
+msgid "Mic Custom Settings"
+msgstr "MIC 사용자 정의 설정"
+
+#: lib/ManualImageCropSettingsPage.php:94
+msgid "Crop sizes settings"
+msgstr "자르기 크기 설정"
+
+#: lib/ManualImageCropSettingsPage.php:120
+msgid "Enter your settings below:"
+msgstr "아래에 설정을 입력하세요:"
+
+#: lib/ManualImageCropSettingsPage.php:143
+msgid "Size"
+msgstr "크기"
+
+#: lib/ManualImageCropSettingsPage.php:144
+msgid "Visible"
+msgstr "보임"
+
+#: lib/ManualImageCropSettingsPage.php:145
+msgid "Default JPEG Quality"
+msgstr "기본 JPEG 품질"
+
+#: lib/ManualImageCropSettingsPage.php:146
+msgid "Custom Label"
+msgstr "사용자 정의 라벨"
+
+#: lib/ManualImageCropSettingsPage.php:168
+msgid "Yes"
+msgstr "예"
+
+#: lib/ManualImageCropSettingsPage.php:169
+msgid "No"
+msgstr "아니오"
+
+#: lib/ManualImageCropSettingsPage.php:64
+msgid "System Information"
+msgstr "시스템 정보"
+
+#: lib/ManualImageCropSettingsPage.php:67
+msgid "Supported Image Formats:"
+msgstr "지원되는 이미지 형식:"
+
+#: lib/ManualImageCropSettingsPage.php:71
+msgid "PHP Version:"
+msgstr "PHP 버전:"
+
+#: lib/ManualImageCropSettingsPage.php:75
+msgid "GD Library:"
+msgstr "GD 라이브러리:"
+
+#: lib/ManualImageCropSettingsPage.php:79
+msgid "ImageMagick:"
+msgstr "ImageMagick:"
+
+#: lib/ManualImageCropSettingsPage.php:83
+msgid "WordPress Version:"
+msgstr "WordPress 버전:"
+
+#: lib/ManualImageCropSettingsPage.php:87
+msgid "Plugin Version:"
+msgstr "플러그인 버전:"
+
+#: lib/ManualImageCropSettingsPage.php:276
+msgid "Not available"
+msgstr "사용할 수 없음"
+
+#: lib/ManualImageCropSettingsPage.php:280
+msgid "Unknown"
+msgstr "알 수 없음"
+
+#: manual-image-crop.php:67
+msgid "Settings"
+msgstr "설정"

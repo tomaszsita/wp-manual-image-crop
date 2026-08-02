@@ -1,24 +1,90 @@
-#TB_window {
+/* Custom Modal styles */
+.mic-modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0,0,0,0.7);
+	z-index: 160000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.mic-modal-content {
+	background: white;
+	border-radius: 4px;
+	width: 95vw;
+	height: 95vh;
+	overflow: auto;
+	position: relative;
+	box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.mic-modal-header {
+	padding: 20px 20px 0 20px;
+	border-bottom: 1px solid #ddd;
+}
+
+.mic-modal-header h2 {
+	margin: 0 0 20px 0;
+	color: #23282d;
+	font-size: 1.3em;
+	font-weight: 600;
+}
+
+.mic-modal-close {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	background: none;
+	border: none;
+	font-size: 24px;
+	cursor: pointer;
+	color: #666;
+	width: 30px;
+	height: 30px;
+	line-height: 1;
+}
+
+.mic-modal-close:hover {
+	color: #000;
+}
+
+.mic-modal-body {
+	height: calc(95vh - 40px);
+	overflow: auto;
+}
+
+/* Remove thickbox styles */
+/* #TB_window {
 	z-index: 260001 !important;
 }
 
 #TB_overlay {
 	z-index: 260000 !important;
-}
+} */
 
 .mic-editor-wrapper {
-	width: 940px;
+	width: 100%;
+	max-width: none;
+	padding: 0;
+	height: 100%;
 }
 
 .mic-left-col {
 	float: left;
-	width: 500px;
+	width: 70%;
 	margin-right: 20px;
+	height: 100%;
 }
 
 .mic-right-col {
 	float: left;
-	width: 400px;
+	width: 28%;
+	height: 100%;
+	overflow-y: auto;
 }
 
 .mic-48-col {
@@ -47,6 +113,41 @@
 	display: none;
 }
 
+/* Size selector dropdown styles */
+.mic-size-selector {
+	margin: 20px 0;
+}
+
+.mic-size-selector label {
+	margin-bottom: 8px;
+	font-weight: 600;
+	color: #23282d;
+	font-size: 14px;
+}
+
+.mic-size-dropdown {
+	width: 200px;
+	padding: 8px 12px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	background: #fff;
+	font-size: 14px;
+	color: #333;
+	cursor: pointer;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.mic-size-dropdown:hover {
+	border-color: #0073aa;
+}
+
+.mic-size-dropdown:focus {
+	outline: none;
+	border-color: #0073aa;
+	box-shadow: 0 0 0 1px #0073aa;
+}
+
+/* Remove old tab styles */
 .mic-editor-wrapper h2 .nav-tab {
 	font-size: 16px;
 	padding: 4px;
@@ -93,9 +194,242 @@
 
 .mic-editor-wrapper .nav-tab-wrapper {
 	float: left;
-	width: 820px;
+	width: calc(100% - 120px);
 }
 
 .mic-option {
 	margin-top: 10px;
 }
+
+/* Responsive design */
+@media (max-width: 768px) {
+	.mic-modal-content {
+		width: 98vw;
+		height: 98vh;
+		margin: 5px;
+	}
+	
+	.mic-left-col,
+	.mic-right-col {
+		float: none;
+		width: 100%;
+		margin-right: 0;
+		margin-bottom: 20px;
+		height: auto;
+	}
+	
+	.mic-editor-wrapper .nav-tab-wrapper {
+		width: 100%;
+		float: none;
+	}
+	
+	.mic-editor-wrapper h4 {
+		float: none;
+		width: 100%;
+		margin-bottom: 10px;
+	}
+}
+
+/* WordPress Media Modal classes for MIC - scoped to our modal only */
+.mic-modal-body .edit-attachment-frame {
+    /* Let WordPress handle the layout */
+    width: 100%;
+}
+
+.mic-modal-body .attachment-media-view {
+    /* Let WordPress handle the styling */
+}
+
+.mic-modal-body .attachment-info {
+    /* Let WordPress handle the styling */
+    overflow-y: auto;
+}
+
+/* Settings Layout - scoped to our modal only */
+.mic-modal-body .settings {
+    margin-bottom: 20px;
+}
+
+.mic-modal-body .setting {
+    display: flex;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    align-items: flex-start;
+}
+
+.mic-modal-body .setting:first-child {
+    border-top: none;
+}
+
+.mic-modal-body .setting:last-child {
+    border-bottom: none;
+}
+
+/* First settings section (with previews and crop button) - no bottom border */
+.mic-modal-body .settings:first-of-type {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+/* Second settings section (with quality and dimensions) - no bottom border */
+.mic-modal-body .settings:last-of-type {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+/* Compact dimensions layout */
+.mic-modal-body .mic-dimensions-compact {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.mic-modal-body .mic-dimensions-compact .mic-original,
+.mic-modal-body .mic-dimensions-compact .mic-target {
+    font-size: 13px;
+    line-height: 1.3;
+}
+
+/* Remove focus border from crop button */
+.mic-modal-body #micCropImage:focus {
+    outline: none;
+    border-color: #0073aa;
+    box-shadow: none;
+}
+
+/* Center loading animation and add margin */
+.mic-modal-body .mic-loading-wrapper {
+    margin: 10px auto 0;
+    text-align: center;
+}
+
+.mic-modal-body #micLoading {
+    display: inline-block;
+}
+
+/* Settings page table styles */
+.mic-settings-table-wrapper {
+    margin: 20px 0;
+}
+
+.mic-settings-table-wrapper .wp-list-table {
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+}
+
+.mic-settings-table-wrapper .wp-list-table thead th {
+    background: #f6f7f7;
+    border-bottom: 1px solid #c3c4c7;
+    font-weight: 600;
+    padding: 12px 10px;
+}
+
+.mic-settings-table-wrapper .wp-list-table tbody td {
+    padding: 12px 10px;
+    vertical-align: middle;
+}
+
+.mic-settings-table-wrapper .wp-list-table tbody tr:hover {
+    background-color: #f6f7f7;
+}
+
+.mic-settings-table-wrapper .wp-list-table select,
+.mic-settings-table-wrapper .wp-list-table input[type="text"] {
+    width: 100%;
+    max-width: 200px;
+    border: 1px solid #8c8f94;
+    border-radius: 4px;
+    padding: 6px 8px;
+    font-size: 14px;
+}
+
+.mic-settings-table-wrapper .wp-list-table select:focus,
+.mic-settings-table-wrapper .wp-list-table input[type="text"]:focus {
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px #2271b1;
+    outline: 2px solid transparent;
+}
+
+.mic-settings-table-wrapper .column-size {
+    width: 20%;
+}
+
+.mic-settings-table-wrapper .column-visible {
+    width: 15%;
+}
+
+.mic-settings-table-wrapper .column-quality {
+    width: 35%;
+}
+
+.mic-settings-table-wrapper .column-label {
+    width: 30%;
+}
+
+.mic-modal-body .setting .name {
+    flex: 0 0 120px;
+    font-weight: 600;
+    color: #23282d;
+    margin-right: 15px;
+    font-size: 13px;
+    line-height: 1.4;
+    padding-top: 5px;
+}
+
+.mic-modal-body .setting-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.mic-modal-body .setting-content select,
+.mic-modal-body .setting-content input[type="text"] {
+    width: calc(100% - 20px);
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-size: 13px;
+}
+
+.mic-modal-body .setting-content input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+/* Actions Section - scoped to our modal only */
+.mic-modal-body .actions {
+    margin-top: 20px;
+
+    border-top: 1px solid #ddd;
+}
+
+.mic-modal-body .actions .button {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+/* Full width preview settings - scoped to our modal only */
+.mic-modal-body .setting[data-setting="new-preview"],
+.mic-modal-body .setting[data-setting="previous-preview"] {
+    display: block;
+    flex-direction: column;
+}
+
+.mic-modal-body .setting[data-setting="new-preview"] .name,
+.mic-modal-body .setting[data-setting="previous-preview"] .name {
+    flex: none;
+    width: 100%;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+.mic-modal-body .setting[data-setting="new-preview"] .setting-content,
+.mic-modal-body .setting[data-setting="previous-preview"] .setting-content {
+    width: 100%;
+    flex: none;
+    min-width: 0;
+    text-align: center;
+}
+
